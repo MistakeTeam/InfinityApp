@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Meus Scripts & Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <title>Splash</title>
+</head>
+
+<body>
+    <div class="app-splash">
+        <div class="box_loading">
+            <img src="./img/Infinity.png" class="banner_splash"></img>
+            <span class="text_effect"></span>
+            <div class="loading loading-animation" id="oaoao"></div>
+        </div>
+    </div>
+    <script>
+        (function($) {
+            var list2 = require('./fl.json');
+
+            var list = _interopRequireDefault(list2);
+
+            function _interopRequireDefault(obj) {
+                return obj && obj.__esModule ? obj : {
+                    default: obj
+                };
+            }
+
+            console.log(list);
+            $('.text_effect').html(list.default[Math.floor(Math.random() * list.default.length)]);
+        })(function() {
+            if (typeof module !== 'undefined') {
+                // Node
+                return require('jquery');
+            } else {
+                return jQuery;
+            }
+        }());
+    </script>
+</body>
+
+</html>

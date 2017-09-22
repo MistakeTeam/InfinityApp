@@ -1,0 +1,73 @@
+.module-header2 {
+    background-image: linear-gradient(to top, rgba(255, 255, 255, .3) 1px, transparent 1px);
+}
+
+.frontpage-promo__module-header2 {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    padding-left: 0;
+    padding-right: 30px;
+}
+
+.module-header2--light {
+    background-image: linear-gradient(to top, rgba(255, 255, 255, .5) 1px, transparent 1px);
+}
+
+.module-header2 {
+    background: linear-gradient(to top, rgba(0, 0, 0, .08) 1px, transparent 1px);
+    background-size: 100% 50px;
+    display: inline-block;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 50px;
+    font-size: 14px;
+    line-height: 50px;
+    vertical-align: top;
+}
+
+.module-header,
+.module-header2,
+.module__bottom,
+.product-title__flag,
+.user__item--action,
+.user__item--status {
+    text-transform: uppercase;
+}
+
+.module-header2__section--primary {
+    float: right;
+}
+
+.module-header2__section--primary,
+.module-header2__section--secondary {
+    display: table;
+    width: 180px;
+}
+
+.big-header--light,
+.module-header2--light .module-header2__element,
+.module-header2--light .module-header2__element--selected {
+    color: #fff;
+    text-align: center;
+}
+
+.module-header2__element--selected {
+    color: #fff;
+}
+
+.module-header2__element {
+    color: rgba(255, 255, 255, .5);
+}
+
+.module-header2__element--selected {
+    color: #262626;
+    background: linear-gradient(to top, rgb(0, 144, 255) -20px, transparent 30px);
+    background-size: 100% 50px;
+}
+
+.module-header2__element {
+    display: block;
+    font-weight: 600;
+    color: grey;
+}

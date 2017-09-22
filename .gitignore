@@ -33,6 +33,11 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+# Others
+dash
+dist
+built-installers
+
 # =========================
 # Operating System Files
 # =========================

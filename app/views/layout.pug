@@ -1,0 +1,55 @@
+doctype html
+html(class="no-js" lang="pt-br")
+    head
+        block head
+        meta(charset="utf-8")
+        meta(http-equiv="x-ua-compatible" content="ie=edge")
+        title= "Infinity"
+        meta(name="description" content="Infinity Universe")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        meta(name="theme-color" content="#db4584")
+        link(rel="apple-touch-icon" href="apple-touch-icon.png")
+        link(href='https://fonts.googleapis.com/css?family=Product+Sans:400,400i,700,700i' rel='stylesheet' type='text/css')
+        link(rel='stylesheet', href="/css/font-awesome.min.css")
+        link(rel='stylesheet', href='/css/style.css')
+        link(rel='stylesheet', href='/css/icon.css')
+        link(rel='stylesheet', href='/css/material.indigo-pink.min.css')
+        link(rel='stylesheet', href='/css/separador.css')
+        link(rel='stylesheet', href='/css/animate.css')
+
+    body
+        div.app-mount
+            div
+                <!-- react-empty: 2 -->
+                div.titlebar
+                    div.titlebar-edge
+                    div.win-buttons.win-buttons-light
+                        button(onclick="javascript:minimize()").win-minimize
+                        button(onclick="javascript:maximize()").win-maximize
+                        button(onclick="javascript:close()").win-close
+                    block titlebar
+                div
+                    .app
+                        block app
+                .tooltips
+                    block tooltips
+                .pictureInPicture-Fwr57e
+                    block pictureInPicture
+                .tutorial-indicators
+                    block tutorial
+                .theme-dark
+                    block theme-dark
+                block content
+                .downmost
+                    block downmost
+
+        script(src='/js/jquery-3.2.1.js')
+        script(src='/js/jquery-3.2.1.min.js')
+        script(src='/js/socket.io.js')
+        script(src='/js/material.min.js')
+        script(src='/js/chat.js')
+        script(src='/js/main.js')
+        script  window.ga=function(){ga.q.push(arguments)};ga.q=[];ga.l=+new Date; ga('create','UA-104940687-1','auto');ga('send','pageview')
+        script(src="https://www.google-analytics.com/analytics.js" async defer)
+        
+        block scripts

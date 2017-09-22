@@ -1,0 +1,151 @@
+.banner_principal {
+    width: 100%;
+}
+
+.sale-games {
+    padding-top: 10px;
+}
+
+.games {
+    display: inline-block;
+    position: relative;
+    margin: 10px;
+    box-sizing: border-box;
+    z-index: 0;
+    box-shadow: 5px 5px 0px rgba(0, 0, 0, .3);
+}
+
+.games:hover {}
+
+#thumb {
+    width: 360px;
+    height: 200px;
+}
+
+.games-before::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    height: 1px;
+    box-shadow: inset 0 10px 0 rgba(255, 255, 255, .1);
+}
+
+.games--grid {
+    position: absolute;
+    width: 100%;
+    bottom: 0px;
+    right: 0px;
+    float: right;
+    z-index: 1;
+    margin: 0;
+}
+
+.games--grid--left {
+    float: left;
+}
+
+.games--grid--right {
+    float: right;
+}
+
+.sale-button {
+    display: inline-block;
+    width: 65px;
+    position: relative;
+    right: 5px;
+    vertical-align: bottom;
+    text-align: center;
+    /*border: 1px solid rgba(255, 255, 255, .6);*/
+    /*border-radius: 3px;*/
+    background: linear-gradient(to top, rgba(255, 255, 255, .24) 0px, transparent 18px);
+    /*background-color: rgba(255, 255, 255, .24);*/
+    color: #fff;
+    pointer-events: auto;
+}
+
+.off {
+    background: linear-gradient(to top, #ec721b 0px, transparent 18px);
+    /*background-color: #ec721b;*/
+    width: 40px;
+    /*display: none;*/
+}
+
+.off-text::before {
+    content: '\2010';
+    margin-right: -2px;
+}
+
+.off-text::after {
+    content: '';
+    margin-right: -5px;
+}
+
+.price {
+    text-transform: none;
+}
+
+.price-original {
+    text-decoration: line-through;
+    display: none;
+}
+
+.price-original::before,
+.price::before {
+    content: "R$";
+}
+
+.price-original::after {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 50%;
+    border-bottom: 1px solid;
+    color: grey;
+}
+
+.platforms {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding: 0px 5px;
+    margin: 5px 0px;
+    background: linear-gradient(to right, #5e0aab 0px, transparent 60px);
+}
+
+.thumb-price-button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.thumb {
+    position: absolute;
+    bottom: 10%;
+    right: 15%;
+    padding: 5px;
+    border: 2px groove #5e0aab;
+    border-radius: 5px;
+    text-align: center;
+    background: rgba(255, 255, 255, .10);
+}
+
+.thumb-price-off {
+    display: inline;
+    position: relative;
+    text-decoration: line-through;
+    color: rgb(255, 255, 255);
+}
+
+.thumb-price {
+    display: inline;
+}
+
+.thumb-price span {
+    text-transform: none;
+}
