@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    var socket = io.connect("http://localhost:8000");
+    var socket = io.connect("http://localhost:3000");
     var ready = false;
 
     var username = '';
@@ -47,10 +47,12 @@ $(document).ready(function() {
     $("#textarea").keypress(function(e) {
         if (e.which == 13) {
             var text = $("#textarea").val();
-            $("#textarea").val('');
-            var time = new Date();
-            $(".chat").append('<div class="self"><div class="msg"><span>' + username + ' ' + time.getHours() + ':' + time.getMinutes() + '</span><p>' + text + '</p></div></div>');
-            socket.emit("send", text);
+            if (text != '') {
+                $("#textarea").val('');
+                var time = new Date();
+                $(".chat").append('<div class="self"><div class="msg"><span>' + username + ' ' + time.getHours() + ':' + time.getMinutes() + '</span><p>' + text + '</p></div></div>');
+                socket.emit("send", text);
+            }
         }
     });
 

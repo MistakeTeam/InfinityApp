@@ -10,7 +10,7 @@ block app
         nav.docs-navigation.mdl-navigation
             a(onclick="javascript:Menu_toogle('start-home')").nazbutton Inicio
             a(onclick="javascript:Menu_toogle('start-games')").nazbutton Games 
-            a.nazbutton #{itemname3}
+            a(onclick="javascript:Menu_toogle('start-chat')").nazbutton Chat
             div.header-toolbar
                 .name#name Alex
                     .last#time 18:09
@@ -45,8 +45,7 @@ block app
                 div(onClick='javascript:addThemeDark("config")').game-add
                     .games-add-botton
                 .games-item
-        div(onClick='javascript:$(".chatarea").css("display", "inline-block");').OChat
-        div(hidden).chatarea
+        .chatarea(style="transform: scaleX(0.9) scaleY(0.9); opacity: 0; z-index: 0;")
             div#chat
                 .chat
                 .channelTextArea

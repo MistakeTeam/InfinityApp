@@ -4,7 +4,7 @@ const { app, autoUpdater, dialog } = require('electron');
 const version = app.getVersion();
 const platform = os.platform() + '_' + os.arch(); // usually returns darwin_64
 
-const updaterFeedURL = 'https://github.com/xDeltaFox/Infinity/releases/download/' + platform + '/' + version;
+const updaterFeedURL = 'https://github.com/xDeltaFox/InfinityApp/releases/download/' + platform + '/' + version;
 // replace updaterFeedURL with http://yourappname.herokuapp.com
 
 function appUpdater() {

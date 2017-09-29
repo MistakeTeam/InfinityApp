@@ -3,25 +3,128 @@ var app = express();
 var path = require('path');
 var request = require('request');
 var pug = require('pug');
+var passport = require('passport');
+var LocalStrategy = require('passport-local');
 var cookieParser = require('cookie-parser');
 var http = require('http').Server(app);
-var io = require('socket.io')(http);
-
-var clients = {};
+var Server = require('./Server');
+var sassMiddleware = require('node-sass-middleware');
 
 const isDev = require('electron-is-dev'); // this is required to check if the app is running in development mode. 
 const { appUpdater } = require('./appUpdate.js');
 
+//===============PASSPORT=================
+
+// Passport session setup.
+passport.serializeUser(function(user, done) {
+    console.log("serializing " + user.username);
+    done(null, user);
+});
+
+passport.deserializeUser(function(obj, done) {
+    console.log("deserializing " + obj);
+    done(null, obj);
+});
+
+// Use the LocalStrategy within Passport to login users.
+passport.use('local-signin', new LocalStrategy({ passReqToCallback: true }, //allows us to pass back the request to the callback
+    function(req, username, password, done) {
+        funct.localAuth(username, password)
+            .then(function(user) {
+                if (user) {
+                    console.log("LOGGED IN AS: " + user.username);
+                    req.session.success = 'You are successfully logged in ' + user.username + '!';
+                    done(null, user);
+                }
+                if (!user) {
+                    console.log("COULD NOT LOG IN");
+                    req.session.error = 'Could not log user in. Please try again.'; //inform user could not log them in
+                    done(null, user);
+                }
+            })
+            .fail(function(err) {
+                console.log(err.body);
+            });
+    }
+));
+
+// Use the LocalStrategy within Passport to Register/"signup" users.
+passport.use('local-signup', new LocalStrategy({ passReqToCallback: true }, //allows us to pass back the request to the callback
+    function(req, username, password, done) {
+        funct.localReg(username, password)
+            .then(function(user) {
+                if (user) {
+                    console.log("REGISTERED: " + user.username);
+                    req.session.success = 'You are successfully registered and logged in ' + user.username + '!';
+                    done(null, user);
+                }
+                if (!user) {
+                    console.log("COULD NOT REGISTER");
+                    req.session.error = 'That username is already in use, please try a different one.'; //inform user could not log them in
+                    done(null, user);
+                }
+            })
+            .fail(function(err) {
+                console.log(err.body);
+            });
+    }
+));
+
+// Simple route middleware to ensure user is authenticated.
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) { return next(); }
+    req.session.error = 'Please sign in!';
+    res.redirect('/signin');
+}
+
+
+//===============EXPRESS=================
+
+// Configure Express
 app.set('views', path.join(__dirname, '/app/views'));
 app.set('view engine', 'pug');
 app.use(cookieParser());
 app.use('/img', express.static(path.join(__dirname, '/app/public/img')));
 app.use('/js', express.static(path.join(__dirname, '/app/public/js')));
 app.use('/css', express.static(path.join(__dirname, '/app/public/css')));
+app.use('/sass', express.static(path.join(__dirname, '/app/public/sass')));
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(sassMiddleware({
+    src: path.join(__dirname, 'public/sass'),
+    dest: path.join(__dirname, 'public/css'),
+    debug: true,
+    outputStyle: 'compressed',
+    prefix: '/css'
+}));
+
+app.use(sassMiddleware({
+    src: path.join(__dirname, 'public/sass'),
+    dest: path.join(__dirname, 'public/css'),
+    indentedSyntax: true, // true = .sass and false = .scss
+    sourceMap: true,
+    prefix: '/css'
+}));
+
+app.use(function(req, res, next) {
+    var err = req.session.error,
+        msg = req.session.notice,
+        success = req.session.success;
+
+    delete req.session.error;
+    delete req.session.success;
+    delete req.session.notice;
+
+    if (err) res.locals.error = err;
+    if (msg) res.locals.notice = msg;
+    if (success) res.locals.success = success;
+
+    next();
+});
 
 app.get('/', function(req, res) {
     res.render("index", {
-        itemname3: "res",
         onUpdate: function() {
             const checkOS = isWindowsOrmacOS();
             if (checkOS && !isDev) {
@@ -30,6 +133,32 @@ app.get('/', function(req, res) {
             }
         }
     });
+});
+
+//displays our signup page
+app.get('/signin', function(req, res) {
+    res.render('signin');
+});
+
+//sends the request through our local signup strategy, and if successful takes user to homepage, otherwise returns then to signin page
+app.post('/local-reg', passport.authenticate('local-signup', {
+    successRedirect: '/',
+    failureRedirect: '/signin'
+}));
+
+//sends the request through our local login/signin strategy, and if successful takes user to homepage, otherwise returns then to signin page
+app.post('/login', passport.authenticate('local-signin', {
+    successRedirect: '/',
+    failureRedirect: '/signin'
+}));
+
+//logs user out of site, deleting them from the session, and returns to homepage
+app.get('/logout', function(req, res) {
+    var name = req.user.username;
+    console.log("LOGGIN OUT " + req.user.username)
+    req.logout();
+    res.redirect('/');
+    req.session.notice = "You have successfully been logged out " + name + "!";
 });
 
 // error handler
@@ -47,7 +176,7 @@ app.use(function(err, req, res, next) {
 app.use(require('express-status-monitor')({
     title: 'Infinity Status',
     path: '/status',
-    websocket: io,
+    websocket: Server.io,
     port: 8000,
     spans: [{
         interval: 1, // Every second
@@ -64,32 +193,12 @@ app.use(require('express-favicon-short-circuit'));
 
 app.get('/status/:statusCode', (req, res) => res.sendStatus(req.params.statusCode));
 
-io.on("connection", function(client) {
-    client.on("join", function(name) {
-        console.log("Joined: " + name);
-        clients[client.id] = name;
-        client.emit("update", "You have connected to the server.");
-        client.broadcast.emit("update", name + " has joined the server.")
-    });
-
-    client.on("send", function(msg) {
-        console.log("Message: " + msg);
-        client.broadcast.emit("chat", clients[client.id], msg);
-    });
-
-    client.on("disconnect", function() {
-        console.log("Disconnect");
-        io.emit("update", clients[client.id] + " has left the server.");
-        delete clients[client.id];
-    });
-});
-
 try {
     http.listen(8000, function() {
         console.log("http://localhost:8000/");
     });
 } catch (err) {
-    console.log("Falah ao abrir a interface web do InfinityApp");
+    console.log("Falha ao abrir a interface web do InfinityApp");
 }
 
 

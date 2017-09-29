@@ -16,10 +16,12 @@
     "license": "Apache-2.0",
     "devDependencies": {
         "electron": "^1.7.6",
+        "electron-installer-windows": "^0.2.0",
         "gulp": "^3.9.1"
     },
     "dependencies": {
-        "@types/browserify": "^12.0.31",
+        "@types/browserify": "^12.0.33",
+        "@types/eventemitter3": "^2.0.2",
         "Squirrel": "0.0.1",
         "angular": "^1.6.6",
         "asar": "^0.13.0",
@@ -28,11 +30,13 @@
         "db": "^1.0.6",
         "ejs": "^2.5.7",
         "electron-is-dev": "^0.3.0",
+        "electron-notification-desktop": "0.0.4",
         "electron-packager": "^8.7.2",
         "electron-reload": "^1.1.0",
         "electron-simple-updater": "^1.2.1",
         "electron-squirrel-startup": "^1.0.0",
         "electron-winstaller": "^2.6.3",
+        "eventemitter3": "^2.0.3",
         "express": "^4.15.4",
         "express-favicon-short-circuit": "^1.1.1",
         "express-status-monitor": "^1.0.0",
@@ -40,11 +44,15 @@
         "node-cmd": "^3.0.0",
         "node-sass-middleware": "^0.11.0",
         "node-tweet-stream": "^2.0.1",
+        "passport": "^0.4.0",
+        "passport-local": "^1.0.0",
+        "passport-oauth": "^1.0.0",
+        "passport-oauth2": "^1.4.0",
         "pretty-bytes": "^4.0.2",
         "process-list": "^1.2.1",
-        "pug": "^2.0.0-rc.3",
+        "pug": "^2.0.0-rc.4",
         "socket.io": "^2.0.3",
         "socket.io-client": "^2.0.3",
-        "ws": "^3.0.0"
+        "ws": "^3.2.0"
     }
 }

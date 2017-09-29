@@ -7,9 +7,10 @@ function getFolderPath() {
     if (_appFolder == null) {
         _appFolder = "./config/";
 
-        if (!fs.existsSync(_appFolder)) {
+        if (!doesFolderExist(_appFolder)) {
             fs.mkdirSync(_appFolder);
             fs.chmodSync(_appFolder, '777');
+            fs.writeFile(path, data, { enconding: 'utf-8', flag: 'a' }, function(err) {})
         }
     }
     return _appFolder;
@@ -23,6 +24,12 @@ function doesFolderExist(path) {
     return fs.existsSync(path);
 };
 
+function createFile(path) {
+    if (!doesFolderExist(path)) {
+        fs.writeFile(path, '{}', { enconding: 'utf-8', flag: 'w' }, function(err) {});
+    }
+};
+
 function getAllFiles(callback) {
     let folder = getFolderPath();
     fs.readdir(folder, (err, files) => {
@@ -34,12 +41,14 @@ function SaveFile(fileName, data) {
     let folder = getFolderPath();
     let path = folder + fileName;
     console.log("SaveFile(): Salvando arquivo " + path);
+    createFile(path);
     fs.writeFile(path, data, function(err) {})
 }
 
 function ReadFile(fileName, callback) {
     let folder = getFolderPath();
     let path = folder + fileName;
+    createFile(path);
     console.log("ReadFile(): Lendo arquivo " + path);
     fs.readFile(path, 'utf8', function(err, data) {
         callback(err != null ? null : data);

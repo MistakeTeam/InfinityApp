@@ -80,7 +80,7 @@ function SystemTray(mainWindow, onUpdate, options) {
     }, {
         label: 'Sair do ' + options.myName,
         type: 'normal',
-        click: function() { File.saveWindowPosition(mainWindow, () => { app.quit(); }) }
+        click: function() { File.saveWindowPosition(mainWindow, () => { return app.quit(); }) }
     }]);
 
     tray.setToolTip(`${options.myName} ${options.appVersion}.${options.buildVersion}`);

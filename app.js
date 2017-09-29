@@ -40,18 +40,6 @@ const {
 const isDev = require('electron-is-dev'); // this is required to check if the app is running in development mode. 
 const { appUpdater } = require('./appUpdate.js');
 
-// this should be placed at top of main.js to handle setup events quickly
-if (handleSquirrelEvent(app)) {
-    // squirrel event handled and app will exit in 1000ms, so don't do anything else
-    return;
-}
-
-/* Handling squirrel.windows events on windows 
-only required if you have build the windows with target squirrel. For NSIS target you don't need it. */
-if (require('electron-squirrel-startup')) {
-    app.quit();
-}
-
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -93,6 +81,10 @@ function webContentsSend() {
 
 //==========================Splash==========================
 function createslash() {
+    if (splash != null) {
+        return;
+    }
+
     splash = new BrowserWindow({ width: 600, height: 300, frame: false, transparent: true, icon: __dirname + "/img/logo.png" });
     splash.loadURL(url.format({
         pathname: path.join(__dirname, '/splash/index.html'),
@@ -110,19 +102,27 @@ function createslash() {
     splash.webContents.on('did-finish-load', () => {
         splash.show();
     });
+
+    File.ReadFile(FileOptions, data => {
+        createwindow(false, JSON.parse(data));
+    });
 }
 
-function setupNotificationWindow() {
+function setupNotificationWindow(db) {
+    console.log("Iniciando o sistema de notificações...");
     var NotificationWindow = require('./notification');
-    if (!NotificationWindow) {
-        NotificationWindow.createWindow();
+    if (NotificationWindow && !db.fristNotifier) {
+        NotificationWindow.fristNotifier();
+        db.fristNotifier = true;
+        File.SaveFile(FileOptions, JSON.stringify(db));
     }
 }
 
 function setupSystemTray() {
+    console.log("Iniciando o icone na bandeja do sistema...");
     var SystemTray = require('./SystemTray');
     if (!systemTray) {
-        systemTray = new SystemTray(mainWindow, /*appUpdater()*/ null, { myName, appVersion, buildVersion });
+        systemTray = new SystemTray(mainWindow, appUpdater(), { myName, appVersion, buildVersion });
     }
 }
 
@@ -155,6 +155,8 @@ function createwindow(isVisible, options) {
         mainWindow.destroy();
     }
 
+    console.log("Criando janela...");
+
     if (options != null) {
         if (options.saveGames == null) { // Move old savegames
             options.saveGames = null;
@@ -162,6 +164,10 @@ function createwindow(isVisible, options) {
         if (options.developerMode) {
             app.developerMode = true;
             options.developerMode = false;
+        }
+
+        if (options.fristNotifier == null) {
+            options.fristNotifier = false
         }
 
         File.SaveFile(FileOptions, JSON.stringify(options));
@@ -176,13 +182,13 @@ function createwindow(isVisible, options) {
 
     var mainWindowOptions = {
         title: myName,
-        icon: __dirname + '/img/logo.png',
+        icon: __dirname + '/img/logo-infinity2.ico',
         backgroundColor: ACCOUNT_GREY,
         width: lastSessionInfo.size.width,
         height: lastSessionInfo.size.height,
         x: lastSessionInfo.position.x,
         y: lastSessionInfo.position.y,
-        minWidth: 800,
+        minWidth: 1000,
         minHeight: 600,
         transparent: false,
         frame: false,
@@ -193,6 +199,7 @@ function createwindow(isVisible, options) {
         }
     };
 
+    console.log("Iniciando BrowserWindow...");
     mainWindow = new BrowserWindow(mainWindowOptions);
     mainWindow.loadURL("http://localhost:8000/");
 
@@ -221,37 +228,25 @@ function createwindow(isVisible, options) {
         const checkOS = isWindowsOrmacOS();
         if (checkOS && !isDev) {
             // Initate auto-updates on macOs and windows
-            //appUpdater();
+            appUpdater();
         }
     });
 
-    mainWindow.on('focus', function() {
-        mainWindow.focus();
+    mainWindow.on('ready-to-show', function() {
+        setupSystemTray();
+        setupNotificationWindow(options);
+        splash.close();
+        mainWindow.show();
     });
-
-    setupSystemTray();
 }
 
 app.on('ready', function() {
     createslash();
-    File.ReadFile(FileOptions, data => {
-        createwindow(false, JSON.parse(data));
-    });
-    if (process.platform === 'win32') {
-        setupNotificationWindow();
-    }
-    console.log("Estou, Pronto!");
-
-    // Fechando splash e abrindo app
-    setTimeout(function() {
-        splash.close();
-        mainWindow.show();
-    }, 10000);
+    console.log(`Estou, Pronto!\n{platform: ${process.platform}}`);
 });
 
 app.on('window-all-closed', function() {
     if (process.platform !== 'darwin') {
-        app.quit();
         setWindowVisible(false);
     }
 });
@@ -276,7 +271,11 @@ app.on('before-quit', function(e) {
 
 module.exports = {
     app: app,
-    remote: remote
+    remote: remote,
+    File: File,
+    createwindow: createwindow,
+    mainWindow: mainWindow,
+    splash: splash
 }
 
 //---------------TESTES---------------
@@ -288,67 +287,3 @@ module.exports = {
 function isWindowsOrmacOS() {
     return process.platform === 'darwin' || process.platform === 'win32';
 }
-
-function handleSquirrelEvent(application) {
-    if (process.argv.length === 1) {
-        return false;
-    }
-
-    const ChildProcess = require('child_process');
-    const path = require('path');
-
-    const appFolder = path.resolve(process.execPath, '..');
-    const rootAtomFolder = path.resolve(appFolder, '..');
-    const updateDotExe = path.resolve(path.join(rootAtomFolder, 'Update.exe'));
-    const exeName = path.basename(process.execPath);
-
-    const spawn = function(command, args) {
-        let spawnedProcess, error;
-
-        try {
-            spawnedProcess = ChildProcess.spawn(command, args, {
-                detached: true
-            });
-        } catch (error) {}
-
-        return spawnedProcess;
-    };
-
-    const spawnUpdate = function(args) {
-        return spawn(updateDotExe, args);
-    };
-
-    const squirrelEvent = process.argv[1];
-    switch (squirrelEvent) {
-        case '--squirrel-install':
-        case '--squirrel-updated':
-            // Optionally do things such as:
-            // - Add your .exe to the PATH
-            // - Write to the registry for things like file associations and
-            //   explorer context menus
-
-            // Install desktop and start menu shortcuts
-            spawnUpdate(['--createShortcut', exeName]);
-
-            setTimeout(application.quit, 1000);
-            return true;
-
-        case '--squirrel-uninstall':
-            // Undo anything you did in the --squirrel-install and
-            // --squirrel-updated handlers
-
-            // Remove desktop and start menu shortcuts
-            spawnUpdate(['--removeShortcut', exeName]);
-
-            setTimeout(application.quit, 1000);
-            return true;
-
-        case '--squirrel-obsolete':
-            // This is called on the outgoing version of your app before
-            // we update to the new version - it's the opposite of
-            // --squirrel-updated
-
-            application.quit();
-            return true;
-    }
-};
