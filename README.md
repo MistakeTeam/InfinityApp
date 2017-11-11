@@ -36,4 +36,8 @@
 
 ## **Layout do InfinityApp Alpha Synstetic**
 *"A Imagem a seguir é o desenvolvimento alpha Synstetic V0.24 do conceito do InfinityApp..."*
+<<<<<<< HEAD
 ![Infinity](https://i.imgur.com/GJgyx4x.gif)
+=======
+![Infinity](https://i.imgur.com/GJgyx4x.gif)
+>>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9

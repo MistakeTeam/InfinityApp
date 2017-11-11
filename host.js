@@ -20,13 +20,18 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var http = require('http').Server(app);
+<<<<<<< HEAD
 // var Server = require('./Server');
 var scopes = ['connections', 'identify', 'guilds'];
+=======
+var Server = require('./Server');
+>>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9
 
 const isDev = require('electron-is-dev'); // this is required to check if the app is running in development mode. 
 
 //===============PASSPORT=================
 
+<<<<<<< HEAD
 passport.serializeUser((user, done) => {
     done(null, user);
 });
@@ -95,12 +100,15 @@ passport.use(new TwitterStrategy({
     var user = profile;
     return done(null, user);
 }));
+=======
+>>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9
 
 //===============EXPRESS=================
 
 // view engine setup
 app.set('views', path.join(__dirname, '/app/views'));
 app.set('view engine', 'pug');
+<<<<<<< HEAD
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -151,11 +159,18 @@ app.get('/', checkAuth, function(req, res) {
         }
     }
 });
+=======
+app.use(cookieParser());
+app.use('/img', express.static(path.join(__dirname, '/app/public/img')));
+app.use('/js', express.static(path.join(__dirname, '/app/public/js')));
+app.use('/css', express.static(path.join(__dirname, '/app/public/css')));
+>>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9
 
 app.get('/login', function(req, res, next) {
     res.render("login");
 });
 
+<<<<<<< HEAD
 app.get('/register', function(req, res, next) {
     res.render("register");
 });
@@ -189,6 +204,8 @@ app.get('/err', function(req, res) {
     res.redirect('/');
 });
 
+=======
+>>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
