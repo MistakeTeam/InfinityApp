@@ -1,6 +1,6 @@
 {
     "name": "infinityapp",
-    "version": "0.346",
+    "version": "",
     "descrection": "Um app universal",
     "main": "app.js",
     "scripts": {

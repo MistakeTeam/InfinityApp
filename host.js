@@ -4,7 +4,8 @@ var session = require("express-session");
 var path = require('path');
 var request = require('request');
 var pug = require('pug');
-var config = require('./config.json');
+var fs = require('fs');
+var config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var OAuth2Strategy = require('passport-oauth2');
@@ -20,18 +21,14 @@ var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var http = require('http').Server(app);
-<<<<<<< HEAD
 // var Server = require('./Server');
 var scopes = ['connections', 'identify', 'guilds'];
-=======
 var Server = require('./Server');
->>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9
 
 const isDev = require('electron-is-dev'); // this is required to check if the app is running in development mode. 
 
 //===============PASSPORT=================
 
-<<<<<<< HEAD
 passport.serializeUser((user, done) => {
     done(null, user);
 });
@@ -92,7 +89,7 @@ passport.use(new DiscordStrategy({
 // Twitter
 passport.use(new TwitterStrategy({
     consumerKey: config.twitter.consumerKey,
-    consumerSecret: config.twitter.clientSecret,
+    consumerSecret: config.twitter.consumerSecret,
     callbackURL: "http://localhost:8000/twitter/auth/callback"
 }, function(token, tokenSecret, profile, done) {
     // NOTA: Voce tera, provavelmente, que associar o usuario do Twitter
@@ -100,15 +97,12 @@ passport.use(new TwitterStrategy({
     var user = profile;
     return done(null, user);
 }));
-=======
->>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9
 
 //===============EXPRESS=================
 
 // view engine setup
 app.set('views', path.join(__dirname, '/app/views'));
 app.set('view engine', 'pug');
-<<<<<<< HEAD
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -131,46 +125,43 @@ app.use('/js', express.static(path.join(__dirname, '/app/public/js')));
 app.use('/css', express.static(path.join(__dirname, '/app/public/css')));
 
 app.get('/', checkAuth, function(req, res) {
-    if (isDev) {
-        res.render("index", {
-            username: 'xDeltaFox',
-            avatarURL: null
-        });
-    } else {
-        let USR = req.user;
-        console.log(USR);
-        console.log(USR.photos[0].value);
+    // if (isDev) {
+    //     res.render("index", {
+    //         username: 'xDeltaFox',
+    //         avatarURL: null
+    //     });
+    // } else {
+    let USR = req.user;
+    console.log(USR);
+    console.log(USR.photos[0].value);
 
-        switch (USR.provider) {
-            case 'twitter':
-                res.render("index", {
-                    username: USR.username,
-                    avatarURL: USR.photos[0].value
-                });
-                break;
-            case 'discord':
-                res.render("index", {
-                    username: `${USR.username}#${USR.discriminator}`,
-                    avatarURL: `https://cdn.discordapp.com/avatars/${USR.id}/${USR.avatar}.png`
-                });
-                break;
-            default:
-                break;
-        }
+    switch (USR.provider) {
+        case 'twitter':
+            res.render("index", {
+                username: USR.username,
+                avatarURL: USR.photos[0].value
+            });
+            break;
+        case 'discord':
+            res.render("index", {
+                username: `${USR.username}#${USR.discriminator}`,
+                avatarURL: `https://cdn.discordapp.com/avatars/${USR.id}/${USR.avatar}.png`
+            });
+            break;
+        default:
+            break;
     }
+    // }
 });
-=======
 app.use(cookieParser());
 app.use('/img', express.static(path.join(__dirname, '/app/public/img')));
 app.use('/js', express.static(path.join(__dirname, '/app/public/js')));
 app.use('/css', express.static(path.join(__dirname, '/app/public/css')));
->>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9
 
 app.get('/login', function(req, res, next) {
     res.render("login");
 });
 
-<<<<<<< HEAD
 app.get('/register', function(req, res, next) {
     res.render("register");
 });
@@ -204,8 +195,6 @@ app.get('/err', function(req, res) {
     res.redirect('/');
 });
 
-=======
->>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9
 // error handler
 app.use(function(err, req, res, next) {
     // set locals, only providing error in development
@@ -238,9 +227,9 @@ app.use(require('express-favicon-short-circuit'));
 app.get('/status/:statusCode', (req, res) => res.sendStatus(req.params.statusCode));
 
 function checkAuth(req, res, next) {
-    if (isDev) return next();
+    // if (isDev) return next();
     if (req.isAuthenticated()) return next();
-    return res.redirect('/');
+    return res.redirect('/login');
     //res.send('not logged in :(');
 }
 

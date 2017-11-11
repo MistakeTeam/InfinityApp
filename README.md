@@ -25,7 +25,7 @@
   </p>
 </div>
 
-## **Bem-Vindos(a) Ao InfinityApp Alpha Synstetic**
+## **Bem-Vindos(a) Ao InfinityApp Alpha**
 *"Sua vida a um clicm de distância."*
 
 **O que é InfinityApp?**
@@ -34,10 +34,7 @@
 **Como utilizar o InfinityApp?**
 - Atualmente o Infinity está em fase alpha em seu desenvolvimento, não é possível executa-lô..
 
-## **Layout do InfinityApp Alpha Synstetic**
-*"A Imagem a seguir é o desenvolvimento alpha Synstetic V0.24 do conceito do InfinityApp..."*
-<<<<<<< HEAD
+## **Layout do InfinityApp Alpha**
+*"A Imagem a seguir é o desenvolvimento alpha EA0.346 do conceito do InfinityApp..."*
 ![Infinity](https://i.imgur.com/GJgyx4x.gif)
-=======
 ![Infinity](https://i.imgur.com/GJgyx4x.gif)
->>>>>>> a3d3bfa648fd2ad207e753cd4637fa05e1704fa9
