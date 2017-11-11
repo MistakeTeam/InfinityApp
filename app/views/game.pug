@@ -1,0 +1,18 @@
+mixin gameitem(title, descripitiion)
+    .game-item-T5e87d
+        img
+        .game-add-footer.animation-default
+            spam.footer-title #{title}
+            spam(style='opacity: 0;').footer-descripition.animation-default #{descripitiion}
+
+.games-H5wY75
+    .game-add-F58dY4
+        .game-add-button
+        .game-add-footer.animation-default
+            spam.footer-title Add Game
+            spam(style='opacity: 0;').footer-descripition.animation-default Adicione games a sua lista.
+    //- each item in list
+    +gameitem('Teste', 'Isso é um teste.')
+    +gameitem('Teste', 'Isso é um teste.')
+    +gameitem('Teste', 'Isso é um teste.')
+    +gameitem('Teste', 'Isso é um teste.')

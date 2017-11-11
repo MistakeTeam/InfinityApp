@@ -37,6 +37,7 @@ jspm_packages
 dist
 lib
 DB
+config.json
 
 # =========================
 # Operating System Files

@@ -58,6 +58,7 @@ app.getLocale();
 var notificationWindow = null;
 var mainWindow = null;
 var splash = null;
+var login = null;
 var systemTray = null;
 
 var WIDTH = 1350;
@@ -94,7 +95,8 @@ function createslash() {
 
     splash.on('page-title-updated', function(e, title) {
         e.preventDefault();
-        title = 'Slash';
+        if (title == '') title = 'Infinity';
+        else title += ' - Infinity';
         splash.setTitle(title);
     });
 
@@ -183,7 +185,6 @@ function createwindow(isVisible, options) {
     var mainWindowOptions = {
         title: myName,
         icon: __dirname + '/img/logo-infinity2.ico',
-        backgroundColor: ACCOUNT_GREY,
         width: lastSessionInfo.size.width,
         height: lastSessionInfo.size.height,
         x: lastSessionInfo.position.x,
@@ -275,7 +276,8 @@ module.exports = {
     File: File,
     createwindow: createwindow,
     mainWindow: mainWindow,
-    splash: splash
+    splash: splash,
+    login: login
 }
 
 //---------------TESTES---------------
