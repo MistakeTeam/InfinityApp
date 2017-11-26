@@ -6,7 +6,7 @@ mixin checkbox(id, dataname, title, description)
             .mr-text-description
                 spam #{description}
         .switch
-            input(type="checkbox" data-internal-name=dataname value="false" data-send-on-save="false" id=id class="cmn-toggle cmn-toggle-round")
+            div(data-internal-name=dataname data-check="false" id=id class="cmn-toggle cmn-toggle-round")
             label(for=id)
 
 mixin separador(width, height)

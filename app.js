@@ -86,7 +86,7 @@ function createslash() {
         return;
     }
 
-    splash = new BrowserWindow({ width: 600, height: 300, frame: false, transparent: true, icon: __dirname + "/img/logo.png" });
+    splash = new BrowserWindow({ width: 300, height: 111, frame: false, transparent: true, icon: __dirname + "/img/logo.png" });
     splash.loadURL(url.format({
         pathname: path.join(__dirname, '/splash/index.html'),
         protocol: 'file:',
@@ -161,7 +161,7 @@ function createwindow(isVisible, options) {
 
     if (options != null) {
         if (options.saveGames == null) { // Move old savegames
-            options.saveGames = null;
+            options.saveGames = {};
         }
         if (options.developerMode) {
             app.developerMode = true;
@@ -176,7 +176,7 @@ function createwindow(isVisible, options) {
     }
 
     let lastSessionInfo = options != null && options.lastSessionInfo != null ?
-        options.lastSessionInfo : { size: { width: 1350, height: 720 }, position: { x: null, y: null } };
+        options.lastSessionInfo : { size: { width: 1024, height: 720 }, position: { x: null, y: null } };
 
     // if (lastSessionInfo.size.width == 0 || lastSessionInfo.size.height == 0 || lastSessionInfo.position.x == 0 || lastSessionInfo.position.y == 0) {
     //     lastSessionInfo = { size: { width: 1350, height: 720 }, position: { x: null, y: null } };
@@ -189,8 +189,8 @@ function createwindow(isVisible, options) {
         height: lastSessionInfo.size.height,
         x: lastSessionInfo.position.x,
         y: lastSessionInfo.position.y,
-        minWidth: 1000,
-        minHeight: 600,
+        minWidth: 1024,
+        minHeight: 720,
         transparent: false,
         frame: false,
         resizable: true,

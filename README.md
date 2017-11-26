@@ -26,15 +26,34 @@
 </div>
 
 ## **Bem-Vindos(a) Ao InfinityApp Alpha**
-*"Sua vida a um clicm de distância."*
+*"Sua vida a um click de distância."*
 
 **O que é InfinityApp?**
-- É um conceito de Aplicativo onde ajudará usuários em suas buscas em modo geral com conteúdos diferenciados, incluindo games, videos, musica e entre outros...
+
+É um conceito de Aplicativo onde ajudará usuários em suas buscas em modo geral com conteúdos diferenciados, incluindo games, videos, musica e entre outros...
 
 **Como utilizar o InfinityApp?**
-- Atualmente o Infinity está em fase alpha em seu desenvolvimento, não é possível executa-lô..
 
-## **Layout do InfinityApp Alpha**
-*"A Imagem a seguir é o desenvolvimento alpha EA0.346 do conceito do InfinityApp..."*
-![Infinity](https://i.imgur.com/GJgyx4x.gif)
-![Infinity](https://i.imgur.com/GJgyx4x.gif)
+Atualmente o Infinity está em fase beta em seu desenvolvimento, não é recomendavél executa-lô, por provavéis bugs que compromete sua experiência...
+
+# **OBS: Tenha em mente que é necessário, que tenha instalado no seu computador o node.js, caso não tenha baixe [clicando aqui](https://nodejs.org/en/). E baixe a versão Current do node, ou seja, a versão mais nova.**
+
+1. Baixe o projeto [clicando aqui](https://github.com/xDeltaFox/InfinityApp/archive/master.zip), extraia o arquivo na pasta de sua preferência.
+
+2. Abra o cmd na pasta, segurando o *Shift + Botão direito do mouse*, em uma área vazia da pasta, e clique na opção *"Abrir janela de comando aqui"*
+
+![](https://i.imgur.com/N9jk0Js.png)
+
+3. No cmd, insira o comando *"npm i"* ou *"npm install"*, e vai ser baixado e instalado as dependências do projeto.
+
+4. Depois de instalado as dependências insira o comando *"npm run start"*, que o projeto vai ser iniciado.
+
+Divirta-se com suas modificações, e espero ter lhe ajudado com o que você procurava.
+
+## **Layout do InfinityApp Beta**
+*"As Imagens a seguir é do desenvolvimento beta do conceito do InfinityApp..."*
+![Infinity](https://i.imgur.com/dbeYE4S.png)
+![Infinity](https://i.imgur.com/zJTqERY.jpg)
+
+Este é uma funcionalidade não emplementada, isso é uma ilustração de como seria.
+![Infinity](https://i.imgur.com/vawrCDd.jpg)

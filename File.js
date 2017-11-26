@@ -5,12 +5,12 @@ let _appFolder = null;
 
 function getFolderPath() {
     if (_appFolder == null) {
-        _appFolder = "./config/";
+        _appFolder = "./Databases/";
 
         if (!doesFolderExist(_appFolder)) {
             fs.mkdirSync(_appFolder);
             fs.chmodSync(_appFolder, '777');
-            fs.writeFile(path, data, { enconding: 'utf-8', flag: 'a' }, function(err) {})
+            // fs.writeFile(path, data, { enconding: 'utf-8', flag: 'a' }, function(err) {})
         }
     }
     return _appFolder;

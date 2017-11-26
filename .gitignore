@@ -36,6 +36,8 @@ jspm_packages
 # Others
 dist
 lib
+app/lib
+app/public/img/games
 DB
 config.json
 

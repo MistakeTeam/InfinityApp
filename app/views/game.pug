@@ -1,9 +1,13 @@
-mixin gameitem(title, descripitiion)
-    .game-item-T5e87d
-        img
+mixin gameitem(title, descripitiion, path, thumb)
+    div(path=path).game-item-T5e87d
+        img(src=thumb, alt="")
         .game-add-footer.animation-default
             spam.footer-title #{title}
             spam(style='opacity: 0;').footer-descripition.animation-default #{descripitiion}
+        .game-options-Ao1t71.animation-default
+            svg(height="100%" version="1.1" viewBox="0 3 32 30" width="100%" style="fill: white;")
+                use(class="ytp-svg-shadow" xlink:href="#ytp-id-33")
+                path(class="ytp-svg-fill" d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z" id="ytp-id-33")
 
 .games-H5wY75
     .game-add-F58dY4
@@ -11,8 +15,15 @@ mixin gameitem(title, descripitiion)
         .game-add-footer.animation-default
             spam.footer-title Add Game
             spam(style='opacity: 0;').footer-descripition.animation-default Adicione games a sua lista.
-    //- each item in list
-    +gameitem('Teste', 'Isso é um teste.')
-    +gameitem('Teste', 'Isso é um teste.')
-    +gameitem('Teste', 'Isso é um teste.')
-    +gameitem('Teste', 'Isso é um teste.')
+    each game, index in games
+        +gameitem(game.name, game.description, game.path, game.thumb)
+.gameview-add
+    .icon-close
+    .gameview-Te2Y93
+        div 
+            label(for="game_exe").animation-default Escolha seu jogo.
+            input(type="file" id="game_exe" name="game_exe" accept=".exe" multiple style="display: none;")
+        div(class="preview")
+            p No files currently selected for upload
+        div(style="float: right;").comfirm-Te2Y93
+            span.animation-default Confirmar

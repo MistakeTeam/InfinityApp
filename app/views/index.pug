@@ -2,6 +2,10 @@ extends layout
 
 block head
     link(rel='stylesheet', href='/css/style.css')
+    link(rel='stylesheet', href='/css/app.css')
+    link(rel='stylesheet', href='/css/games.css')
+    link(rel='stylesheet', href='/css/player.css')
+    link(rel='stylesheet', href='/css/options.css')
 
 block titlebar
     div.win-buttons.win-buttons-light
@@ -31,37 +35,39 @@ block app
     .flex-vertical
         .inicio
             .invoq-menu
-                .menu-topbar
-                    .back-o4f98s.animation-default
+                div(style="opacity: 0; pointer-events: none;").back-o4f98s.animation-default
                         img(src="https://png.icons8.com/go-back/dusk/50/000000")
-                    .profile-18y63j(style='visibility: visible;')
-                        .info-e5T5U3
-                            span.username-2eY8s9 #{username}
-                        .avatar-3erY86
-                            div(style="height: 100%; background: url('" + avatarURL + "') round;")
+                .menu-topbar
+                    if profile_data
+                        .profile-18y63j(style='visibility: visible;')
+                            .info-e5T5U3
+                                span.username-2eY8s9 #{profile_data.username}
+                            .avatar-3erY86
+                                div(style="height: 100%; background: url('" + profile_data.avatarURL + "') round;")
                 .menu-itens.animation-default
                     .menu-contens
-                        .menu-preview.itens-color-azul
-                            .preview-set.set-left
-                                .set-button.fix-set-left.animation-default
-                                    svg(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" fill="#dae0e0")
-                                        g
-                                            path(d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z")
-                            .preview-set.set-right
-                                .set-button.animation-default
-                                    svg(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" fill="#dae0e0")
-                                        g
-                                            path(d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z")
-                            .prewiew-ano
-                        .menu-contain(style="width: 50%;")
+                        if previewdata
+                            .menu-preview.itens-color
+                                .preview-set.set-left
+                                    .set-button.fix-set-left.animation-default
+                                        svg(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" fill="#dae0e0")
+                                            g
+                                                path(d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z")
+                                .preview-set.set-right
+                                    .set-button.animation-default
+                                        svg(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" viewBox="0 0 129 129" fill="#dae0e0")
+                                            g
+                                                path(d="m40.4,121.3c-0.8,0.8-1.8,1.2-2.9,1.2s-2.1-0.4-2.9-1.2c-1.6-1.6-1.6-4.2 0-5.8l51-51-51-51c-1.6-1.6-1.6-4.2 0-5.8 1.6-1.6 4.2-1.6 5.8,0l53.9,53.9c1.6,1.6 1.6,4.2 0,5.8l-53.9,53.9z")
+                                .prewiew-ano
+                        .menu-contain(style="/* width: 49%; */")
                             .contain-itens
-                                div(data-internal-name='util-game').itens-button.itens-color-alaranjado
+                                div(data-internal-name='util-game' style="background-color: #d5b93a; border-image: linear-gradient(45deg, #e2c949 0, transparent 50%, #e2c949 100%); border-image-slice: 1;").itens-button.itens-color.animation-default
                                     span.itens-span-name Games
                                     .itens-icon(style="width: 30%;")
-                                div(data-internal-name='util-player').itens-button.itens-color-vermelho
+                                div(data-internal-name='util-player' style="background-color: #3ad559; border-image: linear-gradient(45deg, #49e24e 0, transparent 50%, #49e24e 100%); border-image-slice: 1;").itens-button.itens-color.animation-default
                                     span.itens-span-name Player
                                     .itens-icon(style="width: 30%;")
-                                div(data-internal-name='util-options').itens-button.itens-color-azul
+                                div(data-internal-name='util-options' style="background-color: #3a9ed5; border-image: linear-gradient(45deg, #49c5e2 0, transparent 50%, #49c5e2 100%); border-image-slice: 1;").itens-button.itens-color.animation-default
                                     span.itens-span-name Opções
                                     .itens-icon(style="width: 30%;")
                                         svg(xmlns="http://www.w3.org/2000/svg" viewBox="1 1 16 16" class="colorSelectedText-3YhFC6 icon-3tVJnl")

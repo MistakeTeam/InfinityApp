@@ -1,0 +1,38 @@
+.app-configuration {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    border-radius: 2px;
+}
+
+#option-left-sidebar {
+    width: 17%;
+    /* background-color: rgb(243,243,244); */
+    float: left;
+}
+
+#option-right-sidebar {
+    width: 100%;
+    /* background-color: white; */
+    float: right;
+    overflow: auto;
+    padding: 3px 0;
+}
+
+.option-contents {
+    padding: 6px 10px;
+    margin: 4px;
+    color: rgb(47, 45, 45);
+    border-radius: 3px;
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 500;
+}
+
+#option-left-sidebar .selected-item {
+    background-color: #dada40;
+    color: #fff!important;
+}
