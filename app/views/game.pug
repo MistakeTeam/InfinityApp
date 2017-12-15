@@ -17,13 +17,25 @@ mixin gameitem(title, descripitiion, path, thumb)
             spam(style='opacity: 0;').footer-descripition.animation-default Adicione games a sua lista.
     each game, index in games
         +gameitem(game.name, game.description, game.path, game.thumb)
-.gameview-add
-    .icon-close
-    .gameview-Te2Y93
-        div 
-            label(for="game_exe").animation-default Escolha seu jogo.
-            input(type="file" id="game_exe" name="game_exe" accept=".exe" multiple style="display: none;")
-        div(class="preview")
-            p No files currently selected for upload
-        div(style="float: right;").comfirm-Te2Y93
-            span.animation-default Confirmar
+    div.is-overlay.animation-default#over-gi592n(style="display: none; opacity: 0;")
+    div.gameview-add.animation-default(style="display: none; opacity: 0; transform: scale(0.9, 0.9); z-index: -1;")
+        div(class="icon-close" id="close-Th6o7p")
+        div(class="gameview-Te2Y93")
+            div
+                div#gamesText
+                    spam Nome
+                    input(type="text")
+                div#gamesInput
+                    spam Path
+                    label(class="animation-default" for="game_exe") Escolha seu jogo.
+                    input(type="file" id="game_exe" name="game_exe" accept=".exe" multiple="" style="display: none;")
+                div#gamesDesc
+                    spam Descrição
+                    input(type="text")
+                div#gamesThumb
+                    spam Capa
+                    input(type="text")
+            div(class="preview")
+                p No files currently selected for upload
+            div(class="comfirm-Te2Y93" style="float: right;")
+                span(class="animation-default") Confirmar

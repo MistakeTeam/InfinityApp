@@ -161,17 +161,23 @@ input#pb-input {
 }
 
 .player-playlist {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
-    height: 100%;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    width: 600px;
+    height: 600px;
+    border-radius: 5px;
+    padding: 0 0 0 30px;
+    z-index: 1000;
     background-color: var(--ter-bg-color);
-    z-index: 1;
 }
 
 .playlist-contains {
     height: 100%;
-    padding: 45px 5px 0;
+    padding: 5px 5px 0;
     display: flex;
     flex-direction: column;
 }
@@ -183,4 +189,26 @@ input#pb-input {
 
 .add-playlist {
     display: -webkit-inline-box;
+}
+
+.cordilheia-item-playlist {
+    padding: 5px;
+    color: #fff;
+    display: flex;
+}
+
+.cordilheia-item-playlist spam:first-child {
+    margin-left: 2px;
+    margin-right: 2px;
+}
+
+.cordilheia-item-playlist spam:last-child {
+    margin: 0 2px 0 10px;
+    min-width: 50px;
+}
+
+.now-playing {
+    background: #fff;
+    color: #000;
+    border-radius: 1pc;
 }

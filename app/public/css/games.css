@@ -13,13 +13,18 @@
 }
 
 .gameview-add {
-    position: absolute;
+    position: fixed;
     top: 0;
     right: 0;
-    width: 20%;
-    height: 100%;
+    left: 0;
+    bottom: 0;
+    margin: auto;
+    width: 600px;
+    height: 600px;
+    border-radius: 5px;
     background-color: var(--seg-bg-color);
-    padding: 0 0 0 30px;
+    padding: 0 5px 0 25px;
+    z-index: 1000;
 }
 
 .game-add-F58dY4 {
@@ -134,8 +139,7 @@
 
 .gameview-Te2Y93 label {
     color: #fff;
-    padding: 4px 10px;
-    margin: 5px;
+    padding: 5px;
     border: 1px solid white;
     border-radius: 3px;
 }
@@ -150,7 +154,21 @@
 
 .gameview-Te2Y93 div {
     margin-bottom: 10px;
-    display: flex;
+    display: grid;
+}
+
+.gameview-Te2Y93 input {
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid white;
+    border-radius: 3px;
+    padding: 5px;
+    color: #fff;
+}
+
+.gameview-Te2Y93 spam {
+    margin-left: 10px;
+    color: #fff;
+    font-weight: 600;
 }
 
 .comfirm-Te2Y93 span {

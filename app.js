@@ -38,14 +38,18 @@ const {
 } = require('electron');
 
 const isDev = require('electron-is-dev'); // this is required to check if the app is running in development mode. 
-const { appUpdater } = require('./appUpdate.js');
+// const { appUpdater } = require('./appUpdate.js');
 
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const url = require('url');
 const File = require('./File.js');
+const Rich = require('./lib/discord-rich-presence/rich.js');
+const event = require('./events.js');
+const log = require("fancy-log");
 
+var eventEmitter = event.eventEmitter;
 //HOST
 var host = require('./host.js');
 
@@ -53,7 +57,7 @@ require('electron-reload')(__dirname);
 
 var appVersion = app.getVersion();
 var buildVersion = 'EA0212';
-app.getLocale();
+var start = new Date().getTime() / 1000;
 
 var notificationWindow = null;
 var mainWindow = null;
@@ -111,8 +115,8 @@ function createslash() {
 }
 
 function setupNotificationWindow(db) {
-    console.log("Iniciando o sistema de notificações...");
-    var NotificationWindow = require('./notification');
+    log.info("Iniciando o sistema de notificações...");
+    NotificationWindow = require('./notification');
     if (NotificationWindow && !db.fristNotifier) {
         NotificationWindow.fristNotifier();
         db.fristNotifier = true;
@@ -121,10 +125,10 @@ function setupNotificationWindow(db) {
 }
 
 function setupSystemTray() {
-    console.log("Iniciando o icone na bandeja do sistema...");
+    log.info("Iniciando o icone na bandeja do sistema...");
     var SystemTray = require('./SystemTray');
     if (!systemTray) {
-        systemTray = new SystemTray(mainWindow, appUpdater(), { myName, appVersion, buildVersion });
+        systemTray = new SystemTray(mainWindow, null, { myName, appVersion, buildVersion });
     }
 }
 
@@ -157,7 +161,7 @@ function createwindow(isVisible, options) {
         mainWindow.destroy();
     }
 
-    console.log("Criando janela...");
+    log.info("Criando janela...");
 
     if (options != null) {
         if (options.saveGames == null) { // Move old savegames
@@ -184,7 +188,7 @@ function createwindow(isVisible, options) {
 
     var mainWindowOptions = {
         title: myName,
-        icon: __dirname + '/img/logo-infinity2.ico',
+        icon: __dirname + '/img/logo.ico',
         width: lastSessionInfo.size.width,
         height: lastSessionInfo.size.height,
         x: lastSessionInfo.position.x,
@@ -200,7 +204,7 @@ function createwindow(isVisible, options) {
         }
     };
 
-    console.log("Iniciando BrowserWindow...");
+    log.info("Iniciando BrowserWindow...");
     mainWindow = new BrowserWindow(mainWindowOptions);
     mainWindow.loadURL("http://localhost:8000/");
 
@@ -229,7 +233,7 @@ function createwindow(isVisible, options) {
         const checkOS = isWindowsOrmacOS();
         if (checkOS && !isDev) {
             // Initate auto-updates on macOs and windows
-            appUpdater();
+            // appUpdater();
         }
     });
 
@@ -238,12 +242,45 @@ function createwindow(isVisible, options) {
         setupNotificationWindow(options);
         splash.close();
         mainWindow.show();
+
+        //Start Rich Presence
+        Rich.rpc.on('ready', () => {
+            log(`Connected to Discord! (${Rich.appClient})`);
+
+            Rich.checkPresence({
+                details: `Testing...`,
+                state: `in Menus`,
+                startTimestamp: start > start + 3600 ? start = new Date().getTime() / 1000 : start,
+                // endTimestamp: ``,
+                largeImageKey: `infinity_logo`,
+                // smallImageKey: ``,
+                largeImageText: `InfinityApp`,
+                // smallImageText: ``,
+                instance: false,
+            });
+
+            // setInterval(() => {
+            //     Rich.checkPresence({
+            //         details: `red?`,
+            //         state: `in... WHATEVER`,
+            //         startTimestamp: start > start + 3600 ? start = new Date().getTime() / 1000 : start,
+            //         // endTimestamp: ``,
+            //         largeImageKey: `infinity_logo`,
+            //         // smallImageKey: ``,
+            //         largeImageText: `InfinityApp`,
+            //         // smallImageText: ``,
+            //         instance: false,
+            //     });
+            // }, 1500);
+        });
+        Rich.rpc.login(Rich.appClient).catch(log.error);
+        // NotificationWindow.createNotifier('Rich Presence', 'A rich presence foi ativado no discord');
     });
 }
 
 app.on('ready', function() {
     createslash();
-    console.log(`Estou, Pronto!\n{platform: ${process.platform}}`);
+    log.info(`Estou, Pronto!\n{platform: ${process.platform}}`);
 });
 
 app.on('window-all-closed', function() {
@@ -260,7 +297,7 @@ app.on('activate', function() {
 
 app.on('open-url', function(event, openURL) {
     var parsedURL = _url2.default.parse(openURL);
-    console.log(parsedURL)
+    log.info(parsedURL)
 });
 
 app.on('before-quit', function(e) {
@@ -271,13 +308,13 @@ app.on('before-quit', function(e) {
 });
 
 module.exports = {
-    app: app,
-    remote: remote,
-    File: File,
-    createwindow: createwindow,
-    mainWindow: mainWindow,
-    splash: splash,
-    login: login
+    app,
+    remote,
+    File,
+    createwindow,
+    mainWindow,
+    splash,
+    login
 }
 
 //---------------TESTES---------------

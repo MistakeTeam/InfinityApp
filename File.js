@@ -1,11 +1,12 @@
 const fs = require('fs');
 const rimraf = require('rimraf');
+const log = require("fancy-log");
 
 let _appFolder = null;
 
 function getFolderPath() {
     if (_appFolder == null) {
-        _appFolder = "./Databases/";
+        _appFolder = process.env.APPDATA + "/InfinityApp/";
 
         if (!doesFolderExist(_appFolder)) {
             fs.mkdirSync(_appFolder);
@@ -40,7 +41,7 @@ function getAllFiles(callback) {
 function SaveFile(fileName, data) {
     let folder = getFolderPath();
     let path = folder + fileName;
-    console.log("SaveFile(): Salvando arquivo " + path);
+    log.info("SaveFile(): Salvando arquivo " + path);
     createFile(path);
     fs.writeFile(path, data, function(err) {})
 }
@@ -49,7 +50,7 @@ function ReadFile(fileName, callback) {
     let folder = getFolderPath();
     let path = folder + fileName;
     createFile(path);
-    console.log("ReadFile(): Lendo arquivo " + path);
+    log.info("ReadFile(): Lendo arquivo " + path);
     fs.readFile(path, 'utf8', function(err, data) {
         callback(err != null ? null : data);
     });
@@ -58,13 +59,13 @@ function ReadFile(fileName, callback) {
 function saveWindowPosition(mainWindow, callback) {
     let FileOptions = "options.json";
     ReadFile(FileOptions, data => {
-        console.log("saveWindowPosition(): Lendo arquivo " + FileOptions);
+        log.info("saveWindowPosition(): Lendo arquivo " + FileOptions);
         let options = JSON.parse(data);
-        console.log("saveWindowPosition(): Pegando as posicoes...");
+        log.info("saveWindowPosition(): Pegando as posicoes...");
         let position = mainWindow.getPosition();
         let size = mainWindow.getSize();
 
-        console.log("saveWindowPosition(): Add as posicoes...");
+        log.info("saveWindowPosition(): Add as posicoes...");
         options.lastSessionInfo = {
             position: { x: position[0], y: position[1] },
             size: { width: size[0], height: size[1] }
@@ -82,15 +83,15 @@ function deleteFile(fileName) {
     let path = folder + fileName;
 
     fs.unlink(path, err => {
-        if (err != null) console.log(err);
-        console.log(`deleteFile(): Deleted file: ${fileName} (Cloud: ${ cloudDeleted })`);
+        if (err != null) log.info(err);
+        log.info(`deleteFile(): Deleted file: ${fileName} (Cloud: ${ cloudDeleted })`);
     });
 };
 
 function dataDefine(FileOptions, param, val) {
     try {
         ReadFile(FileOptions, data => {
-            console.log("dataDefine(): Lendo arquivo " + FileOptions);
+            log.info("dataDefine(): Lendo arquivo " + FileOptions);
             let options = JSON.parse(data);
             if (param.includes('.')) {
                 param = param.split('.');
@@ -101,15 +102,15 @@ function dataDefine(FileOptions, param, val) {
             SaveFile(FileOptions, JSON.stringify(options));
         });
     } catch (err) {
-        console.log('ERROR JSON');
-        console.log(err.stack);
+        log.info('ERROR JSON');
+        log.info(err.stack);
     }
 }
 
 function dataIncrement(FileOptions, param, val) {
     try {
         ReadFile(FileOptions, data => {
-            console.log("dataIncrement(): Lendo arquivo " + FileOptions);
+            log.info("dataIncrement(): Lendo arquivo " + FileOptions);
             let options = JSON.parse(data);
             if (param.includes('.')) {
                 param = param.split('.');
@@ -126,15 +127,15 @@ function dataIncrement(FileOptions, param, val) {
             SaveFile(FileOptions, JSON.stringify(options));
         });
     } catch (err) {
-        console.log('ERROR JSON');
-        console.log(err.stack);
+        log.info('ERROR JSON');
+        log.info(err.stack);
     }
 }
 
 function dataRemove(FileOptions, param, val) {
     try {
         ReadFile(FileOptions, data => {
-            console.log("dataRemove(): Lendo arquivo " + FileOptions);
+            log.info("dataRemove(): Lendo arquivo " + FileOptions);
             let options = JSON.parse(data);
             if (param.includes('.')) {
                 param = param.split('.')
@@ -145,15 +146,15 @@ function dataRemove(FileOptions, param, val) {
             SaveFile(FileOptions, JSON.stringify(options));
         });
     } catch (err) {
-        console.log('ERROR JSON');
-        console.log(err.stack);
+        log.info('ERROR JSON');
+        log.info(err.stack);
     }
 }
 
 function dataAdd(FileOptions, param, val) {
     try {
         ReadFile(FileOptions, data => {
-            console.log("dataAdd(): Lendo arquivo " + FileOptions);
+            log.info("dataAdd(): Lendo arquivo " + FileOptions);
             let options = JSON.parse(data);
             if (param.includes('.')) {
                 param = param.split('.');
@@ -170,8 +171,8 @@ function dataAdd(FileOptions, param, val) {
             SaveFile(FileOptions, JSON.stringify(options));
         });
     } catch (err) {
-        console.log('ERROR JSON');
-        console.log(err.stack);
+        log.info('ERROR JSON');
+        log.info(err.stack);
     }
 }
 

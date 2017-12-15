@@ -25,7 +25,7 @@
   </p>
 </div>
 
-## **Bem-Vindos(a) Ao InfinityApp Alpha**
+## **Bem-Vindos(a) Ao InfinityApp**
 *"Sua vida a um click de distância."*
 
 **O que é InfinityApp?**
@@ -50,7 +50,7 @@ Atualmente o Infinity está em fase beta em seu desenvolvimento, não é recomen
 
 Divirta-se com suas modificações, e espero ter lhe ajudado com o que você procurava.
 
-## **Layout do InfinityApp Beta**
+## **Layout do InfinityApp**
 *"As Imagens a seguir é do desenvolvimento beta do conceito do InfinityApp..."*
 ![Infinity](https://i.imgur.com/dbeYE4S.png)
 ![Infinity](https://i.imgur.com/zJTqERY.jpg)

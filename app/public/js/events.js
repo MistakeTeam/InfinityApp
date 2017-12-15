@@ -2,8 +2,18 @@ $(function() {
     var i = 0,
         timeOut = 0;
 
+    const log = require("fancy-log");
+    const path = require('path');
+    var eventEmitter;
     var userAgent = navigator.userAgent.toLowerCase();
     console.log(userAgent);
+    console.log(path.resolve(process.cwd(), './events.js'));
+
+    try {
+        eventEmitter = require(path.resolve('./events.js')).eventEmitter;
+    } catch (err) {
+        eventEmitter = require(path.resolve(process.cwd(), './resources/app/events.js')).eventEmitter;
+    }
 
     var currentMousePos = { x: -1, y: -1 };
     $(document).mousemove(function(event) {
@@ -17,7 +27,6 @@ $(function() {
         $('.util-app').css('opacity', '0');
         $('.util-app').css('z-index', '-1');
         $('.util-app').contents().filter('.loading-2Y9J6r').remove();
-        $('.util-app').contents().filter('.country-gp-dnn').contents().css('visibility', 'hidden');
         // $('.back-o4f98s').css('visibility', 'hidden');
         $('.back-o4f98s').css('top', '0');
         $('.back-o4f98s').css('left', '5px');
@@ -29,6 +38,9 @@ $(function() {
         $('.menu-itens').css('z-index', '100');
         $('.menu-topbar').css('opacity', '1');
         $('.menu-topbar').css('z-index', '200');
+        setTimeout(() => {
+            $('.util-app').contents().filter('.country-gp-dnn').contents().css('visibility', 'hidden');
+        }, 500);
     });
 
     $('.itens-button').on('mousedown', function(e) {
@@ -49,7 +61,6 @@ $(function() {
             default:
                 console.log('You have a strange Mouse!');
         }
-
     }).bind('mouseup', function(event) {
         if (i > 15) {
             $('.downmost').append(`
@@ -103,6 +114,7 @@ $(function() {
                         $('.util-app').contents().filter('.loading-2Y9J6r').remove();
                         break;
                     case 'util-player':
+                        eventEmitter.emit('onplayer');
                         $('.back-o4f98s').css('opacity', '0');
                         $('.back-o4f98s').css('top', '70px');
                         $('.back-o4f98s').css('left', '0');

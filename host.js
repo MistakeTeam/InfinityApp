@@ -5,7 +5,9 @@ var path = require('path');
 var request = require('request');
 var pug = require('pug');
 var fs = require('fs');
-var config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+// var config = JSON.parse(fs.readFileSync('./config.json', 'utf8'));
+
+//Passpot
 var passport = require('passport');
 var LocalStrategy = require('passport-local');
 var OAuth2Strategy = require('passport-oauth2');
@@ -17,15 +19,17 @@ var SpotifyStrategy = require('passport-spotify').Strategy;
 var SteamStrategy = require('passport-steam');
 var YoutubeStrategy = require('passport-youtube-v3').Strategy;
 var ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
+
+//Cache
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var cookieSession = require('cookie-session');
 var http = require('http').Server(app);
 // var Server = require('./Server');
 var scopes = ['connections', 'identify', 'guilds'];
-var Server = require('./Server');
 var File = require('./File.js');
 var isDev = require('electron-is-dev'); // this is required to check if the app is running in development mode. 
+const log = require("fancy-log");
 
 //===============PASSPORT=================
 
@@ -121,56 +125,67 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use("/base", express.static(path.resolve(process.env.APPDATA + "/InfinityApp/")));
 
-app.get('/', checkAuth, function(req, res) {
-    if (isDev) {
-        File.ReadFile('options.json', data => {
-            var filesave = JSON.parse(data);
+app.get('/', function(req, res) {
+    console.log('Bem-vindo!!');
+    File.ReadFile('gamesDB.json', data => {
+        var filesave = JSON.parse(data);
+        console.log(filesave);
 
-            res.render("index", {
-                games: filesave.saveGames
-            });
+        res.render("index", {
+            games: filesave.games
         });
-    } else {
-        let USR = req.user;
-        console.log(USR);
-        console.log(USR.photos[0].value);
+    });
 
-        File.ReadFile('options.json', data => {
-            var filesave = JSON.parse(data);
+    // if (isDev) {
+    //     File.ReadFile('gamesDB.json', data => {
+    //         var filesave = JSON.parse(data);
 
-            if (USR) {
-                switch (USR.provider) {
-                    case 'twitter':
-                        res.render("index", {
-                            profile_data: {
-                                username: USR.username,
-                                avatarURL: USR.photos[0].value,
-                            },
-                            games: filesave.saveGames
-                        });
-                        break;
-                    case 'discord':
-                        res.render("index", {
-                            profile_data: {
-                                username: `${USR.username}#${USR.discriminator}`,
-                                avatarURL: `https://cdn.discordapp.com/avatars/${USR.id}/${USR.avatar}.png`
-                            },
-                            games: filesave.saveGames
-                        });
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                res.render("index", {
-                    username: 'User',
-                    avatarURL: null,
-                    games: filesave.saveGames
-                });
-            }
-        });
-    }
+    //         res.render("index", {
+    //             games: filesave.games
+    //         });
+    //     });
+    // } else {
+    //     let USR = req.user;
+    //     log.info(USR);
+    //     log.info(USR.photos[0].value);
+
+    //     File.ReadFile('gamesDB.json', data => {
+    //         var filesave = JSON.parse(data);
+
+    //         if (USR) {
+    //             switch (USR.provider) {
+    //                 case 'twitter':
+    //                     res.render("index", {
+    //                         profile_data: {
+    //                             username: USR.username,
+    //                             avatarURL: USR.photos[0].value,
+    //                         },
+    //                         games: filesave.games
+    //                     });
+    //                     break;
+    //                 case 'discord':
+    //                     res.render("index", {
+    //                         profile_data: {
+    //                             username: `${USR.username}#${USR.discriminator}`,
+    //                             avatarURL: `https://cdn.discordapp.com/avatars/${USR.id}/${USR.avatar}.png`
+    //                         },
+    //                         games: filesave.games
+    //                     });
+    //                     break;
+    //                 default:
+    //                     break;
+    //             }
+    //         } else {
+    //             res.render("index", {
+    //                 username: 'User',
+    //                 avatarURL: null,
+    //                 games: filesave.games
+    //             });
+    //         }
+    //     });
+    // }
 });
 app.use(cookieParser());
 app.use('/img', express.static(path.join(__dirname, '/app/public/img')));
@@ -254,8 +269,8 @@ function checkAuth(req, res, next) {
 
 try {
     http.listen(8000, function() {
-        console.log("http://localhost:8000/");
+        log.info("http://localhost:8000/");
     });
 } catch (err) {
-    console.log("Falha ao abrir a interface web do InfinityApp");
+    log.info("Falha ao abrir a interface web do InfinityApp");
 }

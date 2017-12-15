@@ -1,11 +1,12 @@
 div
     .player-T1ow86
-        div(style="width: 0%;").player-playlist.animation-default
-            div(onclick="$('.player-playlist').css('width', '0%');" style="margin-top: 20px; position: absolute; width: 25px; height: 25px;").icon-close
+        div.is-overlay.animation-default#over-Rtj493(style="display: none; opacity: 0.85;")
+        div(style="display: none; opacity: 0; transform: scale(0.9, 0.9); z-index: -1;").player-playlist.animation-default
+            div(style="position: absolute; width: 25px; height: 25px;").icon-close#close-o69J50
             .playlist-contains
                 .buttons-actions-playlist
                     .add-playlist
-                        input(type="file" id="pb-input" accept="video/*" multiple style="display: none;")
+                        input(type="file" id="pb-input" accept="video/* , audio/*" multiple style="display: none;")
                         label(for="pb-input").animation-default
                             svg(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Your_Icon" x="0px" y="0px" fill="#fff" class="ply-button" width="30px" height="30px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve")
                                 circle(cx="18.132" cy="26.545" r="7.131")
@@ -15,7 +16,6 @@ div
                                 circle(cx="18.132" cy="76.033" r="7.131")
                                 rect(x="33.619" y="70.975" width="56.292" height="10.117")
                 .list-itens-playlist
-                    .
         .player-video
             .back-video
             video(src="https://youtu.be/BeLdxfttOlA" id="pb-video" onclick="play_video()" autoplay)
@@ -31,7 +31,7 @@ div
                         span(id="ply-time-separator")  / 
                         span(id="ply-time-duration") --:--
                 .controls-middle
-                    a(class="ply-next-button ply-button animation-default" style="transform: rotate(180deg);" aria-disabled="false" data-duration="26:14" data-preview="https://i.ytimg.com/vi/1oCbeBykAfo/mqdefault.jpg" data-tooltip-text="O TOUR, PARTE 1! com Viniccius13 e Davi // Meu Mundo #101 // Minecraft" title="Próximo")
+                    a(class="ply-previous-button ply-button animation-default" style="transform: rotate(180deg);" aria-disabled="false" data-duration="26:14" data-preview="https://i.ytimg.com/vi/1oCbeBykAfo/mqdefault.jpg" data-tooltip-text="O TOUR, PARTE 1! com Viniccius13 e Davi // Meu Mundo #101 // Minecraft" title="Próximo")
                         svg(height="100%" version="1.1" viewBox="0 0 36 36" width="100%")
                             use(class="ply-svg-shadow" xlink:href="#ply-id-13")
                             path(class="ply-svg-fill" d="M 12,24 20.5,18 12,12 V 24 z M 22,12 v 12 h 2 V 12 h -2 z" id="ply-id-13")
@@ -47,7 +47,7 @@ div
                             path(class="ply-svg-fill" d="M 12,24 20.5,18 12,12 V 24 z M 22,12 v 12 h 2 V 12 h -2 z" id="ply-id-13")
                 .controls-right
                     div
-                        label(onclick="$('.player-playlist').css('width', '20%');").animation-default
+                        label.animation-default#playlist-open-y40so9
                             svg(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Your_Icon" x="0px" y="0px" fill="#fff" class="ply-button" width="30px" height="30px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve")
                                 circle(cx="18.132" cy="26.545" r="7.131")
                                 rect(x="33.619" y="21.486" width="56.292" height="10.118")

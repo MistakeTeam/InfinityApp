@@ -67,7 +67,7 @@ span.username-2eY8s9 {
     width: 100%;
     height: 8%;
     margin-bottom: 10px;
-    border-bottom: 2px solid rgba(214, 225, 228, 0.77);
+    /* border-bottom: 2px solid rgba(214, 225, 228, 0.77); */
     z-index: 200;
     pointer-events: none;
 }
@@ -184,7 +184,8 @@ span.username-2eY8s9 {
 /**/
 
 .itens-color:hover {
-    animation: x 8s ease infinite!important;
+    /* animation: x 8s ease infinite!important; */
+    transform: scale(1.01, 1.01);
 }
 
 .itens-icon {

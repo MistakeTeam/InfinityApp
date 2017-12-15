@@ -4,7 +4,7 @@ const notifier = new notify();
 function fristNotifier() {
     const notification = notifier.notify('Bem-vindo', {
         message: 'Olá esse é um muilt-tarefas, ainda sem utilidades.',
-        duration: 99999
+        duration: 4.5
     })
 
     notification.on('clicked', () => {
@@ -15,7 +15,7 @@ function fristNotifier() {
 function createNotifier(title, message, duration) {
     const notification = notifier.notify(title, {
         message: message,
-        duration: 15
+        duration: duration ? duration : 4.5
     })
 
     notification.on('clicked', () => {
