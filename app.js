@@ -285,11 +285,6 @@ app.on('activate', function() {
     }
 });
 
-app.on('open-url', function(event, openURL) {
-    var parsedURL = _url2.default.parse(openURL);
-    log.info(parsedURL)
-});
-
 app.on('before-quit', function(e) {
     mainWindow = null;
     if (notificationWindow != null) {

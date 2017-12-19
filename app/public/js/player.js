@@ -82,9 +82,9 @@ function updatePlaylist() {
     playlist.forEach((play, index) => {
         $('.list-itens-playlist').append(`
         <div class="cordilheia-item-playlist" index-play="${index}">
-            <spam>${index + 1}. </spam>
-            <spam style="height: 20px; min-width: 200px; overflow: hidden;">${play.name}</spam>
-            <spam>--:--</spam>
+            <span>${index + 1}. </span>
+            <span style="height: 20px; min-width: 200px; overflow: hidden;">${play.name}</span>
+            <span>--:--</span>
         </div>
         `);
     });

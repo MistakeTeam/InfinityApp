@@ -54,6 +54,30 @@ function format(seconds) {
     }
 }
 
+function URLExternal(url) {
+    if (url.startsWith('http://') || url.startsWith('https://')) {
+        shell.openExternal(url);
+    } else {
+        return console.log(`Não é um URL valído.`);
+    }
+}
+
+$(document).on('drop', function(e) {
+    e.preventDefault();
+
+    $('.downmost').append(`
+    <div class="uploadbox animation-default"></div>
+    `);
+
+    $('.uploadbox').css('background', 'rgba(0,0,0,0.75)');
+    e.stopPropagation();
+});
+
+$(document).on('dragover', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+});
+
 // event global
 
 // eventEmitter.on('onloading', function() {

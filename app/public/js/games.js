@@ -185,8 +185,8 @@ $('.comfirm-Te2Y93').click(function() {
             <div class="game-item-T5e87d" path="${data.games[i].path}">
                 <img src="${data.games[i].thumb}", alt=""></img>
                 <div class="game-add-footer animation-default">
-                    <spam class="footer-title">${data.games[i].name}</spam>
-                    <spam style='opacity: 0;' class="footer-descripition animation-default">${data.games[i].description}</spam>
+                    <span class="footer-title">${data.games[i].name}</span>
+                    <span style='opacity: 0;' class="footer-descripition animation-default">${data.games[i].description}</span>
                 </div>
                 <div class="game-options-Ao1t71 animation-default">
                     <svg height="100%" version="1.1" viewBox="0 3 32 30" width="100%" style="fill: white;">

@@ -238,6 +238,13 @@ input:focus {
     transition: all 0s ease-in-out 0s;
 }
 
+.socialLinks-ry5263 {
+    font-size: 12px;
+    line-height: 16px;
+    padding: 8px 10px;
+    float: right;
+}
+
 
 /* ABAS */
 

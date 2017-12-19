@@ -2,8 +2,8 @@ mixin gameitem(title, descripitiion, path, thumb)
     div(path=path).game-item-T5e87d
         img(src=thumb, alt="")
         .game-add-footer.animation-default
-            spam.footer-title #{title}
-            spam(style='opacity: 0;').footer-descripition.animation-default #{descripitiion}
+            span.footer-title #{title}
+            span(style='opacity: 0;').footer-descripition.animation-default #{descripitiion}
         .game-options-Ao1t71.animation-default
             svg(height="100%" version="1.1" viewBox="0 3 32 30" width="100%" style="fill: white;")
                 use(class="ytp-svg-shadow" xlink:href="#ytp-id-33")
@@ -13,8 +13,8 @@ mixin gameitem(title, descripitiion, path, thumb)
     .game-add-F58dY4
         .game-add-button
         .game-add-footer.animation-default
-            spam.footer-title Add Game
-            spam(style='opacity: 0;').footer-descripition.animation-default Adicione games a sua lista.
+            span.footer-title Add Game
+            span(style='opacity: 0;').footer-descripition.animation-default Adicione games a sua lista.
     each game, index in games
         +gameitem(game.name, game.description, game.path, game.thumb)
     div.is-overlay.animation-default#over-gi592n(style="display: none; opacity: 0;")
@@ -23,17 +23,17 @@ mixin gameitem(title, descripitiion, path, thumb)
         div(class="gameview-Te2Y93")
             div
                 div#gamesText
-                    spam Nome
+                    span Nome
                     input(type="text")
                 div#gamesInput
-                    spam Path
+                    span Path
                     label(class="animation-default" for="game_exe") Escolha seu jogo.
                     input(type="file" id="game_exe" name="game_exe" accept=".exe" multiple="" style="display: none;")
                 div#gamesDesc
-                    spam Descrição
+                    span Descrição
                     input(type="text")
                 div#gamesThumb
-                    spam Capa
+                    span Capa
                     input(type="text")
             div(class="preview")
                 p No files currently selected for upload

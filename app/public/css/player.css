@@ -197,12 +197,12 @@ input#pb-input {
     display: flex;
 }
 
-.cordilheia-item-playlist spam:first-child {
+.cordilheia-item-playlist span:first-child {
     margin-left: 2px;
     margin-right: 2px;
 }
 
-.cordilheia-item-playlist spam:last-child {
+.cordilheia-item-playlist span:last-child {
     margin: 0 2px 0 10px;
     min-width: 50px;
 }
