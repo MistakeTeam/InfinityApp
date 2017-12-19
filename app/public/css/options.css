@@ -25,7 +25,7 @@
 .option-contents {
     padding: 6px 10px;
     margin: 4px;
-    color: rgb(47, 45, 45);
+    color: #fff!important;
     border-radius: 3px;
     font-size: 16px;
     line-height: 20px;
@@ -35,4 +35,43 @@
 #option-left-sidebar .selected-item {
     background-color: #dada40;
     color: #fff!important;
+}
+
+.contain-theme {
+    margin: 4px;
+    border-radius: 3px;
+    background: #262727;
+    color: #fff;
+}
+
+.lost-tab-top {
+    display: flex;
+    padding: 5px;
+    background: #1e1f1f;
+    border-radius: 3px 3px 0 0;
+}
+
+.lost-more-info {
+    font-size: 10px;
+}
+
+.lost-tab-bottom {
+    padding: 5px;
+}
+
+.contain-tab {
+    width: 100%;
+}
+
+.tab-title {
+    font-weight: 700;
+}
+
+.more-title-info {
+    padding: 0 2px 0 0;
+    font-weight: 700;
+}
+
+.more-info {
+    padding: 0 2px 0 0;
 }

@@ -11,6 +11,14 @@ const {
     shell
 } = require('electron');
 
+var eventEmitter;
+
+try {
+    eventEmitter = require(path.resolve(process.cwd(), './events.js')).eventEmitter;
+} catch (err) {
+    eventEmitter = require(path.resolve(process.cwd(), './resources/app/events.js')).eventEmitter;
+}
+
 function minimize() {
     var window = remote.getCurrentWindow();
     window.minimize();
@@ -45,3 +53,11 @@ function format(seconds) {
         return pad(minutes) + ':' + pad(seconds);
     }
 }
+
+// event global
+
+// eventEmitter.on('onloading', function() {
+//     $('.downmost').append(`
+
+//     `);
+// })

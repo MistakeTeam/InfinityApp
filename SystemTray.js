@@ -57,31 +57,34 @@ function SystemTray(mainWindow, onUpdate, options) {
     }
 
     var autoRunIndex = contextMenu.length;
-    contextMenu = contextMenu.concat([{
-        label: 'Iniciar ' + options.myName + ' na inicialização do computador',
-        type: 'checkbox',
-        checked: false,
-        enabled: false,
-        click: null
-    }, {
-        label: 'Verificar Atualizações',
-        type: 'normal',
-        click: onUpdate
-    }, {
-        type: 'separator'
-    }, {
-        label: 'Console de Desenvolvimento',
-        type: 'normal',
-        click: function() {
-            mainWindow.toggleDevTools();
+    contextMenu = contextMenu.concat([
+        /*{
+                label: 'Iniciar ' + options.myName + ' na inicialização do computador',
+                type: 'checkbox',
+                checked: false,
+                enabled: false,
+                click: AutoRun.update
+            }, */
+        {
+            label: 'Verificar Atualizações',
+            type: 'normal',
+            click: onUpdate
+        }, {
+            type: 'separator'
+        }, {
+            label: 'Console de Desenvolvimento',
+            type: 'normal',
+            click: function() {
+                mainWindow.toggleDevTools();
+            }
+        }, {
+            type: 'separator'
+        }, {
+            label: 'Sair do ' + options.myName,
+            type: 'normal',
+            click: function() { File.saveWindowPosition(mainWindow, () => { return app.quit(); }) }
         }
-    }, {
-        type: 'separator'
-    }, {
-        label: 'Sair do ' + options.myName,
-        type: 'normal',
-        click: function() { File.saveWindowPosition(mainWindow, () => { return app.quit(); }) }
-    }]);
+    ]);
 
     tray.setToolTip(`${options.myName} ${options.appVersion}.${options.buildVersion}`);
 

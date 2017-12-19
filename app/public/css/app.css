@@ -154,15 +154,11 @@ span.username-2eY8s9 {
     width: 203px;
     height: 137px;
     margin: 2px;
+    padding: 3px;
 }
 
-
-/* .itens-button:hover {
-    transform: scale(1.03, 1.03);
-} */
-
-.itens-color {
-    border: 3px solid;
+.itens-button:hover {
+    transform: scale(1.01, 1.01);
 }
 
 @keyframes x {
@@ -182,11 +178,6 @@ span.username-2eY8s9 {
 
 
 /**/
-
-.itens-color:hover {
-    /* animation: x 8s ease infinite!important; */
-    transform: scale(1.01, 1.01);
-}
 
 .itens-icon {
     margin: 15px auto 0;

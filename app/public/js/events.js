@@ -7,7 +7,6 @@ $(function() {
     var eventEmitter;
     var userAgent = navigator.userAgent.toLowerCase();
     console.log(userAgent);
-    console.log(path.resolve(process.cwd(), './events.js'));
 
     try {
         eventEmitter = require(path.resolve('./events.js')).eventEmitter;
@@ -68,7 +67,7 @@ $(function() {
             `);
         } else {
             // transition-function
-            $('.util-app').css('background-color', $(this).css('background-color'));
+            // $('.util-app').css('background-color', $(this).css('background-color'));
             $('.util-app').css('transform', 'scale(1, 1)');
             $('.util-app').css('opacity', '1');
             $('.util-app').css('z-index', '100');

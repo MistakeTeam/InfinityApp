@@ -14,13 +14,27 @@ mixin separador(width, height)
 
 .app-configuration
     #option-left-sidebar
-        .option-contents.selected-item
+        div(type="geral").option-contents.selected-item
             spam Geral
-        .option-contents
-            spam Traduções
+        div(type="temas").option-contents
+            spam Temas
     +separador('1px', '100%')
     #option-right-sidebar
-        +checkbox('mr-check-1', 'AnimationRun', 'Desativar animações', 'Animações afeta o desempenho do aplicativo, recomanda-se desativa-las se seu desempenho estiver comprometido.')
-        +separador('100%', '1px')
-        +checkbox('mr-check-2', 'AnimationRun', 'Desativar animações', 'Animações afeta o desempenho do aplicativo, recomanda-se desativa-las se seu desempenho estiver comprometido.')
-        
+        div(style="display: block;")#general-box
+            +checkbox('mr-check-1', 'AnimationRun', 'Desativar animações', 'Animações afeta o desempenho do aplicativo, recomanda-se desativa-las se seu desempenho estiver comprometido.')
+        div(style="display: none;")#theme-box
+            each theme in themes
+                div.contain-theme
+                    div.lost-tab-top
+                        div.contain-tab
+                            spam.tab-title #{theme.name}
+                            div.lost-more-info
+                                spam.more-title-info Autor:
+                                spam.more-info #{theme.author}
+                                spam.more-title-info Versão:
+                                spam.more-info #{theme.version}
+                        .switch
+                            div(data-theme-name=theme.name data-author-name=theme.author data-check="false" id=theme.author+'-'+theme.name class="cmn-toggle cmn-toggle-round")
+                            label(for=id)
+                    div.lost-tab-bottom
+                        spam.tab-description #{theme.description}

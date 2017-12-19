@@ -38,15 +38,16 @@ const {
 } = require('electron');
 
 const isDev = require('electron-is-dev'); // this is required to check if the app is running in development mode. 
-// const { appUpdater } = require('./appUpdate.js');
+const { appUpdater } = require('./appUpdate.js');
 
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const url = require('url');
 const File = require('./File.js');
-const Rich = require('./lib/discord-rich-presence/rich.js');
+// const Rich = require('./lib/discord-rich-presence/rich.js');
 const event = require('./events.js');
+// const steam = require('./lib/Games/Steam.js');
 const log = require("fancy-log");
 
 var eventEmitter = event.eventEmitter;
@@ -128,7 +129,7 @@ function setupSystemTray() {
     log.info("Iniciando o icone na bandeja do sistema...");
     var SystemTray = require('./SystemTray');
     if (!systemTray) {
-        systemTray = new SystemTray(mainWindow, null, { myName, appVersion, buildVersion });
+        systemTray = new SystemTray(mainWindow, appUpdater, { myName, appVersion, buildVersion });
     }
 }
 
@@ -163,28 +164,33 @@ function createwindow(isVisible, options) {
 
     log.info("Criando janela...");
 
-    if (options != null) {
-        if (options.saveGames == null) { // Move old savegames
-            options.saveGames = {};
-        }
-        if (options.developerMode) {
-            app.developerMode = true;
-            options.developerMode = false;
-        }
-
-        if (options.fristNotifier == null) {
-            options.fristNotifier = false
-        }
-
-        File.SaveFile(FileOptions, JSON.stringify(options));
+    if (options.themeCookie == null) {
+        options.themeCookie = {};
     }
 
-    let lastSessionInfo = options != null && options.lastSessionInfo != null ?
-        options.lastSessionInfo : { size: { width: 1024, height: 720 }, position: { x: null, y: null } };
+    if (options.savedGames == null) {
+        options.savedGames = {};
+    }
 
-    // if (lastSessionInfo.size.width == 0 || lastSessionInfo.size.height == 0 || lastSessionInfo.position.x == 0 || lastSessionInfo.position.y == 0) {
-    //     lastSessionInfo = { size: { width: 1350, height: 720 }, position: { x: null, y: null } };
-    // }
+    if (options.options == null) {
+        options.options = {};
+    }
+
+    if (options.options.AnimationRun == null) {
+        options.options.AnimationRun = false;
+    }
+
+    if (options.fristNotifier == null) {
+        options.fristNotifier = false;
+    }
+
+    if (options.lastSessionInfo == null) {
+        options.lastSessionInfo = { size: { width: 1024, height: 720 }, position: { x: null, y: null } };
+    }
+
+    File.SaveFile(FileOptions, JSON.stringify(options));
+
+    let lastSessionInfo = options.lastSessionInfo;
 
     var mainWindowOptions = {
         title: myName,
@@ -232,49 +238,33 @@ function createwindow(isVisible, options) {
     mainWindow.webContents.once('did-frame-finish-load', () => {
         const checkOS = isWindowsOrmacOS();
         if (checkOS && !isDev) {
-            // Initate auto-updates on macOs and windows
-            // appUpdater();
+            appUpdater();
         }
     });
 
     mainWindow.on('ready-to-show', function() {
         setupSystemTray();
-        setupNotificationWindow(options);
+        // setupNotificationWindow(options);
         splash.close();
         mainWindow.show();
 
         //Start Rich Presence
-        Rich.rpc.on('ready', () => {
-            log(`Connected to Discord! (${Rich.appClient})`);
+        // Rich.rpc.on('ready', () => {
+        //     log(`Connected to Discord! (${Rich.appClient})`);
 
-            Rich.checkPresence({
-                details: `Testing...`,
-                state: `in Menus`,
-                startTimestamp: start > start + 3600 ? start = new Date().getTime() / 1000 : start,
-                // endTimestamp: ``,
-                largeImageKey: `infinity_logo`,
-                // smallImageKey: ``,
-                largeImageText: `InfinityApp`,
-                // smallImageText: ``,
-                instance: false,
-            });
-
-            // setInterval(() => {
-            //     Rich.checkPresence({
-            //         details: `red?`,
-            //         state: `in... WHATEVER`,
-            //         startTimestamp: start > start + 3600 ? start = new Date().getTime() / 1000 : start,
-            //         // endTimestamp: ``,
-            //         largeImageKey: `infinity_logo`,
-            //         // smallImageKey: ``,
-            //         largeImageText: `InfinityApp`,
-            //         // smallImageText: ``,
-            //         instance: false,
-            //     });
-            // }, 1500);
-        });
-        Rich.rpc.login(Rich.appClient).catch(log.error);
-        // NotificationWindow.createNotifier('Rich Presence', 'A rich presence foi ativado no discord');
+        //     Rich.checkPresence({
+        //         details: `Testing...`,
+        //         state: `in Menus`,
+        //         startTimestamp: start > start + 3600 ? start = new Date().getTime() / 1000 : start,
+        //         // endTimestamp: ``,
+        //         largeImageKey: `infinity_logo`,
+        //         // smallImageKey: ``,
+        //         largeImageText: `InfinityApp`,
+        //         // smallImageText: ``,
+        //         instance: false,
+        //     });
+        // });
+        // Rich.rpc.login(Rich.appClient).catch(log.error);
     });
 }
 
@@ -316,10 +306,6 @@ module.exports = {
     splash,
     login
 }
-
-//---------------TESTES---------------
-
-
 
 //---------------FUNCTIONS---------------
 

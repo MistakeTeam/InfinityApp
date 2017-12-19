@@ -11,7 +11,6 @@ function getFolderPath() {
         if (!doesFolderExist(_appFolder)) {
             fs.mkdirSync(_appFolder);
             fs.chmodSync(_appFolder, '777');
-            // fs.writeFile(path, data, { enconding: 'utf-8', flag: 'a' }, function(err) {})
         }
     }
     return _appFolder;
@@ -31,10 +30,10 @@ function createFile(path) {
     }
 };
 
-function getAllFiles(callback) {
-    let folder = getFolderPath();
+function getAllFiles(path, callback) {
+    let folder = getFolderPath() + path;
     fs.readdir(folder, (err, files) => {
-        callback(err != null ? null : files);
+        callback(err ? null : files);
     });
 };
 
@@ -177,16 +176,16 @@ function dataAdd(FileOptions, param, val) {
 }
 
 module.exports = {
-    SaveFile: SaveFile,
-    ReadFile: ReadFile,
-    deleteFile: deleteFile,
-    saveWindowPosition: saveWindowPosition,
-    getAllFiles: getAllFiles,
-    doesFolderExist: doesFolderExist,
-    deleteFolder: deleteFolder,
-    getFolderPath: getFolderPath,
-    dataDefine: dataDefine,
-    dataIncrement: dataIncrement,
-    dataRemove: dataRemove,
-    dataAdd: dataAdd
+    SaveFile,
+    ReadFile,
+    deleteFile,
+    saveWindowPosition,
+    getAllFiles,
+    doesFolderExist,
+    deleteFolder,
+    getFolderPath,
+    dataDefine,
+    dataIncrement,
+    dataRemove,
+    dataAdd
 }

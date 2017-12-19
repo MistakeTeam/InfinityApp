@@ -161,7 +161,6 @@ input:focus {
     cursor: ns-resize;
     height: 3px;
     -webkit-app-region: no-drag;
-    background-color: var(--ter-bg-color);
 }
 
 .win-buttons {
@@ -228,9 +227,15 @@ input:focus {
 }
 
 .animation-default {
-    -webkit-transition: all .5s ease-in-out 0s;
-    -moz-transition: all .5s ease-in-out 0s;
-    transition: all .5s ease-in-out 0s;
+    -webkit-transition: all .4s ease-in-out 0s;
+    -moz-transition: all .4s ease-in-out 0s;
+    transition: all .4s ease-in-out 0s;
+}
+
+.animation-off {
+    -webkit-transition: all 0s ease-in-out 0s;
+    -moz-transition: all 0s ease-in-out 0s;
+    transition: all 0s ease-in-out 0s;
 }
 
 
