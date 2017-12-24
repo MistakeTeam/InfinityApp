@@ -7,11 +7,11 @@ var settings = {
     // loadingGif: '',
     authors: 'xDeltaFox.',
     exe: './InfinityApp.exe',
-    description: 'test description',
+    description: 'InfinityApp',
     setupIcon: './img/logo.ico',
     setupExe: 'InfinityApp.exe',
-    // iconUrl: './img/logo.ico',
-    noMsi: false
+    iconUrl: 'https://raw.githubusercontent.com/xDeltaFox/InfinityApp/master/img/logo.ico',
+    noMsi: true
 };
 
 resultPromise = electronInstaller.createWindowsInstaller(settings);

@@ -3,42 +3,13 @@
 const {
     app,
     autoUpdater,
-    BrowserView,
     BrowserWindow,
-    BrowserWindowProxy,
-    ClientRequest,
-    clipboard,
-    contentTracing,
-    Cookies,
-    crashReporter,
-    Debugger,
-    desktopCapturer,
-    dialog,
-    DownloadItem,
-    globalShortcut,
-    IncomingMessage,
-    ipcMain,
-    ipcRenderer,
     Menu,
-    MenuItem,
-    nativeImage,
-    net,
-    powerSaveBlocker,
-    protocol,
-    remote,
-    session,
-    shell,
-    systemPreferences,
-    TouchBar,
-    Tray,
-    webContents,
-    webFrame,
-    WebRequest,
-    webviewTag
+    remote
 } = require('electron');
 
 const isDev = require('electron-is-dev'); // this is required to check if the app is running in development mode. 
-const { appUpdater } = require('./appUpdate.js');
+autoUpdater.setFeedURL("https://github.com/xDeltaFox/InfinityApp/releases/latest/");
 
 const fs = require('fs');
 const os = require('os');
@@ -129,7 +100,7 @@ function setupSystemTray() {
     log.info("Iniciando o icone na bandeja do sistema...");
     var SystemTray = require('./SystemTray');
     if (!systemTray) {
-        systemTray = new SystemTray(mainWindow, appUpdater, { myName, appVersion, buildVersion });
+        systemTray = new SystemTray(mainWindow, autoUpdater.checkForUpdates(), { myName, appVersion, buildVersion });
     }
 }
 
@@ -238,7 +209,7 @@ function createwindow(isVisible, options) {
     mainWindow.webContents.once('did-frame-finish-load', () => {
         const checkOS = isWindowsOrmacOS();
         if (checkOS && !isDev) {
-            appUpdater();
+            autoUpdater.checkForUpdates();
         }
     });
 
@@ -268,6 +239,11 @@ function createwindow(isVisible, options) {
     });
 }
 
+function sendStatusToWindow(to, text) {
+    log.info(`${to} >> ${text}`);
+    mainWindow.webContents.send(to, text);
+}
+
 app.on('ready', function() {
     createslash();
     log.info(`Estou, Pronto!\n{platform: ${process.platform}}`);
@@ -292,6 +268,46 @@ app.on('before-quit', function(e) {
     }
 });
 
+//----------------------------------------
+//--------------autoUpdater---------------
+//----------------------------------------
+
+autoUpdater.on('checking-for-update', () => {
+    sendStatusToWindow('updatetext', 'Buscando atualizações...');
+});
+
+autoUpdater.on('update-available', (info) => {
+    sendStatusToWindow('updatetext', 'Atualização disponivel');
+});
+
+autoUpdater.on('update-not-available', (info) => {
+    sendStatusToWindow('updatetext', 'Está é a ultima versão.');
+});
+
+autoUpdater.on('error', (err) => {
+    sendStatusToWindow('updatetext', 'Erro ao atualizar.');
+});
+
+autoUpdater.on('download-progress', (progressObj) => {
+    let speed = ((progressObj.bytesPerSecond / 1000) / 1000).toFixed(1);
+    let transferred = ((progressObj.transferred / 1000) / 1000).toFixed(1);
+    let total = ((progressObj.total / 1000) / 1000).toFixed(1);
+    let percent = progressObj.percent.toFixed(1);
+
+    let log_message = "Velocidade: " + speed + " Mb/s";
+    log_message = log_message + ' - Baixado: ' + percent + '%';
+    log_message = log_message + ' (' + transferred + "/" + total + ')';
+    sendStatusToWindow('updatetext', log_message);
+});
+
+autoUpdater.on('update-downloaded', (info) => {
+    sendStatusToWindow('updatetext', 'Atualização baixada, em 5 segundos será instalada.');
+
+    setTimeout(function() {
+        autoUpdater.quitAndInstall();
+    }, 5000)
+});
+
 module.exports = {
     app,
     remote,
@@ -302,7 +318,9 @@ module.exports = {
     login
 }
 
+//---------------------------------------
 //---------------FUNCTIONS---------------
+//---------------------------------------
 
 function isWindowsOrmacOS() {
     return process.platform === 'darwin' || process.platform === 'win32';

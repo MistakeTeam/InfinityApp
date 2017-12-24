@@ -32,6 +32,15 @@ span.username-2eY8s9 {
 
 /* App */
 
+.uploadbox {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 10;
+}
+
 .app {
     position: absolute;
     width: 100%;

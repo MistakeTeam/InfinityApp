@@ -6,17 +6,19 @@
     "scripts": {
         "start": "electron . InfinityApp",
         "web": "node host.js",
-        "buildwin": "electron-packager . InfinityApp --version 1.7.6 --platform win32  --arch=x64 --icon ./img/logo.ico --out ./dist --overwrite",
+        "buildwin": "electron-packager . InfinityApp --version 1.7.6 --platform win32  --arch=ia32 --icon ./img/logo.ico --out ./dist --overwrite",
         "buildasar": "asar pack . app.asar",
         "setup": "node build.js"
     },
     "keywords": [
-        "electron"
+        "electron",
+        "InfinityApp"
     ],
     "author": "xDeltaFox",
     "license": "Apache-2.0",
     "devDependencies": {
         "electron": "^1.7.8",
+        "electron-installer-windows": "^0.2.0",
         "electron-winstaller": "^2.6.3"
     },
     "dependencies": {
@@ -34,12 +36,12 @@
         "csgo": "^1.5.7",
         "discord-rpc": "^3.0.0-beta.4",
         "dota2": "^6.0.1",
+        "electron-is": "^2.4.0",
         "electron-is-dev": "^0.3.0",
-        "electron-notification-desktop": "0.0.4",
         "electron-packager": "^8.7.2",
         "electron-reload": "^1.2.2",
-        "electron-simple-updater": "^1.2.1",
         "electron-squirrel-startup": "^1.0.0",
+        "electron-updater": "^2.17.6",
         "eventemitter3": "^2.0.3",
         "express": "^4.15.4",
         "express-favicon-short-circuit": "^1.1.1",
@@ -62,5 +64,14 @@
         "vscode": "^1.1.9",
         "wintools": "^0.1.0",
         "ws": "^3.2.0"
+    },
+    "build": {
+        "publish": [
+            {
+                "provider": "github",
+                "owner": "xDeltaFox",
+                "repo": "InfinityApp"
+            }
+        ]
     }
 }

@@ -7,6 +7,7 @@ const {
     Cookies,
     crashReporter,
     desktopCapturer,
+    ipcRenderer,
     remote,
     shell
 } = require('electron');
@@ -18,6 +19,11 @@ try {
 } catch (err) {
     eventEmitter = require(path.resolve(process.cwd(), './resources/app/events.js')).eventEmitter;
 }
+
+ipcRenderer.on('updatetext', (event, message) => {
+    console.log(`sla: ${message}`);
+    $('.update-box').children('span').text(message);
+})
 
 function minimize() {
     var window = remote.getCurrentWindow();
@@ -64,18 +70,36 @@ function URLExternal(url) {
 
 $(document).on('drop', function(e) {
     e.preventDefault();
-
-    $('.downmost').append(`
-    <div class="uploadbox animation-default"></div>
-    `);
-
-    $('.uploadbox').css('background', 'rgba(0,0,0,0.75)');
     e.stopPropagation();
 });
 
 $(document).on('dragover', function(e) {
     e.preventDefault();
     e.stopPropagation();
+});
+
+$('.itens-button').on('dragenter', function(e) {
+    switch ($(this).attr('data-internal-name')) {
+        case 'util-game':
+            $(this).children('.drag-event').css('display', 'block');
+            setTimeout(() => {
+                $(this).children('.drag-event').children('.uploadbox').css('background', 'rgba(0, 0, 0, 0.75)');
+            }, 10);
+            break;
+        default:
+            break;
+    }
+});
+
+$('.itens-button').on('dragleave', function(e) {
+    switch ($(this).attr('data-internal-name')) {
+        case 'util-game':
+            $(this).children('.drag-event').css('display', 'none');
+            $(this).children('.drag-event').children('.uploadbox').css('background', 'transparent');
+            break;
+        default:
+            break;
+    }
 });
 
 // event global

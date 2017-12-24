@@ -11,6 +11,22 @@ if (!fs.existsSync(folder_theme)) {
     fs.chmodSync(folder_theme, '777');
 }
 
+if (!fs.existsSync(`${folder_theme}/dark.theme.css`)) {
+    fs.readFile(`./to/dark.theme.css`, function(err, data) {
+        if (!err) {
+            fs.writeFile(`${folder_theme}/dark.theme.css`, data);
+        }
+    })
+}
+
+if (!fs.existsSync(`${folder_theme}/white.theme.css`)) {
+    fs.readFile(`./to/white.theme.css`, function(err, data) {
+        if (!err) {
+            fs.writeFile(`${folder_theme}/white.theme.css`, data);
+        }
+    })
+}
+
 function themeUpdate() {
     File.getAllFiles('themes', files => {
         files.forEach(function(fileName) {

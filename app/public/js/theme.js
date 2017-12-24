@@ -15,6 +15,7 @@ try {
 function checkTheme() {
     File.ReadFile('options.json', db => {
         var data = JSON.parse(db);
+
         if (data.themeCookie == []) {
             data.themeCookie = themes.datathemes;
         }
@@ -43,6 +44,6 @@ function checkTheme() {
 
 setTimeout(() => {
     checkTheme();
-}, 500);
+}, 1000);
 
 eventEmitter.on('checkTheme', checkTheme);

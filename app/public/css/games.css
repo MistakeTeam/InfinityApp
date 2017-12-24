@@ -12,7 +12,8 @@
     margin: 0 auto;
 }
 
-.gameview-add {
+.gameview-add,
+.gameview-edit {
     position: fixed;
     top: 0;
     right: 0;
@@ -43,7 +44,7 @@
 
 .game-item-T5e87d:hover .game-add-footer .footer-descripition,
 .game-add-F58dY4:hover .game-add-footer .footer-descripition,
-.game-item-T5e87d:hover .game-options-Ao1t71 {
+.game-item-T5e87d:hover .game-buttons-fThe32 {
     opacity: 1 !important;
 }
 
@@ -124,17 +125,23 @@
 }
 
 .game-options-Ao1t71 {
+    fill: white;
+}
+
+.game-buttons-fThe32 {
     position: absolute;
     top: 0;
-    right: 0;
-    width: 50px;
-    height: 50px;
-    background: #2b2929;
-    border-radius: 40px 0px 0px 40px;
-    margin-top: 5px;
-    /* border: 2px solid beige; */
-    border-right: 2px solid beige;
+    left: 0;
+    display: flex;
     opacity: 0;
+}
+
+.game-options-Ao1t71 {
+    width: 30px;
+    height: 30px;
+    background: #2b2929;
+    border-radius: 20px;
+    margin: 2px;
 }
 
 .gameview-Te2Y93 label {
@@ -165,13 +172,20 @@
     color: #fff;
 }
 
+.gameview-Te2Y93>span {
+    margin-left: 2px;
+    color: #fff;
+    font-weight: 700;
+}
+
 .gameview-Te2Y93 span {
     margin-left: 10px;
     color: #fff;
-    font-weight: 600;
+    font-weight: 400;
 }
 
-.comfirm-Te2Y93 span {
+.comfirm-Te2Y93 span,
+.comfirm-ht95e2 span {
     color: #fff;
     padding: 4px 10px;
     margin: 5px;
@@ -179,6 +193,13 @@
     border-radius: 3px;
 }
 
-.comfirm-Te2Y93 span:hover {
+.comfirm-Te2Y93 span:hover,
+.comfirm-ht95e2 span:hover {
     background: #17b006;
+}
+
+.game-edit-Dg4jk0 {
+    width: 20px;
+    height: 20px;
+    margin: 1px;
 }
