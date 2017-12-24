@@ -1,6 +1,8 @@
 var folder_theme = `${process.env.APPDATA}/InfinityApp/themes`;
 var fs = require('fs');
 var File = require('./File.js');
+var path = require('path');
+var isDev = require('electron-is-dev');
 
 var themes = [];
 var datathemes = [];
@@ -11,20 +13,28 @@ if (!fs.existsSync(folder_theme)) {
     fs.chmodSync(folder_theme, '777');
 }
 
+var mainpath;
+
+if (isDev) {
+    mainpath = path.resolve(`./`);
+} else {
+    mainpath = path.resolve(process.cwd(), `./resources/app`);
+}
+
 if (!fs.existsSync(`${folder_theme}/dark.theme.css`)) {
-    fs.readFile(`./to/dark.theme.css`, function(err, data) {
+    fs.readFile(`${mainpath}/to/dark.theme.css`, function(err, data) {
         if (!err) {
             fs.writeFile(`${folder_theme}/dark.theme.css`, data);
         }
-    })
+    });
 }
 
 if (!fs.existsSync(`${folder_theme}/white.theme.css`)) {
-    fs.readFile(`./to/white.theme.css`, function(err, data) {
+    fs.readFile(`${mainpath}/to/white.theme.css`, function(err, data) {
         if (!err) {
             fs.writeFile(`${folder_theme}/white.theme.css`, data);
         }
-    })
+    });
 }
 
 function themeUpdate() {
@@ -92,7 +102,9 @@ function themeUpdate() {
     });
 }
 
-themeUpdate();
+setTimeout(() => {
+    themeUpdate();
+}, 500);
 
 module.exports = {
     themes,

@@ -39,23 +39,23 @@ $('.switch').click(function() {
             var themeCookie = data.themeCookie;
             var themeCheck = false;
 
-            themeCookie.forEach(themedata => {
-                themes.themes.forEach(themes => {
-                    var name = themes.name;
-                    var author = themes.author;
-                    themeCheck = true;
+            if ($(this).attr('theme') == '') {
+                themeCookie.forEach(themedata => {
+                    themes.themes.forEach(themes => {
+                        var name = themes.name;
+                        var author = themes.author;
+                        themeCheck = true;
 
-                    if (themedata.hasOwnProperty(name)) {
-                        if (name == $(this).children('div').attr('data-theme-name')) {
-                            themedata[name] = true;
-                            console.log(`:: ${themedata[name]}`);
-                        } else if (name != $(this).children('div').attr('data-theme-name')) {
-                            themedata[name] = false;
-                            console.log(`-- ${themedata[name]}`);
-                        }
-                    } else {}
+                        if (themedata.hasOwnProperty(name)) {
+                            if (name == $(this).children('div').attr('data-theme-name')) {
+                                themedata[name] = true;
+                            } else if (name != $(this).children('div').attr('data-theme-name')) {
+                                themedata[name] = false;
+                            }
+                        } else {}
+                    });
                 });
-            });
+            }
 
             if (themeCheck) {
                 eventEmitter.emit('checkTheme');

@@ -1,6 +1,5 @@
 var express = require('express');
 var app = express();
-var session = require("express-session");
 var path = require('path');
 var request = require('request');
 var pug = require('pug');
@@ -9,7 +8,7 @@ var http = require('http').Server(app);
 var File = require('./File.js');
 const { themes } = require('./theme.js');
 var isDev = require('electron-is-dev');
-const log = require("fancy-log");
+
 
 //===============EXPRESS=================
 
@@ -51,37 +50,10 @@ app.use(function(err, req, res, next) {
     res.render('error');
 });
 
-//Status
-app.use(require('express-status-monitor')({
-    title: 'Infinity Status',
-    path: '/status',
-    port: 8000,
-    spans: [{
-        interval: 1, // Every second
-        retention: 60 // Keep 60 datapoints in memory
-    }, {
-        interval: 5, // Every 5 seconds
-        retention: 60
-    }, {
-        interval: 15, // Every 15 seconds
-        retention: 60
-    }]
-}));
-app.use(require('express-favicon-short-circuit'));
-
-app.get('/status/:statusCode', (req, res) => res.sendStatus(req.params.statusCode));
-
-function checkAuth(req, res, next) {
-    if (isDev) return next();
-    if (req.isAuthenticated()) return next();
-    return res.redirect('/login');
-    //res.send('not logged in :(');
-}
-
 try {
     http.listen(8000, function() {
-        log.info("http://localhost:8000/");
+        console.log("http://localhost:8000/");
     });
 } catch (err) {
-    log.info("Falha ao abrir a interface web do InfinityApp");
+    console.log("Falha ao abrir a interface web do InfinityApp");
 }

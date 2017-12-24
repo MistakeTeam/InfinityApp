@@ -1,23 +1,26 @@
-var electronInstaller = require('electron-winstaller');
-var fs = require('fs');
+const createWindowsInstaller = require('electron-winstaller').createWindowsInstaller;
+const path = require('path');
 
-var settings = {
-    appDirectory: './dist/InfinityApp-win32-x64',
-    outputDirectory: './dist/built-installers',
-    // loadingGif: '',
-    authors: 'xDeltaFox.',
-    exe: './InfinityApp.exe',
-    description: 'InfinityApp',
-    setupIcon: './img/logo.ico',
-    setupExe: 'InfinityApp.exe',
-    iconUrl: 'https://raw.githubusercontent.com/xDeltaFox/InfinityApp/master/img/logo.ico',
-    noMsi: true
-};
+getInstallerConfig()
+    .then(createWindowsInstaller)
+    .catch((error) => {
+        console.error(error);
+        process.exit(1);
+    });
 
-resultPromise = electronInstaller.createWindowsInstaller(settings);
+function getInstallerConfig() {
+    console.log('creating windows installer');
+    const rootPath = path.join('./');
+    const outPath = path.join(rootPath, 'dist');
 
-resultPromise.then(() => {
-    console.log("The installers of your application were succesfully created !");
-}, (e) => {
-    console.log(`Well, sometimes you are not so lucky: ${e.message}`)
-});
+    return Promise.resolve({
+        appDirectory: path.join(outPath, 'InfinityApp-win32-ia32/'),
+        authors: 'xDeltaFox',
+        noMsi: true,
+        outputDirectory: path.join(outPath, 'built-installers'),
+        description: 'InfinityApp',
+        exe: 'InfinityApp.exe',
+        setupExe: 'InfinityApp.exe',
+        setupIcon: path.join(rootPath, 'img', 'logo.ico')
+    });
+}

@@ -1,13 +1,13 @@
 const events = require('events');
 const Rich = require('./lib/discord-rich-presence/rich.js');
-const log = require("fancy-log");
+
 
 var eventEmitter = new events.EventEmitter();
 var start = new Date().getTime() / 1000;
 var NotificationWindow = require('./notification');
 
 async function onplayer() {
-    log.info('Calling `onplayer` event');
+    console.log('Calling `onplayer` event');
     Rich.checkPresence({
         details: `idle`,
         state: `in Player`,
@@ -24,6 +24,6 @@ async function onplayer() {
 }
 
 eventEmitter.on('onplayer', onplayer);
-log.info(eventEmitter);
+console.log(eventEmitter);
 
 module.exports = { eventEmitter }

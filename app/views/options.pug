@@ -40,7 +40,7 @@ mixin separador(width, height)
                                 span.more-info #{theme.author}
                                 span.more-title-info Versão:
                                 span.more-info #{theme.version}
-                        .switch
+                        div(theme).switch
                             div(data-theme-name=theme.name data-author-name=theme.author data-check="false" id=theme.author+'-'+theme.name class="cmn-toggle cmn-toggle-round")
                             label(for=id)
                     div.lost-tab-bottom

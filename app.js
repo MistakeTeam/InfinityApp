@@ -19,7 +19,7 @@ const File = require('./File.js');
 // const Rich = require('./lib/discord-rich-presence/rich.js');
 const event = require('./events.js');
 // const steam = require('./lib/Games/Steam.js');
-const log = require("fancy-log");
+
 
 var eventEmitter = event.eventEmitter;
 //HOST
@@ -87,7 +87,7 @@ function createslash() {
 }
 
 function setupNotificationWindow(db) {
-    log.info("Iniciando o sistema de notificações...");
+    console.log("Iniciando o sistema de notificações...");
     NotificationWindow = require('./notification');
     if (NotificationWindow && !db.fristNotifier) {
         NotificationWindow.fristNotifier();
@@ -97,7 +97,7 @@ function setupNotificationWindow(db) {
 }
 
 function setupSystemTray() {
-    log.info("Iniciando o icone na bandeja do sistema...");
+    console.log("Iniciando o icone na bandeja do sistema...");
     var SystemTray = require('./SystemTray');
     if (!systemTray) {
         systemTray = new SystemTray(mainWindow, autoUpdater.checkForUpdates(), { myName, appVersion, buildVersion });
@@ -133,14 +133,10 @@ function createwindow(isVisible, options) {
         mainWindow.destroy();
     }
 
-    log.info("Criando janela...");
+    console.log("Criando janela...");
 
     if (options.themeCookie == null) {
-        options.themeCookie = {};
-    }
-
-    if (options.savedGames == null) {
-        options.savedGames = {};
+        options.themeCookie = [];
     }
 
     if (options.options == null) {
@@ -181,7 +177,7 @@ function createwindow(isVisible, options) {
         }
     };
 
-    log.info("Iniciando BrowserWindow...");
+    console.log("Iniciando BrowserWindow...");
     mainWindow = new BrowserWindow(mainWindowOptions);
     mainWindow.loadURL("http://localhost:8000/");
 
@@ -240,13 +236,13 @@ function createwindow(isVisible, options) {
 }
 
 function sendStatusToWindow(to, text) {
-    log.info(`${to} >> ${text}`);
+    console.log(`${to} >> ${text}`);
     mainWindow.webContents.send(to, text);
 }
 
 app.on('ready', function() {
     createslash();
-    log.info(`Estou, Pronto!\n{platform: ${process.platform}}`);
+    console.log(`Estou, Pronto!\n{platform: ${process.platform}}`);
 });
 
 app.on('window-all-closed', function() {

@@ -2,7 +2,7 @@ $(function() {
     var i = 0,
         timeOut = 0;
 
-    const log = require("fancy-log");
+
     const path = require('path');
     var eventEmitter;
     var userAgent = navigator.userAgent.toLowerCase();
