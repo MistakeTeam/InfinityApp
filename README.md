@@ -8,20 +8,12 @@
     <a href="https://github.com/xDeltaFox/InfinityApp/releases">
       <img src="https://img.shields.io/github/downloads/xDeltaFox/InfinityApp/total.svg" alt="Github"/>
     </a>
-    <a href="https://github.com/xDeltaFox/InfinityApp/releases/latest">
-      <img src="https://img.shields.io/github/downloads/xDeltaFox/InfinityApp/latest/total.svg" alt="Github"/>
-    </a>
     <a href="https://discord.gg/pZ5DedP">
       <img src="https://discordapp.com/api/guilds/394317031090028556/embed.png" alt="Discord Server"/>
     </a>
     <a href="https://trello.com/b/B0W0MBlK/infinityapp">
       <img src="https://img.shields.io/badge/Trello-InfinityApp-blue.svg" alt="Trello"/>
     </a>
-    <a href="https://requires.io/github/xDeltaFox/InfinityApp/requirements/?branch=master">
-      <img src="https://img.shields.io/requires/github/xDeltaFox/InfinityApp.svg" alt="Requires"/>
-    </a>
-    <img src="https://img.shields.io/david/xDeltaFox/InfinityApp.svg" alt="Dependencies"/>
-    <img src="https://img.shields.io/david/dev/xDeltaFox/InfinityApp.svg" alt="DevDependencies"/>
   </p>
 </div>
 
