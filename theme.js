@@ -1,6 +1,6 @@
 var folder_theme = `${process.env.APPDATA}/InfinityApp/themes`;
 var fs = require('fs');
-var File = require('./File.js');
+var File = require('./lib/File.js');
 var path = require('path');
 var isDev = require('electron-is-dev');
 

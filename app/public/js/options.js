@@ -3,13 +3,13 @@ var theme;
 var eventEmitter;
 
 try {
-    File = require(path.resolve(process.cwd(), './File.js'));
+    File = require(path.resolve(process.cwd(), './lib/File.js'));
     theme = require(path.resolve(process.cwd(), './theme.js'));
-    eventEmitter = require(path.resolve(process.cwd(), './events.js')).eventEmitter;
+    eventEmitter = require(path.resolve(process.cwd(), './lib/events.js')).eventEmitter;
 } catch (err) {
-    File = require(path.resolve(process.cwd(), './resources/app/File.js'));
+    File = require(path.resolve(process.cwd(), './resources/app/lib/File.js'));
     theme = require(path.resolve(process.cwd(), './resources/app/theme.js'));
-    eventEmitter = require(path.resolve(process.cwd(), './resources/app/events.js')).eventEmitter;
+    eventEmitter = require(path.resolve(process.cwd(), './resources/app/lib/events.js')).eventEmitter;
 }
 
 $('.option-contents').click(function() {

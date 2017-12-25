@@ -18,11 +18,11 @@ var eventEmitter;
 var File;
 
 try {
-    eventEmitter = require(path.resolve('./events.js')).eventEmitter;
-    File = require(path.resolve(process.cwd(), './File.js'));
+    eventEmitter = require(path.resolve('./lib/events.js')).eventEmitter;
+    File = require(path.resolve(process.cwd(), './lib/File.js'));
 } catch (err) {
-    eventEmitter = require(path.resolve(process.cwd(), './resources/app/events.js')).eventEmitter;
-    File = require(path.resolve(process.cwd(), './resources/app/File.js'));
+    eventEmitter = require(path.resolve(process.cwd(), './resources/app/lib/events.js')).eventEmitter;
+    File = require(path.resolve(process.cwd(), './resources/app/lib/File.js'));
 }
 
 // console.log(fs.readdirSync(process.env.APPDATA + '/InfinityApp'))

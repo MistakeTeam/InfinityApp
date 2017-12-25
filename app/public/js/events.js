@@ -9,9 +9,9 @@ $(function() {
     console.log(userAgent);
 
     try {
-        eventEmitter = require(path.resolve('./events.js')).eventEmitter;
+        eventEmitter = require(path.resolve('./lib/events.js')).eventEmitter;
     } catch (err) {
-        eventEmitter = require(path.resolve(process.cwd(), './resources/app/events.js')).eventEmitter;
+        eventEmitter = require(path.resolve(process.cwd(), './resources/app/lib/events.js')).eventEmitter;
     }
 
     var currentMousePos = { x: -1, y: -1 };

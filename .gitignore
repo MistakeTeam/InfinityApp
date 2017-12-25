@@ -35,11 +35,11 @@ jspm_packages
 
 # Others
 dist
-lib
-app/lib
-app/public/img/games
+lib/API
+lib/discord-rich-presence
+lib/Games
+lib/notify
 DB
-config.json
 to
 
 # =========================

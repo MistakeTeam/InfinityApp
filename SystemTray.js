@@ -39,7 +39,7 @@ const {
 var fs = require('fs');
 var path = require('path');
 var AutoRun = require('./AutoRun');
-var File = require('./File.js');
+var File = require('./lib/File.js');
 
 var tray = null;
 

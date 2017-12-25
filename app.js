@@ -15,15 +15,15 @@ const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const url = require('url');
-const File = require('./File.js');
+const File = require('./lib/File.js');
 // const Rich = require('./lib/discord-rich-presence/rich.js');
-const event = require('./events.js');
+const event = require('./lib/events.js');
 // const steam = require('./lib/Games/Steam.js');
 
 
 var eventEmitter = event.eventEmitter;
 //HOST
-var host = require('./host.js');
+var host = require('./lib/host.js');
 
 require('electron-reload')(__dirname);
 

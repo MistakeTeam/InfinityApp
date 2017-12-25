@@ -8,9 +8,9 @@ var File;
 var indexedit;
 
 try {
-    File = require(path.resolve(process.cwd(), './File.js'));
+    File = require(path.resolve(process.cwd(), './lib/File.js'));
 } catch (err) {
-    File = require(path.resolve(process.cwd(), './resources/app/File.js'));
+    File = require(path.resolve(process.cwd(), './resources/app/lib/File.js'));
 }
 
 iconExtractor.emitter.on('icon', function(data) {
