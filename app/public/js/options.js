@@ -4,12 +4,12 @@ var eventEmitter;
 
 try {
     File = require(path.resolve(process.cwd(), './lib/File.js'));
-    theme = require(path.resolve(process.cwd(), './theme.js'));
+    theme = require(path.resolve(process.cwd(), './lib/theme.js'));
     eventEmitter = require(path.resolve(process.cwd(), './lib/events.js')).eventEmitter;
 } catch (err) {
-    File = require(path.resolve(process.cwd(), './resources/app/lib/File.js'));
-    theme = require(path.resolve(process.cwd(), './resources/app/theme.js'));
-    eventEmitter = require(path.resolve(process.cwd(), './resources/app/lib/events.js')).eventEmitter;
+    File = require(path.resolve(process.cwd(), './resources/app.asar/lib/File.js'));
+    theme = require(path.resolve(process.cwd(), './resources/app.asar/lib/theme.js'));
+    eventEmitter = require(path.resolve(process.cwd(), './resources/app.asar/lib/events.js')).eventEmitter;
 }
 
 $('.option-contents').click(function() {
@@ -31,15 +31,16 @@ $('.option-contents').click(function() {
 })
 
 //options in-app
-$('.switch').click(function() {
+function switchclick(event) {
     setTimeout(() => {
         File.ReadFile('options.json', db => {
-            var data = JSON.parse(db);
+            var data = db;
             var options = data.options;
             var themeCookie = data.themeCookie;
             var themeCheck = false;
 
             if ($(this).attr('theme') == '') {
+                console.log(`[options] themedata`);
                 themeCookie.forEach(themedata => {
                     themes.themes.forEach(themes => {
                         var name = themes.name;
@@ -48,8 +49,14 @@ $('.switch').click(function() {
 
                         if (themedata.hasOwnProperty(name)) {
                             if (name == $(this).children('div').attr('data-theme-name')) {
+                                $(this).children('.cmn-toggle').attr('data-check', 'true');
+                                $(this).children('.cmn-toggle').attr('checked', '');
+                                $(this).children('.cmn-toggle').attr('active', '');
                                 themedata[name] = true;
                             } else if (name != $(this).children('div').attr('data-theme-name')) {
+                                $(this).children('.cmn-toggle').attr('data-check', 'false');
+                                $(this).children('.cmn-toggle').removeAttr('checked');
+                                $(this).children('.cmn-toggle').removeAttr('active');
                                 themedata[name] = false;
                             }
                         } else {}
@@ -63,11 +70,25 @@ $('.switch').click(function() {
             }
 
             // AnimationRun
-            if ($(this).children('#mr-check-1').attr('checked')) {
+            if (!$(this).children('#mr-check-1').attr('checked')) {
+                console.log(`[options] AnimationRun`);
+                // Checked
+                $(this).children('.cmn-toggle').attr('data-check', 'true');
+                $(this).children('.cmn-toggle').attr('checked', '');
+                $(this).children('.cmn-toggle').attr('active', '');
+
+                // Ação
                 options.AnimationRun = true;
                 $('.animation-default').addClass('animation-off');
                 $('.animation-default').removeClass('animation-default');
             } else {
+                console.log(`[options] AnimationRun`);
+                // Checked
+                $(this).children('.cmn-toggle').attr('data-check', 'false');
+                $(this).children('.cmn-toggle').removeAttr('checked');
+                $(this).children('.cmn-toggle').removeAttr('active');
+
+                // Ação
                 options.AnimationRun = false;
                 $('.animation-off').addClass('animation-default');
                 $('.animation-off').removeClass('animation-off');
@@ -76,11 +97,15 @@ $('.switch').click(function() {
             File.SaveFile('options.json', JSON.stringify(data));
         });
     }, 1);
+}
+
+eventEmitter.on('switchclick', () => {
+    $('.switch').click(switchclick);
 });
 
 // onLoad app
 File.ReadFile('options.json', db => {
-    var data = JSON.parse(db);
+    var data = db;
     var options = data.options;
 
     // AnimationRun

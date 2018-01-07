@@ -2,93 +2,46 @@
 
 const {
     app,
-    autoUpdater,
-    BrowserWindow,
-    Menu,
-    remote
+    BrowserWindow
 } = require('electron');
 
-const isDev = require('electron-is-dev'); // this is required to check if the app is running in development mode. 
-autoUpdater.setFeedURL("https://github.com/xDeltaFox/InfinityApp/releases/latest/");
+const isDev = require('electron-is-dev');
 
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
 const url = require('url');
+const isOnline = require('is-online');
 const File = require('./lib/File.js');
-// const Rich = require('./lib/discord-rich-presence/rich.js');
+const Rich = require('./lib/discord-rich-presence/rich.js');
 const event = require('./lib/events.js');
+const autoUpdater = require('./lib/autoUpdate.js')(sendStatusToWindow);
+const Splash = require('./lib/SplashWindows');
 // const steam = require('./lib/Games/Steam.js');
 
 
 var eventEmitter = event.eventEmitter;
-//HOST
 var host = require('./lib/host.js');
 
 require('electron-reload')(__dirname);
 
 var appVersion = app.getVersion();
 var buildVersion = 'EA0212';
-var start = new Date().getTime() / 1000;
 
 var notificationWindow = null;
+var splash_data = null;
 var mainWindow = null;
-var splash = null;
-var login = null;
 var systemTray = null;
 
 var WIDTH = 1350;
 var HEIGHT = 720;
-var ACCOUNT_GREY = '#DBC392';
 var lastCrashed = 0;
 var myName = "InfinityApp";
-let IsCloudEnabled = false;
 let FileOptions = "options.json";
-
-function capitalizeFirstLetter(s) {
-    return s.charAt(0).toUpperCase() + s.slice(1);
-}
-
-function webContentsSend() {
-    if (mainWindow != null && mainWindow.webContents != null) {
-        var _mainWindow$webConten;
-        (_mainWindow$webConten = mainWindow.webContents).send.apply(_mainWindow$webConten, arguments);
-    }
-}
-
-//==========================Splash==========================
-function createslash() {
-    if (splash != null) {
-        return;
-    }
-
-    splash = new BrowserWindow({ width: 300, height: 111, frame: false, transparent: true, icon: __dirname + "/img/logo.png" });
-    splash.loadURL(url.format({
-        pathname: path.join(__dirname, '/splash/index.html'),
-        protocol: 'file:',
-        slashes: true
-    }));
-
-    splash.on('page-title-updated', function(e, title) {
-        e.preventDefault();
-        if (title == '') title = 'Infinity';
-        else title += ' - Infinity';
-        splash.setTitle(title);
-    });
-
-    splash.on('closed', () => splash = null);
-    splash.webContents.on('did-finish-load', () => {
-        splash.show();
-    });
-
-    File.ReadFile(FileOptions, data => {
-        createwindow(false, JSON.parse(data));
-    });
-}
 
 function setupNotificationWindow(db) {
     console.log("Iniciando o sistema de notificações...");
-    NotificationWindow = require('./notification');
+    NotificationWindow = require('./lib/notification');
     if (NotificationWindow && !db.fristNotifier) {
         NotificationWindow.fristNotifier();
         db.fristNotifier = true;
@@ -97,9 +50,9 @@ function setupNotificationWindow(db) {
 }
 
 function setupSystemTray() {
-    console.log("Iniciando o icone na bandeja do sistema...");
-    var SystemTray = require('./SystemTray');
+    var SystemTray = require('./lib/SystemTray');
     if (!systemTray) {
+        console.log("Iniciando o icone na bandeja do sistema...");
         systemTray = new SystemTray(mainWindow, autoUpdater.checkForUpdates(), { myName, appVersion, buildVersion });
     }
 }
@@ -112,10 +65,8 @@ function setWindowVisible(isVisible, andUnminimize) {
     if (isVisible) {
         if (andUnminimize || !mainWindow.isMinimized()) {
             mainWindow.show();
-            webContentsSend('MAIN_WINDOW_FOCUS');
         }
     } else {
-        webContentsSend('MAIN_WINDOW_BLUR');
         mainWindow.hide();
         if (systemTray) {
             systemTray.displayHowToCloseHint();
@@ -127,9 +78,7 @@ function setWindowVisible(isVisible, andUnminimize) {
 
 //==========================InfinityApp==========================
 function createwindow(isVisible, options) {
-    // want to be able to re-run this and set things up again
     if (mainWindow) {
-        // message here?
         mainWindow.destroy();
     }
 
@@ -202,46 +151,49 @@ function createwindow(isVisible, options) {
         console.error('crashed... reloading');
     });
 
-    mainWindow.webContents.once('did-frame-finish-load', () => {
-        const checkOS = isWindowsOrmacOS();
-        if (checkOS && !isDev) {
-            autoUpdater.checkForUpdates();
-        }
-    });
-
     mainWindow.on('ready-to-show', function() {
         setupSystemTray();
-        // setupNotificationWindow(options);
-        splash.close();
+        splash_data.close();
         mainWindow.show();
 
         //Start Rich Presence
-        // Rich.rpc.on('ready', () => {
-        //     log(`Connected to Discord! (${Rich.appClient})`);
+        Rich.rpc.on('ready', () => {
+            console.log(`Connected to Discord! (${Rich.appClient})`);
 
-        //     Rich.checkPresence({
-        //         details: `Testing...`,
-        //         state: `in Menus`,
-        //         startTimestamp: start > start + 3600 ? start = new Date().getTime() / 1000 : start,
-        //         // endTimestamp: ``,
-        //         largeImageKey: `infinity_logo`,
-        //         // smallImageKey: ``,
-        //         largeImageText: `InfinityApp`,
-        //         // smallImageText: ``,
-        //         instance: false,
-        //     });
-        // });
-        // Rich.rpc.login(Rich.appClient).catch(log.error);
+            Rich.checkPresence({
+                details: `Testing...`,
+                state: `in Menus`,
+                startTimestamp: Rich.getTime(),
+                // endTimestamp: ``,
+                largeImageKey: `infinity_logo`,
+                // smallImageKey: ``,
+                largeImageText: `InfinityApp`,
+                // smallImageText: ``,
+                instance: false,
+            });
+        });
+
+        isOnline().then(online => {
+            console.log(`Internet is ${online}`);
+
+            if (online) {
+                console.log(`Conectando a internet...`);
+                Rich.rpc.login(Rich.appClient).catch(console.error);
+            } else {
+                console.log(`Você está offline.`);
+            }
+        });
     });
 }
 
-function sendStatusToWindow(to, text) {
-    console.log(`${to} >> ${text}`);
-    mainWindow.webContents.send(to, text);
-}
-
 app.on('ready', function() {
-    createslash();
+    Splash((splash) => {
+        splash_data = splash;
+
+        File.ReadFile(FileOptions, data => {
+            createwindow(false, JSON.parse(data));
+        });
+    });
     console.log(`Estou, Pronto!\n{platform: ${process.platform}}`);
 });
 
@@ -251,73 +203,18 @@ app.on('window-all-closed', function() {
     }
 });
 
-app.on('activate', function() {
-    if (mainWindow === null) {
-        createWindow();
-    }
-});
-
 app.on('before-quit', function(e) {
     mainWindow = null;
-    if (notificationWindow != null) {
-        notificationWindow.close();
-    }
 });
 
-//----------------------------------------
-//--------------autoUpdater---------------
-//----------------------------------------
-
-autoUpdater.on('checking-for-update', () => {
-    sendStatusToWindow('updatetext', 'Buscando atualizações...');
-});
-
-autoUpdater.on('update-available', (info) => {
-    sendStatusToWindow('updatetext', 'Atualização disponivel');
-});
-
-autoUpdater.on('update-not-available', (info) => {
-    sendStatusToWindow('updatetext', 'Está é a ultima versão.');
-});
-
-autoUpdater.on('error', (err) => {
-    sendStatusToWindow('updatetext', 'Erro ao atualizar.');
-});
-
-autoUpdater.on('download-progress', (progressObj) => {
-    let speed = ((progressObj.bytesPerSecond / 1000) / 1000).toFixed(1);
-    let transferred = ((progressObj.transferred / 1000) / 1000).toFixed(1);
-    let total = ((progressObj.total / 1000) / 1000).toFixed(1);
-    let percent = progressObj.percent.toFixed(1);
-
-    let log_message = "Velocidade: " + speed + " Mb/s";
-    log_message = log_message + ' - Baixado: ' + percent + '%';
-    log_message = log_message + ' (' + transferred + "/" + total + ')';
-    sendStatusToWindow('updatetext', log_message);
-});
-
-autoUpdater.on('update-downloaded', (info) => {
-    sendStatusToWindow('updatetext', 'Atualização baixada, em 5 segundos será instalada.');
-
-    setTimeout(function() {
-        autoUpdater.quitAndInstall();
-    }, 5000)
-});
+function sendStatusToWindow(to, text) {
+    console.log(`${to} >> ${text}`);
+    mainWindow.webContents.send(to, text);
+}
 
 module.exports = {
     app,
-    remote,
     File,
     createwindow,
-    mainWindow,
-    splash,
-    login
-}
-
-//---------------------------------------
-//---------------FUNCTIONS---------------
-//---------------------------------------
-
-function isWindowsOrmacOS() {
-    return process.platform === 'darwin' || process.platform === 'win32';
+    mainWindow
 }

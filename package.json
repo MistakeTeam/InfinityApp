@@ -1,12 +1,12 @@
 {
     "name": "infinityapp",
-    "version": "0.0.25",
+    "version": "0.0.26",
     "descrection": "Um app universal",
-    "main": "app.js",
+    "main": "Main.js",
     "scripts": {
         "start": "electron . InfinityApp",
         "web": "node host.js",
-        "buildwin": "electron-packager . InfinityApp --version 1.7.6 --platform win32  --arch=ia32 --icon ./img/logo.ico --out ./dist --overwrite",
+        "buildwin": "electron-packager . InfinityApp --version 1.7.10 --platform win32  --arch=ia32 --icon ./img/logo.ico --out ./dist --overwrite --asar=true",
         "buildasar": "asar pack . app.asar",
         "setup": "node build.js"
     },
@@ -17,7 +17,7 @@
     "author": "xDeltaFox",
     "license": "Apache-2.0",
     "devDependencies": {
-        "electron": "^1.7.8",
+        "electron": "^1.7.10",
         "electron-winstaller": "^2.6.3"
     },
     "dependencies": {
@@ -27,14 +27,17 @@
         "discord-rpc": "^3.0.0-beta.8",
         "electron-is": "^2.4.0",
         "electron-is-dev": "^0.3.0",
-        "electron-packager": "^8.7.2",
         "electron-reload": "^1.2.2",
         "eventemitter3": "^2.0.3",
         "express": "^4.15.4",
+        "express-less": "^0.1.0",
         "icon-extractor": "^1.0.3",
         "igdb-api-node": "^3.1.1",
+        "is-online": "^7.0.0",
         "jquery": "^3.2.1",
+        "markdown": "^0.5.0",
         "node-tweet-stream": "^2.0.1",
-        "pug": "^2.0.0-rc.4"
+        "pug": "^2.0.0-rc.4",
+        "rimraf": "^2.6.2"
     }
 }

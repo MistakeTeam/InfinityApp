@@ -1,20 +1,22 @@
 var File;
 var themes;
 var eventEmitter;
+var theme_ready = false;
+
 
 try {
     File = require(path.resolve(process.cwd(), './lib/File.js'));
-    themes = require(path.resolve(process.cwd(), './theme.js'));
+    themes = require(path.resolve(process.cwd(), './lib/theme.js'));
     eventEmitter = require(path.resolve(process.cwd(), './lib/events.js')).eventEmitter;
 } catch (err) {
-    File = require(path.resolve(process.cwd(), './resources/app/lib/File.js'));
-    themes = require(path.resolve(process.cwd(), './resources/app/theme.js'));
-    eventEmitter = require(path.resolve(process.cwd(), './resources/app/lib/events.js')).eventEmitter;
+    File = require(path.resolve(process.cwd(), './resources/app.asar/lib/File.js'));
+    themes = require(path.resolve(process.cwd(), './resources/app.asar/lib/theme.js'));
+    eventEmitter = require(path.resolve(process.cwd(), './resources/app.asar/lib/events.js')).eventEmitter;
 }
 
 function checkTheme() {
     File.ReadFile('options.json', db => {
-        var data = JSON.parse(db);
+        var data = db;
 
         if (data.themeCookie.length <= 0) {
             console.log('Adicionando temas');
@@ -22,7 +24,10 @@ function checkTheme() {
         }
         var themeCookie = data.themeCookie;
 
-        // refreshtheme();
+        if (!theme_ready) {
+            refreshtheme();
+            theme_ready = true;
+        }
 
         themeCookie.forEach((themedata) => {
             themes.themes.forEach((theme) => {
@@ -72,6 +77,8 @@ function refreshtheme() {
         </div>
         `);
     });
+
+    eventEmitter.emit('switchclick');
 }
 
 setTimeout(() => {

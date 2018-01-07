@@ -19,9 +19,9 @@ mixin gameitem(index, title, descripitiion, path, thumb)
         .game-add-footer.animation-default
             span.footer-title Add Game
             span(style='opacity: 0;').footer-descripition.animation-default Adicione games a sua lista.
-    if games
-        each game, index in games
-            +gameitem(index, game.name, game.description, game.path, game.thumb)
+    //- if games
+    //-     each game, index in games
+    //-         +gameitem(index, game.name, game.description, game.path, game.thumb)
 div.expo-game-fT46of
     div.is-overlay.animation-default#over-gi592n(style="display: none; opacity: 0;")
     div.gameview-add.animation-default(style="display: none; opacity: 0; transform: scale(0.9, 0.9); z-index: -1;")
@@ -53,6 +53,9 @@ div.expo-game-fT46of
                 span Editar games
                 div#gamesEditText
                     span Nome
+                    input(type="text")
+                div#gamesEditDesc
+                    span Descrição
                     input(type="text")
             div(class="comfirm-ht95e2" style="float: right;")
                 span(class="animation-default") Confirmar

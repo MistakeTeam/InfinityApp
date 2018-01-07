@@ -12,12 +12,13 @@ const {
     shell
 } = require('electron');
 
+var path = require('path');
 var eventEmitter;
 
 try {
     eventEmitter = require(path.resolve(process.cwd(), './lib/events.js')).eventEmitter;
 } catch (err) {
-    eventEmitter = require(path.resolve(process.cwd(), './resources/app/lib/events.js')).eventEmitter;
+    eventEmitter = require(path.resolve(process.cwd(), './resources/app.asar/lib/events.js')).eventEmitter;
 }
 
 ipcRenderer.on('updatetext', (event, message) => {

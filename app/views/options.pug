@@ -3,11 +3,11 @@ mixin checkbox(id, dataname, title, description)
         .mr-text
             .mr-text-title
                 span #{title}
+                .switch
+                    div(data-internal-name=dataname data-check="false" id=id class="cmn-toggle cmn-toggle-round")
+                    label(for=id)
             .mr-text-description
                 span #{description}
-        .switch
-            div(data-internal-name=dataname data-check="false" id=id class="cmn-toggle cmn-toggle-round")
-            label(for=id)
 
 mixin separador(width, height)
     .separador(style=`width: ${width}; height: ${height};`)
@@ -30,18 +30,19 @@ mixin separador(width, height)
         div(style="display: block;")#general-box
             +checkbox('mr-check-1', 'AnimationRun', 'Desativar animações', 'Animações afeta o desempenho do aplicativo, recomanda-se desativa-las se seu desempenho estiver comprometido.')
         div(style="display: none;")#theme-box
-            each theme in themes
-                div.contain-theme
-                    div.lost-tab-top
-                        div.contain-tab
-                            span.tab-title #{theme.name}
-                            div.lost-more-info
-                                span.more-title-info Autor:
-                                span.more-info #{theme.author}
-                                span.more-title-info Versão:
-                                span.more-info #{theme.version}
-                        div(theme).switch
-                            div(data-theme-name=theme.name data-author-name=theme.author data-check="false" id=theme.author+'-'+theme.name class="cmn-toggle cmn-toggle-round")
-                            label(for=id)
-                    div.lost-tab-bottom
-                        span.tab-description #{theme.description}
+            //- if themes
+            //-     each theme in themes
+            //-         div.contain-theme
+            //-             div.lost-tab-top
+            //-                 div.contain-tab
+            //-                     span.tab-title #{theme.name}
+            //-                     div.lost-more-info
+            //-                         span.more-title-info Autor:
+            //-                         span.more-info #{theme.author}
+            //-                         span.more-title-info Versão:
+            //-                         span.more-info #{theme.version}
+            //-                 div(theme).switch
+            //-                     div(data-theme-name=theme.name data-author-name=theme.author data-check="false" id=theme.author+'-'+theme.name class="cmn-toggle cmn-toggle-round")
+            //-                     label(for=id)
+            //-             div.lost-tab-bottom
+            //-                 span.tab-description #{theme.description}

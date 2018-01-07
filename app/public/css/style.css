@@ -250,6 +250,28 @@ input:focus {
 }
 
 
+/* markup */
+
+.game-add-footer em {
+    font-style: italic;
+}
+
+.game-add-footer strong {
+    font-weight: 700;
+}
+
+s,
+strike,
+del {
+    text-decoration: line-through;
+}
+
+u,
+ins {
+    text-decoration: underline;
+}
+
+
 /* Loading */
 
 .loading-2Y9J6r {
@@ -326,16 +348,6 @@ input:focus {
     height: 100%;
 }
 
-#util-game {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: calc(100% - 78px);
-    margin: 0 auto;
-    z-index: 500;
-}
-
 #util-player {
     position: absolute;
     bottom: 0;
@@ -346,17 +358,8 @@ input:focus {
     z-index: 500;
 }
 
-#util-options {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 98%;
-    height: calc(100% - 78px);
-    margin: 0 auto;
-    z-index: 500;
-}
-
+#util-game,
+#util-options,
 #util-soon {
     position: absolute;
     bottom: 0;
@@ -373,34 +376,33 @@ input:focus {
 
 .mr-check {
     display: flex;
-    padding: 2px;
+    margin: 4px;
+    border-radius: 3px;
+    background: #262727;
+    color: #fff;
 }
 
 .mr-text {
-    width: 95%;
+    width: 100%;
 }
 
 .mr-text-title {
-    text-align: left;
     color: #e6dbdb;
+    display: flex;
+    padding: 5px;
+    background: #1e1f1f;
+    border-radius: 3px 3px 0 0;
     font-weight: 600;
-    line-height: 24px;
-    font-size: 16px;
+    font-size: 18px;
     font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
-    margin: 0;
-    position: relative;
-    top: 4px;
 }
 
 .mr-text-description {
     color: rgba(230, 219, 219, 0.7);
+    padding: 5px;
     text-align: left;
     font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
-    margin: 0;
-    font-weight: 500;
     font-size: 14px;
-    margin-top: 5px;
-    margin-bottom: 5px;
 }
 
 
@@ -466,7 +468,14 @@ input:focus {
     position: relative;
     display: inline-block;
     width: 60px;
-    height: 34px;
+}
+
+.mr-text-title .switch {
+    position: absolute;
+    display: inline-block;
+    width: 60px;
+    right: 5px;
+    top: 10px;
 }
 
 .switch input {

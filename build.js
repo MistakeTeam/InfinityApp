@@ -20,7 +20,7 @@ function getInstallerConfig() {
         outputDirectory: path.join(outPath, 'built-installers'),
         description: 'InfinityApp',
         exe: 'InfinityApp.exe',
-        setupExe: 'InfinityApp.exe',
+        setupExe: `InfinitySetup.exe`,
         setupIcon: path.join(rootPath, 'img', 'logo.ico')
     });
 }

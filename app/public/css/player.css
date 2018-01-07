@@ -14,13 +14,17 @@ video {
 }
 
 .player-video {
+    position: absolute;
+    width: 100%;
     height: 100%;
 }
 
 .player-controls-botton {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
+    position: relative;
+    top: calc(100% - 65px);
+    margin: 0 10px 0 10px;
+    background: #2d2e2f;
+    border-radius: 5px;
 }
 
 .player-controls {
@@ -146,6 +150,7 @@ video {
     background-color: rgba(0, 0, 0, 0.2);
     height: 10px;
     width: 100%;
+    border-radius: 5px;
 }
 
 #progress-loader {
@@ -154,6 +159,7 @@ video {
     position: absolute;
     top: 0;
     background-color: #ffffff;
+    border-radius: 5px;
 }
 
 input#pb-input {

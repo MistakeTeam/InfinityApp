@@ -11,7 +11,7 @@ $(function() {
     try {
         eventEmitter = require(path.resolve('./lib/events.js')).eventEmitter;
     } catch (err) {
-        eventEmitter = require(path.resolve(process.cwd(), './resources/app/lib/events.js')).eventEmitter;
+        eventEmitter = require(path.resolve(process.cwd(), './resources/app.asar/lib/events.js')).eventEmitter;
     }
 
     var currentMousePos = { x: -1, y: -1 };
@@ -21,14 +21,39 @@ $(function() {
         // console.log(`x: ${currentMousePos.x}, y: ${currentMousePos.y}`);
     });
 
+    $(document).keydown(function(event) {
+        if (event.which == 27) {
+            // eventEmitter.emit('onmain');
+            $('.util-app').css('transform', 'scale(1.1, 1.1)');
+            $('.util-app').css('opacity', '0');
+            $('.util-app').css('z-index', '-1');
+            $('.util-app').contents().filter('.loading-2Y9J6r').remove();
+            // $('.back-o4f98s').css('visibility', 'hidden');
+            $('.back-o4f98s').css('top', '0');
+            $('.back-o4f98s').css('left', '5px');
+            $('.back-o4f98s').css('opacity', '0');
+            $('.back-o4f98s').css('pointer-events', 'none');
+            // $('.menu-itens').css('display', 'flex');
+            $('.menu-itens').css('transform', 'scale(1, 1)');
+            $('.menu-itens').css('opacity', '1');
+            $('.menu-itens').css('z-index', '100');
+            $('.menu-topbar').css('opacity', '1');
+            $('.menu-topbar').css('z-index', '200');
+            setTimeout(() => {
+                $('.util-app').contents().filter('.country-gp-dnn').contents().css('visibility', 'hidden');
+            }, 500);
+        }
+    });
+
     $('.back-o4f98s').click(function() {
+        // eventEmitter.emit('onmain');
         $('.util-app').css('transform', 'scale(1.1, 1.1)');
         $('.util-app').css('opacity', '0');
         $('.util-app').css('z-index', '-1');
         $('.util-app').contents().filter('.loading-2Y9J6r').remove();
         // $('.back-o4f98s').css('visibility', 'hidden');
-        $('.back-o4f98s').css('top', '0');
-        $('.back-o4f98s').css('left', '5px');
+        // $('.back-o4f98s').css('top', '0');
+        // $('.back-o4f98s').css('left', '5px');
         $('.back-o4f98s').css('opacity', '0');
         $('.back-o4f98s').css('pointer-events', 'none');
         // $('.menu-itens').css('display', 'flex');
@@ -112,15 +137,16 @@ $(function() {
                         $('.util-app').contents().filter('.loading-2Y9J6r').remove();
                         break;
                     case 'util-game':
+                        // eventEmitter.emit('ongames');
                         $('.back-o4f98s').css('opacity', '1');
                         $('.util-app').contents().filter('.country-gp-dnn').contents().filter('#' + $(this).attr('data-internal-name')).css('visibility', 'visible');
                         $('.util-app').contents().filter('.loading-2Y9J6r').remove();
                         break;
                     case 'util-player':
-                        eventEmitter.emit('onplayer');
+                        // eventEmitter.emit('onplayer');
                         $('.back-o4f98s').css('opacity', '0');
-                        $('.back-o4f98s').css('top', '70px');
-                        $('.back-o4f98s').css('left', '0');
+                        // $('.back-o4f98s').css('top', '70px');
+                        // $('.back-o4f98s').css('left', '0');
                         $('.menu-topbar').css('z-index', '0');
                         $('.menu-topbar').css('opacity', '0');
                         $('.util-app').contents().filter('.country-gp-dnn').contents().filter('#' + $(this).attr('data-internal-name')).css('visibility', 'visible');
@@ -137,18 +163,6 @@ $(function() {
             i = 0;
             clearInterval(timeOut);
             return;
-        }
-    });
-
-    $('.switch').click(function(event) {
-        if ($(this).children('.cmn-toggle').attr('data-check') == 'false') {
-            $(this).children('.cmn-toggle').attr('data-check', 'true');
-            $(this).children('.cmn-toggle').attr('checked', '');
-            $(this).children('.cmn-toggle').attr('active', '');
-        } else {
-            $(this).children('.cmn-toggle').attr('data-check', 'false');
-            $(this).children('.cmn-toggle').removeAttr('checked');
-            $(this).children('.cmn-toggle').removeAttr('active');
         }
     });
 });

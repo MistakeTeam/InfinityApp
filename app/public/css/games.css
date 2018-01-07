@@ -8,7 +8,6 @@
     border-radius: 2px;
     flex-wrap: wrap;
     overflow: auto;
-    width: 98%;
     margin: 0 auto;
 }
 
@@ -122,6 +121,10 @@
 .footer-descripition {
     font-size: 12px;
     color: #fff;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 2.5px;
 }
 
 .game-options-Ao1t71 {
@@ -152,7 +155,7 @@
 }
 
 .gameview-Te2Y93 label:hover {
-    background: #e2dc0e;
+    background: hsla(0, 0%, 0%, 0.35);
 }
 
 .gameview-Te2Y93 {
@@ -195,7 +198,7 @@
 
 .comfirm-Te2Y93 span:hover,
 .comfirm-ht95e2 span:hover {
-    background: #17b006;
+    background: hsla(0, 0%, 0%, 0.35);
 }
 
 .game-edit-Dg4jk0 {

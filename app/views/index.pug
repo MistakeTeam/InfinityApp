@@ -1,11 +1,11 @@
 extends layout
 
 block head
-    link(rel='stylesheet', href='/css/style.css')
-    link(rel='stylesheet', href='/css/app.css')
-    link(rel='stylesheet', href='/css/games.css')
-    link(rel='stylesheet', href='/css/player.css')
-    link(rel='stylesheet', href='/css/options.css')
+    link(rel="stylesheet" href='/css/style.css')
+    link(rel="stylesheet" href='/css/app.css')
+    link(rel="stylesheet" href='/css/games.css')
+    link(rel="stylesheet" href='/css/player.css')
+    link(rel="stylesheet" href='/css/options.css')
 
 block titlebar
     div.win-buttons.win-buttons-light
@@ -120,5 +120,9 @@ block app
                             include soon
 
 block scripts
-    script(src='/js/events.js')
     script(src='/js/main.js')
+    script(src='/js/events.js')
+    script(src='/js/player.js')
+    script(src='/js/games.js')
+    script(src='/js/theme.js')
+    script(src='/js/options.js')
