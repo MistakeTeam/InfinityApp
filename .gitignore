@@ -36,12 +36,9 @@ jspm_packages
 # Others
 app.js
 dist
-lib/API
-lib/discord-rich-presence
 lib/Games
 lib/notify
 lib/TwitchAPI
-DB
 to
 
 # =========================

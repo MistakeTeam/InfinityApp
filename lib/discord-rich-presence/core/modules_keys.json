@@ -1,0 +1,4 @@
+{
+    "vs code": "../modules/vscode-discord/",
+    "spotify": "../modules/spoticord/"
+}
