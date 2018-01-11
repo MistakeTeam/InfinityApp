@@ -103,7 +103,7 @@
 }
 
 .game-add-footer {
-    height: 30px;
+    height: 35px;
     position: absolute;
     left: 0;
     bottom: 0;
@@ -116,9 +116,12 @@
 
 .footer-title {
     position: relative;
-    top: 5px;
+    top: 2px;
     color: #fff;
     font-weight: 700;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .footer-descripition {

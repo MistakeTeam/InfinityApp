@@ -1,8 +1,7 @@
 var File;
 var themes;
 var eventEmitter;
-var theme_ready = false;
-
+var path = require('path');
 
 try {
     File = require(path.resolve(process.cwd(), './lib/File.js'));
@@ -23,11 +22,6 @@ function checkTheme() {
             data.themeCookie = themes.datathemes;
         }
         var themeCookie = data.themeCookie;
-
-        if (!theme_ready) {
-            refreshtheme();
-            theme_ready = true;
-        }
 
         themeCookie.forEach((themedata) => {
             themes.themes.forEach((theme) => {
@@ -85,5 +79,5 @@ function refreshtheme() {
 setTimeout(() => {
     checkTheme();
 }, 1000);
-
 eventEmitter.on('checkTheme', checkTheme);
+eventEmitter.on('refreshtheme', refreshtheme);

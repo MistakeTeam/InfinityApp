@@ -25,6 +25,7 @@ video {
     margin: 0 10px 0 10px;
     background: #2d2e2f;
     border-radius: 5px;
+    opacity: 0;
 }
 
 .player-controls {

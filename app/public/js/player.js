@@ -208,34 +208,47 @@ $('.ply-mute-button').click(function(event) {
     }
 });
 
-$('.ply-volume-panel').on('mousedown mouseup', function(event) {
-    if (event.type == "mousedown") {
-        drag = true;
-    } else {
-        drag = false;
-    }
-});
-
-$('.ply-volume-panel').on('mousemove', function(event) {
-    if (drag) {
-        var w = slider.clientHeight - 2;
-        var x = event.clientY - slider.offsetLeft;
-        var pctVol = x / w;
-
-        if (pctVol > 1) {
-            sliderVol.style.width = 100 + "%";
-            videoNode.volume = 1;
-        } else if (pctVol < 0) {
-            sliderVol.style.width = 0 + "%";
-            videoNode.volume = 0;
+$('.ply-volume-panel')
+    .on('mousedown mouseup', function(event) {
+        if (event.type == "mousedown") {
+            drag = true;
         } else {
-            sliderVol.style.width = (x / w) * 100 + "%";
-            videoNode.volume = pctVol;
+            drag = false;
         }
-    } else {}
-});
+    })
+    .on('mousemove', function(event) {
+        if (drag) {
+            var w = slider.clientHeight - 2;
+            var x = event.clientY - slider.offsetLeft;
+            var pctVol = x / w;
 
-$('.player-progress-bar').click(function(event) {
+            if (pctVol > 1) {
+                sliderVol.style.width = 100 + "%";
+                videoNode.volume = 1;
+            } else if (pctVol < 0) {
+                sliderVol.style.width = 0 + "%";
+                videoNode.volume = 0;
+            } else {
+                sliderVol.style.width = (x / w) * 100 + "%";
+                videoNode.volume = pctVol;
+            }
+        } else {}
+    });
+
+$('.player-progress-bar').mousedown(function(event) {
     var pctBar = (event.clientX / barProgress.clientWidth) * 100;
     videoNode.currentTime = (videoNode.duration * pctBar) / 100;
 });
+
+$('.player-video')
+    .mouseover(function(event) {
+        $('.player-controls-botton').css('opacity', '1');
+    })
+    .mouseout(function(event) {
+        $('.player-controls-botton').css('opacity', '0');
+    });
+
+$('.player-controls-botton')
+    .mouseover(function(event) {
+        $('.player-controls-botton').css('opacity', '1');
+    });

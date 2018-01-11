@@ -18,7 +18,6 @@ $(function() {
     $(document).mousemove(function(event) {
         currentMousePos.x = event.pageX;
         currentMousePos.y = event.pageY;
-        // console.log(`x: ${currentMousePos.x}, y: ${currentMousePos.y}`);
     });
 
     $(document).keydown(function(event) {
@@ -28,17 +27,16 @@ $(function() {
             $('.util-app').css('opacity', '0');
             $('.util-app').css('z-index', '-1');
             $('.util-app').contents().filter('.loading-2Y9J6r').remove();
-            // $('.back-o4f98s').css('visibility', 'hidden');
-            $('.back-o4f98s').css('top', '0');
-            $('.back-o4f98s').css('left', '5px');
             $('.back-o4f98s').css('opacity', '0');
             $('.back-o4f98s').css('pointer-events', 'none');
-            // $('.menu-itens').css('display', 'flex');
             $('.menu-itens').css('transform', 'scale(1, 1)');
             $('.menu-itens').css('opacity', '1');
             $('.menu-itens').css('z-index', '100');
             $('.menu-topbar').css('opacity', '1');
             $('.menu-topbar').css('z-index', '200');
+            if ($('.game-item-T5e87d') != undefined) {
+                $('.game-item-T5e87d').remove();
+            }
             setTimeout(() => {
                 $('.util-app').contents().filter('.country-gp-dnn').contents().css('visibility', 'hidden');
             }, 500);
@@ -51,28 +49,33 @@ $(function() {
         $('.util-app').css('opacity', '0');
         $('.util-app').css('z-index', '-1');
         $('.util-app').contents().filter('.loading-2Y9J6r').remove();
-        // $('.back-o4f98s').css('visibility', 'hidden');
-        // $('.back-o4f98s').css('top', '0');
-        // $('.back-o4f98s').css('left', '5px');
         $('.back-o4f98s').css('opacity', '0');
         $('.back-o4f98s').css('pointer-events', 'none');
-        // $('.menu-itens').css('display', 'flex');
         $('.menu-itens').css('transform', 'scale(1, 1)');
         $('.menu-itens').css('opacity', '1');
         $('.menu-itens').css('z-index', '100');
         $('.menu-topbar').css('opacity', '1');
         $('.menu-topbar').css('z-index', '200');
+        if ($('.game-item-T5e87d') != undefined) {
+            $('.game-item-T5e87d').remove();
+        }
+        if ($('#option-right-sidebar').children().children() != undefined) {
+            $('#option-right-sidebar').children().children().remove();
+        }
         setTimeout(() => {
             $('.util-app').contents().filter('.country-gp-dnn').contents().css('visibility', 'hidden');
         }, 500);
     });
 
+    $('.itens-button').hover(function() {
+        $(this).children().css('filter', 'grayscale(0%)');
+    })
     $('.itens-button').on('mousedown', function(e) {
         switch (event.which) {
             case 1:
                 $(this).addClass('active');
                 timeOut = setInterval(function() {
-                    console.log(i++);
+                    i++;
                 }, 100);
                 console.log('Left Mouse button pressed.');
                 break;
@@ -96,11 +99,9 @@ $(function() {
             return;
         } else {
             // transition-function
-            // $('.util-app').css('background-color', $(this).css('background-color'));
             $('.util-app').css('transform', 'scale(1, 1)');
             $('.util-app').css('opacity', '1');
             $('.util-app').css('z-index', '100');
-            // $('.menu-itens').css('display', 'none');
             $('.menu-itens').css('transform', 'scale(0.9, 0.9)');
             $('.menu-itens').css('opacity', '0');
             $('.menu-itens').css('z-index', '0');
@@ -128,16 +129,41 @@ $(function() {
             $('.loading-2Y9J6r').contents('.itens-icon').css('left', '0');
             $('.loading-2Y9J6r').contents('.itens-icon').css('right', '0');
 
-            console.log($(this).attr('data-internal-name'));
             setTimeout(() => {
                 switch ($(this).attr('data-internal-name')) {
                     case 'util-options':
                         $('.back-o4f98s').css('opacity', '1');
                         $('.util-app').contents().filter('.country-gp-dnn').contents().filter('#' + $(this).attr('data-internal-name')).css('visibility', 'visible');
                         $('.util-app').contents().filter('.loading-2Y9J6r').remove();
+                        $('#general-box').append(`
+                        <div class="mr-check">
+                            <div class="mr-text">
+                                <div class="mr-text-title">
+                                    <span>Desativar animações</span>
+                                    <div class="switch">
+                                        <div class="cmn-toggle cmn-toggle-round" data-internal-name="AnimationRun" data-check="false" id="mr-check-1"></div>
+                                        <label for="mr-check-1"></label>
+                                    </div>
+                                </div>
+                                <div class="mr-text-description">
+                                    <span>Animações afeta o desempenho do aplicativo, recomanda-se desativa-las se seu desempenho estiver comprometido.</span>
+                                </div>
+                            </div>
+                        </div>
+                        `);
+                        eventEmitter.emit('AnimationRunClick');
+                        $('.option-contents').removeClass('selected-item');
+                        $('#option-right-sidebar').children().css('display', 'none');
+                        $('#general-box').css('display', 'block');
+                        $('.option-contents').each((index, op) => {
+                            if ($(op).attr('type') == 'geral') {
+                                $(op).addClass('selected-item');
+                            }
+                        })
                         break;
                     case 'util-game':
                         // eventEmitter.emit('ongames');
+                        eventEmitter.emit('open-module-games');
                         $('.back-o4f98s').css('opacity', '1');
                         $('.util-app').contents().filter('.country-gp-dnn').contents().filter('#' + $(this).attr('data-internal-name')).css('visibility', 'visible');
                         $('.util-app').contents().filter('.loading-2Y9J6r').remove();
@@ -145,8 +171,6 @@ $(function() {
                     case 'util-player':
                         // eventEmitter.emit('onplayer');
                         $('.back-o4f98s').css('opacity', '0');
-                        // $('.back-o4f98s').css('top', '70px');
-                        // $('.back-o4f98s').css('left', '0');
                         $('.menu-topbar').css('z-index', '0');
                         $('.menu-topbar').css('opacity', '0');
                         $('.util-app').contents().filter('.country-gp-dnn').contents().filter('#' + $(this).attr('data-internal-name')).css('visibility', 'visible');
