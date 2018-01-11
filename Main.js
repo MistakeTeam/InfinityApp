@@ -1,9 +1,13 @@
 'use static';
 
+process.title = 'InfinityApp';
+
 const {
     app,
     BrowserWindow
 } = require('electron');
+
+require('electron-reload')(__dirname);
 
 var File = require('./lib/File.js');
 var mainWindows = require('./lib/MainWindows');
@@ -28,7 +32,7 @@ app.on('ready', function() {
             }
 
             if (data.fristNotifier == null) {
-                data.fristNotifier = false;
+                data.fristNotifier = true;
             }
 
             if (data.lastSessionInfo == null) {
@@ -42,3 +46,9 @@ app.on('ready', function() {
     });
     console.log(`Estou pronto!`);
 });
+
+app.on('window-all-closed', function() {
+    if (process.platform !== 'darwin') {
+        app.quit()
+    }
+})

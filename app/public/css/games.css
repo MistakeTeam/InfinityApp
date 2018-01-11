@@ -20,9 +20,7 @@
     bottom: 0;
     margin: auto;
     width: 600px;
-    height: 600px;
     border-radius: 5px;
-    background-color: var(--seg-bg-color);
     padding: 0 5px 0 25px;
     z-index: 1000;
 }
@@ -60,7 +58,12 @@
 }
 
 .game-item-T5e87d img {
-    width: 100%;
+    margin: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
 }
 
 .game-add-button {
@@ -177,23 +180,20 @@
 
 .gameview-Te2Y93>span {
     margin-left: 2px;
-    color: #fff;
     font-weight: 700;
 }
 
 .gameview-Te2Y93 span {
     margin-left: 10px;
-    color: #fff;
     font-weight: 400;
 }
 
 .comfirm-Te2Y93 span,
 .comfirm-ht95e2 span {
-    color: #fff;
     padding: 4px 10px;
     margin: 5px;
-    border: 1px solid white;
     border-radius: 3px;
+    cursor: pointer;
 }
 
 .comfirm-Te2Y93 span:hover,
@@ -205,4 +205,17 @@
     width: 20px;
     height: 20px;
     margin: 1px;
+}
+
+.delete-dF4tu68 span {
+    color: #f04747 !important;
+    padding: 4px 10px;
+    margin: 5px;
+    border: 1px solid rgba(240, 71, 71, .3);
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.delete-dF4tu68 span:hover {
+    border-color: rgba(240, 71, 71, .6);
 }

@@ -48,6 +48,7 @@ function checkTheme() {
         });
 
         File.SaveFile('options.json', JSON.stringify(data));
+        data = null;
     });
 }
 

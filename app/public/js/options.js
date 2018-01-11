@@ -70,31 +70,34 @@ function switchclick(event) {
             }
 
             // AnimationRun
-            if (!$(this).children('#mr-check-1').attr('checked')) {
-                console.log(`[options] AnimationRun`);
-                // Checked
-                $(this).children('.cmn-toggle').attr('data-check', 'true');
-                $(this).children('.cmn-toggle').attr('checked', '');
-                $(this).children('.cmn-toggle').attr('active', '');
+            if ($(this).children('#mr-check-1').attr('data-internal-name') == "AnimationRun") {
+                if (!$(this).children('#mr-check-1').attr('checked')) {
+                    console.log(`[options] AnimationRun`);
+                    // Checked
+                    $(this).children('.cmn-toggle').attr('data-check', 'true');
+                    $(this).children('.cmn-toggle').attr('checked', '');
+                    $(this).children('.cmn-toggle').attr('active', '');
 
-                // Ação
-                options.AnimationRun = true;
-                $('.animation-default').addClass('animation-off');
-                $('.animation-default').removeClass('animation-default');
-            } else {
-                console.log(`[options] AnimationRun`);
-                // Checked
-                $(this).children('.cmn-toggle').attr('data-check', 'false');
-                $(this).children('.cmn-toggle').removeAttr('checked');
-                $(this).children('.cmn-toggle').removeAttr('active');
+                    // Ação
+                    options.AnimationRun = true;
+                    $('.animation-default').addClass('animation-off');
+                    $('.animation-default').removeClass('animation-default');
+                } else {
+                    console.log(`[options] AnimationRun`);
+                    // Checked
+                    $(this).children('.cmn-toggle').attr('data-check', 'false');
+                    $(this).children('.cmn-toggle').removeAttr('checked');
+                    $(this).children('.cmn-toggle').removeAttr('active');
 
-                // Ação
-                options.AnimationRun = false;
-                $('.animation-off').addClass('animation-default');
-                $('.animation-off').removeClass('animation-off');
+                    // Ação
+                    options.AnimationRun = false;
+                    $('.animation-off').addClass('animation-default');
+                    $('.animation-off').removeClass('animation-off');
+                }
             }
 
             File.SaveFile('options.json', JSON.stringify(data));
+            data = null;
         });
     }, 1);
 }
@@ -130,4 +133,5 @@ File.ReadFile('options.json', db => {
     }
 
     console.log(`[options] checked`);
+    data = null;
 });

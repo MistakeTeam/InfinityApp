@@ -21,11 +21,6 @@ try {
     eventEmitter = require(path.resolve(process.cwd(), './resources/app.asar/lib/events.js')).eventEmitter;
 }
 
-ipcRenderer.on('updatetext', (event, message) => {
-    console.log(`sla: ${message}`);
-    $('.update-box').children('span').text(message);
-})
-
 function minimize() {
     var window = remote.getCurrentWindow();
     window.minimize();

@@ -25,23 +25,16 @@ try {
     File = require(path.resolve(process.cwd(), './resources/app.asar/lib/File.js'));
 }
 
-// console.log(fs.readdirSync(process.env.APPDATA + '/InfinityApp'))
 var playSelectedFile = function(event) {
-    console.log(this.files);
     for (var i = 0; i < this.files.length; i++) {
         hasItem = false;
         var file = this.files[i];
         var type = file.type;
-        var canPlay = videoNode.canPlayType(type);
-        if (canPlay === '') canPlay = 'no';
-        var message = 'Can play type "' + type + '": ' + canPlay;
-        var isError = canPlay === 'no';
+        var canPlay = videoNode.canPlayType(type) ? videoNode.canPlayType(type) : 'no';
 
-        if (isError) {
+        if (canPlay === 'no') {
             return;
         }
-
-        console.log(file);
 
         playlist.forEach(play => {
             if (play.name == file.name) {
@@ -50,7 +43,7 @@ var playSelectedFile = function(event) {
         });
 
         if (!hasItem) {
-            playlist.push({
+            var videoadd = {
                 lastModified: file.lastModified,
                 lastModifiedDate: file.lastModifiedDate,
                 name: file.name,
@@ -59,8 +52,10 @@ var playSelectedFile = function(event) {
                 type: file.type,
                 duration: 0,
                 buffer: file
-            });
-            console.log(playlist);
+            };
+            playlist.push(videoadd);
+            itematual = playlist.indexOf(videoadd);
+            videoadd = null;
         }
     }
     updatePlaylist();
@@ -74,6 +69,7 @@ function updatePlay(index) {
     $('.list-itens-playlist').children().removeClass('now-playing');
     $('.list-itens-playlist').children()[index].classList.add('now-playing');
     videoNode.src = fileURL;
+    fileURL = null;
 }
 
 function updatePlaylist() {
@@ -155,8 +151,7 @@ function eventPreviousItem() {
 eventEmitter.on('nextitem', eventNextItem);
 $('.ply-next-button').click(eventNextItem);
 $('.ply-previous-button').click(function() {
-    console.log(videoNode.currentTime);
-    if (videoNode.currentTime < 1) {
+    if (videoNode.currentTime <= 1) {
         eventPreviousItem();
     } else {
         videoNode.currentTime = 0;
@@ -195,10 +190,6 @@ function update() {
     if (videoNode.currentTime == videoNode.duration) {
         eventEmitter.emit('nextitem');
     }
-
-    // if(videoNode.currentTime == videoNode.duration) {
-    //   img.src = "img/replay.png";
-    // }
 }
 
 setInterval(function() { update(); }, 500);
@@ -230,7 +221,6 @@ $('.ply-volume-panel').on('mousemove', function(event) {
         var w = slider.clientHeight - 2;
         var x = event.clientY - slider.offsetLeft;
         var pctVol = x / w;
-        console.log(w, x, pctVol, videoNode.volume);
 
         if (pctVol > 1) {
             sliderVol.style.width = 100 + "%";
