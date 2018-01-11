@@ -7,6 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <!-- Meus Scripts & Styles -->
     <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./font-awesome.css">
+    <link rel="stylesheet" href="./fa-brands.css">
+    <link rel="stylesheet" href="./fa-regular.css">
+    <link rel="stylesheet" href="./fa-solid.css">
     <title>Splash</title>
 </head>
 
@@ -14,31 +18,22 @@
     <div class="app-splash">
         <div class="box_loading">
             <img src="./Infinity.png" class="banner_splash"></img>
+            <a onclick="aefre()">
+                <span class="fa fa-code"></span> with <span class="fa fa-heart"></span> by
+                <w>xDeltaFox</w>
+            </a>
         </div>
     </div>
-    <script>
-        (function($) {
-            var list2 = require('./fl.json');
-
-            var list = _interopRequireDefault(list2);
-
-            function _interopRequireDefault(obj) {
-                return obj && obj.__esModule ? obj : {
-                    default: obj
-                };
-            }
-
-            console.log(list);
-            $('.text_effect').html(list.default[Math.floor(Math.random() * list.default.length)]);
-        })(function() {
-            if (typeof module !== 'undefined') {
-                // Node
-                return require('jquery');
-            } else {
-                return jQuery;
-            }
-        }());
-    </script>
 </body>
+
+<script>
+    var {
+        shell
+    } = require('electron');
+
+    function aefre() {
+        shell.openExternal("https://github.com/xDeltaFox");
+    }
+</script>
 
 </html>
