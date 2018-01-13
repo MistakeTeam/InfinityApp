@@ -28,7 +28,9 @@
 
 Atualmente o Infinity está em fase beta em seu desenvolvimento, não é recomendavél executa-lô, por provavéis bugs que compromete sua experiência...
 
-# **OBS: Tenha em mente que é necessário, que tenha instalado no seu computador o node.js, caso não tenha baixe [clicando aqui](https://nodejs.org/en/). E baixe a versão Current do node, ou seja, a versão mais nova.**
+## Tutorial para rodar o codigo do InfinityApp por conta propria
+
+### **OBS: Tenha em mente que se for rodar o codigo do InfinityApp é necessário, que tenha instalado no seu computador o node.js, caso não tenha baixe [clicando aqui](https://nodejs.org/en/). E baixe a versão LST do node, ou seja, a versão recomentada para novos usuarios.**
 
 1. Baixe o projeto [clicando aqui](https://github.com/xDeltaFox/InfinityApp/archive/master.zip), extraia o arquivo na pasta de sua preferência.
 
@@ -41,6 +43,10 @@ Atualmente o Infinity está em fase beta em seu desenvolvimento, não é recomen
 4. Depois de instalado as dependências insira o comando *"npm run start"*, que o projeto vai ser iniciado.
 
 Divirta-se com suas modificações, e espero ter lhe ajudado com o que você procurava.
+
+### Downaload
+
+[Windows 32bit](https://github.com/infinify-app/InfinityApp/releases/latest)
 
 ## **Layout do InfinityApp**
 *"As Imagens a seguir é do desenvolvimento beta do conceito do InfinityApp..."*
