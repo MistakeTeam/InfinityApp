@@ -1,6 +1,6 @@
 {
     "name": "infinityapp",
-    "version": "0.0.27",
+    "version": "0.0.28",
     "descrection": "Um app universal",
     "main": "Main.js",
     "scripts": {
@@ -24,6 +24,8 @@
         "@types/eventemitter3": "^2.0.2",
         "@types/jquery": "^3.2.16",
         "Squirrel": "0.0.1",
+        "beam-client-node": "^1.0.2",
+        "beam-interactive-node": "^0.3.2",
         "discord-rpc": "^3.0.0-beta.8",
         "electron-is": "^2.4.0",
         "electron-reload": "^1.2.2",
@@ -32,9 +34,11 @@
         "igdb-api-node": "^3.1.1",
         "is-online": "^7.0.0",
         "jquery": "^3.2.1",
+        "less-middleware": "^2.2.1",
         "markdown": "^0.5.0",
         "node-tweet-stream": "^2.0.1",
         "pug": "^2.0.0-rc.4",
-        "rimraf": "^2.6.2"
+        "rimraf": "^2.6.2",
+        "systeminformation": "^3.33.13"
     }
 }

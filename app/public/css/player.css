@@ -168,14 +168,8 @@ input#pb-input {
 }
 
 .player-playlist {
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
     margin: auto;
     width: 600px;
-    height: 600px;
     border-radius: 5px;
     padding: 0 0 0 30px;
     z-index: 1000;
@@ -190,8 +184,9 @@ input#pb-input {
 }
 
 .list-itens-playlist {
-    height: 88%;
+    height: 100px;
     overflow: auto;
+    padding: 5px;
 }
 
 .add-playlist {
@@ -201,7 +196,6 @@ input#pb-input {
 .cordilheia-item-playlist {
     padding: 5px;
     color: #fff;
-    display: flex;
 }
 
 .cordilheia-item-playlist span:first-child {
@@ -211,7 +205,8 @@ input#pb-input {
 
 .cordilheia-item-playlist span:last-child {
     margin: 0 2px 0 10px;
-    min-width: 50px;
+    min-width: 35px;
+    float: right;
 }
 
 .now-playing {

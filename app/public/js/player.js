@@ -43,6 +43,11 @@ var playSelectedFile = function(event) {
         });
 
         if (!hasItem) {
+            $('.player-video').append('<video id="getduration" src="" autoplay style="display:none;"></video>');
+            var tstehdj = document.getElementById('getduration');
+            tstehdj.muted = true;
+            tstehdj.src = URL.createObjectURL(file);
+            console.log($('#getduration'));
             var videoadd = {
                 lastModified: file.lastModified,
                 lastModifiedDate: file.lastModifiedDate,
@@ -50,12 +55,14 @@ var playSelectedFile = function(event) {
                 path: file.path,
                 size: file.size,
                 type: file.type,
-                duration: 0,
+                duration: $('#getduration')[0].duration,
                 buffer: file
             };
             playlist.push(videoadd);
             itematual = playlist.indexOf(videoadd);
             videoadd = null;
+            tstehdj = null;
+            $('#getduration').remove();
         }
     }
     updatePlaylist();
@@ -80,7 +87,7 @@ function updatePlaylist() {
         <div class="cordilheia-item-playlist" index-play="${index}">
             <span>${index + 1}. </span>
             <span style="height: 20px; min-width: 200px; overflow: hidden;">${play.name}</span>
-            <span>--:--</span>
+            <span>${play.duration}</span>
         </div>
         `);
     });
@@ -95,6 +102,10 @@ function updatePlaylist() {
         $('.player-playlist').css('display', 'none');
     }, 600);
 }
+
+$('.cordilheia-item-playlist').click(function() {
+    updatePlay($(this).attr('index-play'));
+})
 
 $('#playlist-open-y40so9').click(function() {
     $('.player-T1ow86>.is-overlay').css('display', 'block');

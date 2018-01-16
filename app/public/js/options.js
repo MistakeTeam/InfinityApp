@@ -138,42 +138,49 @@ function ThemeClick(event) {
 
 eventEmitter.on('AnimationRunClick', () => {
     if ($('.cmn-toggle').attr('data-internal-name') == 'AnimationRun') {
-        $('.cmn-toggle').parent().click(AnimationRunClick)
+        $('.cmn-toggle').parent().click(AnimationRunClick);
+        eventEmitter.emit('onStartupApp');
     }
 });
 
 eventEmitter.on('ThemeClick', () => {
     if ($('.switch').attr('theme') == '') {
-        $('.switch').click(ThemeClick)
+        $('.switch').click(ThemeClick);
     }
 });
 
-// onLoad app
-File.ReadFile('options.json', db => {
-    var data = db;
-    var options = data.options;
+eventEmitter.on('onStartupApp', onStartupApp);
 
-    // AnimationRun
-    if (options.AnimationRun == true) {
-        // Checked
-        $('.switch').children('#mr-check-1').attr('data-check', 'true');
-        $('.switch').children('#mr-check-1').attr('checked', '');
-        $('.switch').children('#mr-check-1').attr('active', '');
+function onStartupApp(params) {
+    // onLoad app
+    File.ReadFile('options.json', db => {
+        var data = db;
+        var options = data.options;
 
-        // Ação
-        $('.animation-default').addClass('animation-off');
-        $('.animation-default').removeClass('animation-default');
-    } else {
-        // Checked
-        $('.switch').children('#mr-check-1').attr('data-check', 'false');
-        $('.switch').children('#mr-check-1').removeAttr('checked');
-        $('.switch').children('#mr-check-1').removeAttr('active');
+        // AnimationRun
+        if (options.AnimationRun == true) {
+            // Checked
+            $('.switch').children('#mr-check-1').attr('data-check', 'true');
+            $('.switch').children('#mr-check-1').attr('checked', '');
+            $('.switch').children('#mr-check-1').attr('active', '');
 
-        // Ação
-        $('.animation-off').addClass('animation-default');
-        $('.animation-off').removeClass('animation-off');
-    }
+            // Ação
+            $('.animation-default').addClass('animation-off');
+            $('.animation-default').removeClass('animation-default');
+        } else {
+            // Checked
+            $('.switch').children('#mr-check-1').attr('data-check', 'false');
+            $('.switch').children('#mr-check-1').removeAttr('checked');
+            $('.switch').children('#mr-check-1').removeAttr('active');
 
-    console.log(`[options] checked`);
-    data = null;
-});
+            // Ação
+            $('.animation-off').addClass('animation-default');
+            $('.animation-off').removeClass('animation-off');
+        }
+
+        console.log(`[options] checked`);
+        data = null;
+    });
+}
+
+eventEmitter.emit('onStartupApp');

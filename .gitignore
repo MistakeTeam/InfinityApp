@@ -40,6 +40,7 @@ lib/Games
 lib/notify
 lib/TwitchAPI
 to
+ddd.js
 
 # =========================
 # Operating System Files

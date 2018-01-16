@@ -141,7 +141,7 @@ function updateImageDisplay() {
     }
 }
 
-$('#over-gi592n').on("click", function() {
+function overgi592n() {
     $('.expo-game-fT46of>.is-overlay').css('opacity', '0');
     $('.expo-game-fT46of>.gameview-add').css('opacity', '0');
     $('.expo-game-fT46of>.gameview-add').css('transform', 'scale(0.9, 0.9)');
@@ -160,9 +160,9 @@ $('#over-gi592n').on("click", function() {
 
         $('.expo-game-fT46of>.gameview-edit').css('display', 'none');
     }, 600);
-});
+}
 
-$('#close-Th6o7p').on("click", function() {
+function closeTh6o7p() {
     $('.expo-game-fT46of>.is-overlay').css('opacity', '0');
     $('.expo-game-fT46of>.gameview-add').css('opacity', '0');
     $('.expo-game-fT46of>.gameview-add').css('transform', 'scale(0.9, 0.9)');
@@ -175,9 +175,9 @@ $('#close-Th6o7p').on("click", function() {
         $('.expo-game-fT46of>.is-overlay').css('display', 'none');
         $('.expo-game-fT46of>.gameview-add').css('display', 'none');
     }, 600);
-});
+}
 
-$('.game-add-F58dY4').on("click", function() {
+function GameAddF58dY4() {
     $('.expo-game-fT46of').append(`
     <div class="gameview-add animation-default" style="display: none; opacity: 0; transform: scale(0.9, 0.9); z-index: -1;">
         <div class="icon-close" id="close-Th6o7p"></div>
@@ -209,6 +209,7 @@ $('.game-add-F58dY4').on("click", function() {
     </div>
     `);
     $('.comfirm-Te2Y93').on("click", comfirm_Te2Y93);
+    $('#close-Th6o7p').on("click", closeTh6o7p);
 
     preview = $('.preview');
     input = document.getElementById('game_exe');
@@ -224,6 +225,11 @@ $('.game-add-F58dY4').on("click", function() {
         $('.expo-game-fT46of>.gameview-add').css('transform', 'scale(1.1, 1.1)');
         $('.expo-game-fT46of>.gameview-add').css('z-index', '10');
     }, 1);
+}
+
+eventEmitter.on('Game_Module_Open', () => {
+    $('.game-add-F58dY4').on("click", GameAddF58dY4);
+    $('#over-gi592n').on("click", overgi592n);
 });
 
 function editgame() {
@@ -253,6 +259,7 @@ function editgame() {
     `);
     $('.delete-dF4tu68').on("click", delete_dF4tu68);
     $('.comfirm-ht95e2').on("click", comfirm_ht95e2);
+    $('#close-hr03m6').on("click", closehr03m6);
 
     File.ReadFile('gamesDB.json', db => {
         var data = db;
@@ -282,7 +289,7 @@ function editgame() {
 function playAny(e) {
     switch (event.which) {
         case 1:
-            var path = $(this).parent().parent().attr('path').split('\\');
+            var path = $(this).attr('path') ? $(this).attr('path').split('\\') : $(this).parent().parent().attr('path').split('\\');
             var Rpath = "";
 
             for (var i = 0; i < path.length - 1; i++) {
@@ -296,18 +303,12 @@ function playAny(e) {
             });
             console.log('Left Mouse button pressed.');
             break;
-        case 2:
-            console.log('Middle Mouse button pressed.');
-            break;
-        case 3:
-            console.log('Right Mouse button pressed.');
-            break;
         default:
             console.log('You have a strange Mouse!');
     }
 }
 
-$('#close-hr03m6').on("click", function() {
+function closehr03m6() {
     $('.expo-game-fT46of>.is-overlay').css('opacity', '0');
     $('.expo-game-fT46of>.gameview-edit').css('opacity', '0');
     $('.expo-game-fT46of>.gameview-edit').css('transform', 'scale(0.9, 0.9)');
@@ -317,7 +318,7 @@ $('#close-hr03m6').on("click", function() {
         $('.expo-game-fT46of>.is-overlay').css('display', 'none');
         $('.expo-game-fT46of>.gameview-edit').css('display', 'none');
     }, 600);
-});
+}
 
 function comfirm_Te2Y93() {
     File.ReadFile('gamesDB.json', db => {

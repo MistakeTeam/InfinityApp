@@ -32,13 +32,26 @@ span.username-2eY8s9 {
 
 /* App */
 
-.uploadbox {
+.play_easy {
     position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 10;
+    top: 35px;
+    left: 2px;
+    bottom: 35px;
+    right: 2px;
+    z-index: 1000;
+    flex-wrap: wrap;
+}
+
+.extra-game-N5Y65r {
+    padding: 1px;
+    height: 32px;
+    z-index: 1000;
+    filter: grayscale(100%);
+}
+
+.extra-game-N5Y65r:hover {
+    filter: grayscale(0%);
+    transform: scale(1.03, 1.03);
 }
 
 .app {
@@ -74,10 +87,7 @@ span.username-2eY8s9 {
 .menu-topbar {
     position: relative;
     width: 100%;
-    height: 8%;
     margin-bottom: 10px;
-    /* border-bottom: 2px solid rgba(214, 225, 228, 0.77); */
-    z-index: 200;
     pointer-events: none;
 }
 
@@ -89,7 +99,6 @@ span.username-2eY8s9 {
 }
 
 .menu-contens {
-    height: 50%;
     display: flex;
     flex-wrap: wrap;
 }
@@ -146,11 +155,6 @@ span.username-2eY8s9 {
     width: 100%;
 }
 
-.menu-contain {
-    display: flex;
-    flex-direction: column;
-}
-
 .contain-itens {
     display: -ms-flexbox !important;
     display: flex !important;
@@ -190,8 +194,7 @@ span.username-2eY8s9 {
 
 .itens-icon {
     margin: 15px auto 0;
-    /* position: absolute; */
-    /* right: 0; */
+    position: relative;
 }
 
 svg.colorSelectedText-3YhFC6.icon-3tVJnl {

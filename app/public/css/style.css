@@ -395,6 +395,7 @@ ins {
     font-weight: 600;
     font-size: 18px;
     font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
+    position: relative;
 }
 
 .mr-text-description {
@@ -474,8 +475,7 @@ ins {
     position: absolute;
     display: inline-block;
     width: 60px;
-    right: 5px;
-    top: 10px;
+    right: 0;
 }
 
 .switch input {
