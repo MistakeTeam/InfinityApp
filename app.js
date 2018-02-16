@@ -190,7 +190,7 @@ function createwindow(isVisible, options) {
             console.log(`Internet is ${online}`);
 
             if (online) {
-                console.log(`Conectando  internet...`);
+                console.log(`Conectando à internet...`);
                 Rich.rpc.login(Rich.appClient).catch(console.error);
             } else {
                 console.log(`Você está offline.`);
