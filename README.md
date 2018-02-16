@@ -22,36 +22,36 @@
 
 **O que é InfinityApp?**
 
-É um conceito de Aplicativo onde ajudará usuários em suas buscas em modo geral com conteúdos diferenciados, incluindo games, videos, musica e entre outros...
+É um conceito de aplicativo auxiliará usuários em suas buscas de modo geral como: games; videos; músicas e outros...
 
 **Como utilizar o InfinityApp?**
 
-Atualmente o Infinity está em fase beta em seu desenvolvimento, não é recomendavél executa-lô, por provavéis bugs que compromete sua experiência...
+Atualmente o Infinity está em fase beta de desenvolvimento, sua execução não é recomendada por conta de bugs que podem comprometer sua experiência...
 
-## Tutorial para rodar o codigo do InfinityApp por conta propria
+## Tutorial para rodar o código do InfinityApp por conta própria
 
-### **OBS: Tenha em mente que se for rodar o codigo do InfinityApp é necessário, que tenha instalado no seu computador o node.js, caso não tenha baixe [clicando aqui](https://nodejs.org/en/). E baixe a versão LST do node, ou seja, a versão recomentada para novos usuarios.**
+### **OBS: Tenha em mente que para rodar o código do InfinityApp é necessário ter o nodejs instalado em seu computador. Caso não tenha baixe [clicando aqui](https://nodejs.org/en/). Baixe a versão LST do node, que é a versão recomendada para novos usuarios.**
 
-1. Baixe o projeto [clicando aqui](https://github.com/xDeltaFox/InfinityApp/archive/master.zip), extraia o arquivo na pasta de sua preferência.
+1. Baixe o projeto [clicando aqui](https://github.com/xDeltaFox/InfinityApp/archive/master.zip), extraia o arquivo em uma pasta de sua preferência.
 
-2. Abra o cmd na pasta, segurando o *Shift + Botão direito do mouse*, em uma área vazia da pasta, e clique na opção *"Abrir janela de comando aqui"*
+2. Abra o cmd na pasta, segurando o ``shift + Botão direito do mouse`` em uma área vazia da pasta e clique na opção *"Abrir janela de comando aqui"*
 
 ![](https://i.imgur.com/N9jk0Js.png)
 
-3. No cmd, insira o comando *"npm i"* ou *"npm install"*, e vai ser baixado e instalado as dependências do projeto.
+3. No cmd, insira o comando ``npm i`` ou ``npm install`` para baixar e instalar as dependências automaticamente.
 
-4. Depois de instalado as dependências insira o comando *"npm run start"*, que o projeto vai ser iniciado.
+4. Após a instalação insira o comando ``npm run start`` para iniciar o aplicativo.
 
-Divirta-se com suas modificações, e espero ter lhe ajudado com o que você procurava.
+Divirta-se com suas modificações, e espero ter lhe ajudado com o que procurava.
 
-### Downaload
+### Download
 
 [Windows 32bit](https://github.com/infinify-app/InfinityApp/releases/latest)
 
 ## **Layout do InfinityApp**
-*"As Imagens a seguir é do desenvolvimento beta do conceito do InfinityApp..."*
+*"As Imagens a seguir são do desenvolvimento beta do conceito do InfinityApp..."*
 ![Infinity](https://i.imgur.com/39ofqQJ.png)
 ![Infinity](https://i.imgur.com/sGVjRyq.png)
 
-Este é uma funcionalidade não emplementada, isso é uma ilustração de como seria.
+Esta é uma funcionalidade não implementada, isso é, uma ilustração de como seria.
 ![Infinity](https://i.imgur.com/vawrCDd.jpg)
