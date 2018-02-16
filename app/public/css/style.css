@@ -348,7 +348,8 @@ ins {
     height: 100%;
 }
 
-#util-player {
+#util-player,
+#util-browser {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -367,6 +368,16 @@ ins {
     right: 0;
     width: 98%;
     height: calc(100% - 78px);
+    margin: 0 auto;
+    z-index: 500;
+}
+
+#util-TextEditor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: calc(100% - 20px);
     margin: 0 auto;
     z-index: 500;
 }

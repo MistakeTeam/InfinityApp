@@ -28,7 +28,6 @@ function minimize() {
 
 function maximize() {
     var window = remote.getCurrentWindow();
-    console.log(window.isMaximized());
     if (window.isMaximized()) {
         window.restore();
     } else {

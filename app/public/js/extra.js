@@ -15,19 +15,29 @@ function extra_game() {
     File.ReadFile('gamesDB.json', data => {
         var sla = [];
 
-        if ($('.play_easy').children().length <= 0) {
+        if ($('.play_easy').children().length <= 0 && data.games.length > 12) {
             for (let i = 1; i <= 12;) {
                 var indexgame = Math.floor(Math.random() * data.games.length);
 
                 if (!sla.includes(indexgame)) {
                     $('.play_easy').append(`
+                    <div class="extra-game-N5Y65r animation-default" path="${data.games[indexgame].path}" index="${indexgame}">
+                        <img src="base/games/Icons/${data.games[indexgame].thumb}" alt=""></img>
+                    </div>
+                    `);
+                    sla.push(indexgame);
+                    i++;
+                }
+            }
+        } else if ($('.play_easy').children().length <= 0 && data.games.length < 12) {
+            for (let i = 1; i <= 12; i++) {
+                var indexgame = Math.floor(Math.random() * data.games.length);
+
+                $('.play_easy').append(`
                 <div class="extra-game-N5Y65r animation-default" path="${data.games[indexgame].path}" index="${indexgame}">
                     <img src="base/games/Icons/${data.games[indexgame].thumb}" alt=""></img>
                 </div>
                 `);
-                    sla.push(indexgame);
-                    i++;
-                }
             }
         }
 

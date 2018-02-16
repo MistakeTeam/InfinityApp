@@ -13,7 +13,7 @@ try {
     eventEmitter = require(path.resolve(process.cwd(), './resources/app.asar/lib/events.js')).eventEmitter;
 }
 
-$('.option-contents').click(function() {
+function OptionContentsClick() {
     $('.option-contents').removeClass('selected-item');
     switch ($(this).attr('type')) {
         case 'geral':
@@ -51,7 +51,11 @@ $('.option-contents').click(function() {
         default:
             break;
     }
-})
+}
+
+eventEmitter.on('OptionContentsClick', () => {
+    $('.option-contents').click(OptionContentsClick);
+});
 
 //options in-app
 function AnimationRunClick(event) {

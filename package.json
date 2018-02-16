@@ -15,9 +15,9 @@
         "InfinityApp"
     ],
     "author": "xDeltaFox",
-    "license": "Apache-2.0",
+    "license": "GPL-3.0",
     "devDependencies": {
-        "electron": "^1.7.10",
+        "electron": "^1.8.2",
         "electron-winstaller": "^2.6.3"
     },
     "dependencies": {

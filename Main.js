@@ -44,6 +44,10 @@ if (!shouldQuit) {
 app.on('ready', function() {
     splashWindows(splash => {
         File.ReadFile('options.json', data => {
+            event.eventEmitter.on('splashClose', () => {
+                splash.close();
+            });
+
             if (data.themeCookie == null) {
                 data.themeCookie = [];
             }
@@ -54,6 +58,10 @@ app.on('ready', function() {
 
             if (data.options.AnimationRun == null) {
                 data.options.AnimationRun = false;
+            }
+
+            if (data.isMaximize == null) {
+                data.isMaximize = false;
             }
 
             if (data.fristNotifier == null) {
@@ -67,7 +75,7 @@ app.on('ready', function() {
             File.SaveFile('options.json', JSON.stringify(data));
 
             if (!shouldQuit) {
-                mainWindows(data, splash, Rich);
+                mainWindows(data);
             }
         });
     });
@@ -83,3 +91,24 @@ app.on('window-all-closed', function() {
 function sliceArgv(argv) {
     return argv.slice(production ? 1 : dev ? 4 : 2)
 }
+
+event.eventEmitter.on('startRich', () => {
+    //Start Rich Presence
+    Rich.rpc.on('ready', () => {
+        Rich.checkPresence({
+            details: `Testing...`,
+            state: `in Menus`,
+            startTimestamp: Rich.getTime(),
+            // endTimestamp: ``,
+            largeImageKey: `infinity_logo`,
+            // smallImageKey: ``,
+            largeImageText: `InfinityApp`,
+            // smallImageText: ``,
+            instance: false,
+        });
+
+        console.log(`Connected to Discord! (${Rich.appClient})`);
+    }).catch(console.error);
+
+    Rich.rpc.login(Rich.appClient).catch(console.error);
+});
