@@ -53,7 +53,11 @@ function setupSystemTray() {
     var SystemTray = require('./lib/SystemTray');
     if (!systemTray) {
         console.log("Iniciando o icone na bandeja do sistema...");
-        systemTray = new SystemTray(mainWindow, autoUpdater.checkForUpdates(), { myName, appVersion, buildVersion });
+        systemTray = new SystemTray(mainWindow, autoUpdater.checkForUpdates(), {
+            myName,
+            appVersion,
+            buildVersion
+        });
     }
 }
 
@@ -101,7 +105,16 @@ function createwindow(isVisible, options) {
     }
 
     if (options.lastSessionInfo == null) {
-        options.lastSessionInfo = { size: { width: 1024, height: 720 }, position: { x: null, y: null } };
+        options.lastSessionInfo = {
+            size: {
+                width: 1024,
+                height: 720
+            },
+            position: {
+                x: null,
+                y: null
+            }
+        };
     }
 
     File.SaveFile(FileOptions, JSON.stringify(options));
@@ -130,7 +143,7 @@ function createwindow(isVisible, options) {
     mainWindow = new BrowserWindow(mainWindowOptions);
     mainWindow.loadURL("http://localhost:8000/");
 
-    mainWindow.on('page-title-updated', function(e, title) {
+    mainWindow.on('page-title-updated', function (e, title) {
         e.preventDefault();
         if (!title.endsWith('Infinity')) {
             title += ' - Infinity';
@@ -138,7 +151,7 @@ function createwindow(isVisible, options) {
         mainWindow.setTitle(title);
     });
 
-    mainWindow.webContents.on('crashed', function(e, killed) {
+    mainWindow.webContents.on('crashed', function (e, killed) {
         if (killed) {
             return app.quit();
         }
@@ -151,7 +164,7 @@ function createwindow(isVisible, options) {
         console.error('crashed... reloading');
     });
 
-    mainWindow.on('ready-to-show', function() {
+    mainWindow.on('ready-to-show', function () {
         setupSystemTray();
         splash_data.close();
         mainWindow.show();
@@ -177,7 +190,7 @@ function createwindow(isVisible, options) {
             console.log(`Internet is ${online}`);
 
             if (online) {
-                console.log(`Conectando a internet...`);
+                console.log(`Conectando  internet...`);
                 Rich.rpc.login(Rich.appClient).catch(console.error);
             } else {
                 console.log(`Você está offline.`);
@@ -186,7 +199,7 @@ function createwindow(isVisible, options) {
     });
 }
 
-app.on('ready', function() {
+app.on('ready', function () {
     Splash((splash) => {
         splash_data = splash;
 
@@ -197,13 +210,13 @@ app.on('ready', function() {
     console.log(`Estou, Pronto!\n{platform: ${process.platform}}`);
 });
 
-app.on('window-all-closed', function() {
+app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') {
         setWindowVisible(false);
     }
 });
 
-app.on('before-quit', function(e) {
+app.on('before-quit', function (e) {
     mainWindow = null;
 });
 
