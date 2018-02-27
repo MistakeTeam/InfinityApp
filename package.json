@@ -1,6 +1,6 @@
 {
     "name": "infinityapp",
-    "version": "0.0.28",
+    "version": "0.0.29",
     "descrection": "Um app universal",
     "main": "Main.js",
     "scripts": {
@@ -36,6 +36,7 @@
         "jquery": "^3.2.1",
         "less-middleware": "^2.2.1",
         "markdown": "^0.5.0",
+        "node-process-windows": "0.0.2",
         "node-tweet-stream": "^2.0.1",
         "pug": "^2.0.0-rc.4",
         "rimraf": "^2.6.2",

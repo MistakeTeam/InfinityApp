@@ -1,0 +1,63 @@
+.titlebar {
+    -webkit-app-region: drag;
+    pointer-events: none;
+    height: 25px;
+    width: 100%;
+    position: relative;
+    z-index: 9999;
+    background-color: rgba(0, 0, 0, 0.4);
+
+    .back-o4f98s {
+        -webkit-app-region: no-drag;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        z-index: 500;
+        padding: 0 5px;
+        color: #d2d5d8;
+
+        &:hover {
+            background-color: #2b2b2b;
+        }
+    }
+
+    .titlebar-edge {
+        position: absolute;
+        top: 0;
+        width: 100%;
+        cursor: ns-resize;
+        height: 3px;
+        -webkit-app-region: no-drag;
+    }
+
+    .win-buttons {
+        pointer-events: auto;
+        display: -webkit-box;
+        z-index: 3000;
+        height: 100%;
+        float: right;
+    
+        button {
+            opacity: .6;
+            -webkit-app-region: no-drag;
+            width: 35px;
+            height: 100%;
+    
+            &:hover {
+                opacity: 1
+            }
+        }
+    
+        .win-minimize:hover {
+            background-color: #272727;
+        }
+        
+        .win-maximize:hover {
+            background-color: #272727;
+        }
+        
+        .win-close:hover {
+            background-color: #d60909;
+        }
+    }
+}

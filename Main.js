@@ -60,6 +60,10 @@ app.on('ready', function() {
                 data.options.AnimationRun = false;
             }
 
+            if (data.options.wallpaper == null) {
+                data.options.wallpaper = "";
+            }
+
             if (data.isMaximize == null) {
                 data.isMaximize = false;
             }

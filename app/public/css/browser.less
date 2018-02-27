@@ -1,0 +1,51 @@
+#browser-controls {
+    height: 65px;
+    background-color: #5eacd2;
+
+    #browser-tabs {
+        height: 46%;
+        width: calc(~'100% - 78px');
+        display: flex;
+
+        .tabs-contain {
+            height: 100%;
+            width: 170px;
+            max-width: 170px;
+            line-height: 30px;
+            padding-left: 5px;
+            padding-right: 5px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+    
+            .tabs-contain span {
+                color: #000;
+            }
+            
+            .tab-select {
+                background-color: #fff;
+            }
+        }
+    }
+    
+    #browser-controls-buttons {
+        height: 54%;
+        display: flex;
+        background-color: #f3f3f3;
+
+        #page-url {
+            width: 100%;
+            height: 70%;
+            border: 0;
+            padding: 0 3px;
+            margin: auto 5px auto 5px;
+            background-color: #dedede;
+            font-size: 15px;
+        }
+    }
+}
+
+#browser-page-web {
+    height: calc(~'100% - 65px');
+    background-color: white;
+}

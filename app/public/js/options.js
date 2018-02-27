@@ -43,6 +43,25 @@ function OptionContentsClick() {
             $('#option-right-sidebar').children().children().remove();
             $('#option-right-sidebar').children().css('display', 'none');
             $('#theme-box').css('display', 'block');
+            $('#theme-box').append(`
+            <div>
+                <div>
+                    <div id="theme-reload-button" class="button-default">Reload</div>
+                </div>
+                <span style="font-weight: 700; color: #fff;">Themes</span>
+                <div id="theme-list"></div>
+                <span style="font-weight: 700; color: #fff;">Wallpaper</span>
+                <div id="wallpaper-list" class="flexboxi"></div>
+            </div>
+            `);
+            $('#theme-box').css('-webkit-clip-path', '200% at 50% 50%');
+            $('#theme-box').css('clip-path', '200% at 50% 50%');
+            $('#theme-reload-button').click(() => {
+                // theme.themewallpaper();
+                eventEmitter.emit('refreshtheme');
+                eventEmitter.emit('checkTheme');
+                eventEmitter.emit('ThemeClick');
+            });
             $(this).addClass('selected-item');
             eventEmitter.emit('refreshtheme');
             eventEmitter.emit('checkTheme');
@@ -102,7 +121,6 @@ function ThemeClick(event) {
             var data = db;
             var options = data.options;
             var themeCookie = data.themeCookie;
-            var themeCheck = false;
 
             if ($(this).attr('theme') == '') {
                 console.log(`[options] themedata`);
@@ -110,30 +128,25 @@ function ThemeClick(event) {
                     themes.themes.forEach(themes => {
                         var name = themes.name;
                         var author = themes.author;
-                        themeCheck = true;
 
-                        if (themedata.hasOwnProperty(name)) {
-                            if (name == $(this).children('div').attr('data-theme-name')) {
-                                $(this).children('.cmn-toggle').attr('data-check', 'true');
-                                $(this).children('.cmn-toggle').attr('checked', '');
-                                $(this).children('.cmn-toggle').attr('active', '');
-                                themedata[name] = true;
-                            } else if (name != $(this).children('div').attr('data-theme-name')) {
-                                $(this).children('.cmn-toggle').attr('data-check', 'false');
-                                $(this).children('.cmn-toggle').removeAttr('checked');
-                                $(this).children('.cmn-toggle').removeAttr('active');
-                                themedata[name] = false;
-                            }
-                        } else {}
+                        if ($(this).children('.cmn-toggle').attr('checked') != undefined) {
+                            $(this).children('.cmn-toggle').attr('data-check', 'false');
+                            $(this).children('.cmn-toggle').removeAttr('checked');
+                            $(this).children('.cmn-toggle').removeAttr('active');
+                            themedata[name] = false;
+                        } else {
+                            $(this).children('.cmn-toggle').attr('data-check', 'true');
+                            $(this).children('.cmn-toggle').attr('checked', '');
+                            $(this).children('.cmn-toggle').attr('active', '');
+                            themedata[name] = true;
+                        }
+
+                        eventEmitter.emit('checkTheme');
                     });
                 });
             }
 
-            if (themeCheck) {
-                eventEmitter.emit('checkTheme');
-                themeCheck = false;
-            }
-
+            data.themeCookie = themeCookie;
             File.SaveFile('options.json', JSON.stringify(data));
             data = null;
         });
@@ -153,9 +166,7 @@ eventEmitter.on('ThemeClick', () => {
     }
 });
 
-eventEmitter.on('onStartupApp', onStartupApp);
-
-function onStartupApp(params) {
+function onStartupApp(event) {
     // onLoad app
     File.ReadFile('options.json', db => {
         var data = db;
@@ -187,4 +198,5 @@ function onStartupApp(params) {
     });
 }
 
+eventEmitter.on('onStartupApp', onStartupApp);
 eventEmitter.emit('onStartupApp');

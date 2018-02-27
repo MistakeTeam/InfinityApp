@@ -1,21 +1,25 @@
 'use strict';
 
-var URL = window.URL || window.webkitURL;
-var videoNode = document.getElementById('pb-video');
-var BPlay = $('.ply-play-button .ply-svg-fill');
-var playlist = [];
-var itematual = 0;
-var hasItem = false;
-var drag = false;
-var barProgress = document.getElementsByClassName('player-progress-bar')[0];
-var videoLoader = document.getElementById('progress-loader');
-var progress = document.getElementsByClassName('progress-bar')[0];
-var slider = document.getElementsByClassName('ply-mute-button')[0];
-var sliderVol = document.getElementsByClassName('ply-volume-slider-handle')[0];
-var path = require('path');
-var fs = require('fs');
-var eventEmitter;
-var File;
+var URL = window.URL || window.webkitURL,
+    videoNode = document.getElementById('pb-video'),
+    BPlay = $('.ply-play-button .ply-svg-fill'),
+    playlist = [],
+    indexlivre = 0,
+    itematual = 0,
+    hasItem = false,
+    isPlay = false,
+    nextVideo = false,
+    previousVideo = false,
+    drag = false,
+    barProgress = document.getElementsByClassName('player-progress-bar')[0],
+    videoLoader = document.getElementById('progress-loader'),
+    progress = document.getElementsByClassName('progress-bar')[0],
+    slider = document.getElementsByClassName('ply-mute-button')[0],
+    sliderVol = document.getElementsByClassName('ply-volume-slider-handle')[0],
+    path = require('path'),
+    fs = require('fs'),
+    eventEmitter,
+    File;
 
 try {
     eventEmitter = require(path.resolve('./lib/events.js')).eventEmitter;
@@ -59,23 +63,32 @@ var playSelectedFile = function(event) {
                 buffer: file
             };
             playlist.push(videoadd);
-            itematual = playlist.indexOf(videoadd);
+            indexlivre = playlist.indexOf(videoadd);
             videoadd = null;
             tstehdj = null;
             $('#getduration').remove();
         }
     }
     updatePlaylist();
-    updatePlay(itematual);
+    if (!isPlay) {
+        updatePlay(indexlivre);
+    }
 }
 
 function updatePlay(index) {
     var fileURL = URL.createObjectURL(playlist[index].buffer);
+    itematual = indexlivre;
+    if (nextVideo || previousVideo) {
+        itematual = index;
+    }
     console.log(`Tocando ${playlist[index].name}`);
     BPlay.attr('d', 'M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z');
     $('.list-itens-playlist').children().removeClass('now-playing');
-    $('.list-itens-playlist').children()[index].classList.add('now-playing');
+    $('.list-itens-playlist').children()[itematual].classList.add('now-playing');
     videoNode.src = fileURL;
+    isPlay = true;
+    nextVideo = false;
+    previousVideo = false;
     fileURL = null;
 }
 
@@ -86,15 +99,19 @@ function updatePlaylist() {
         $('.list-itens-playlist').append(`
         <div class="cordilheia-item-playlist" index-play="${index}">
             <span>${index + 1}. </span>
-            <span style="height: 20px; min-width: 200px; overflow: hidden;">${play.name}</span>
+            <div style="display: inline-flex;">
+                <span style="width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${play.name}">${play.name}</span>
+            </div>
             <span>${play.duration}</span>
         </div>
         `);
     });
 
+    $('.list-itens-playlist').children().removeClass('now-playing');
+    $('.list-itens-playlist').children()[itematual].classList.add('now-playing');
+
     $('.player-T1ow86>.is-overlay').css('opacity', '0');
-    $('.player-playlist').css('opacity', '0');
-    $('.player-playlist').css('transform', 'scale(0.9, 0.9)');
+    $('.player-playlist').css('width', '0px');
     $('.player-playlist').css('z-index', '-1');
 
     setTimeout(() => {
@@ -113,28 +130,14 @@ $('#playlist-open-y40so9').click(function() {
 
     setTimeout(() => {
         $('.player-T1ow86>.is-overlay').css('opacity', '0.85');
-        $('.player-playlist').css('opacity', '1');
-        $('.player-playlist').css('transform', 'scale(1.1, 1.1)');
+        $('.player-playlist').css('width', '400px');
         $('.player-playlist').css('z-index', '10');
     }, 1);
 });
 
 $('#over-Rtj493').click(function() {
     $('.player-T1ow86>.is-overlay').css('opacity', '0');
-    $('.player-playlist').css('opacity', '0');
-    $('.player-playlist').css('transform', 'scale(0.9, 0.9)');
-    $('.player-playlist').css('z-index', '-1');
-
-    setTimeout(() => {
-        $('.player-T1ow86>.is-overlay').css('display', 'none');
-        $('.player-playlist').css('display', 'none');
-    }, 600);
-});
-
-$('#close-o69J50').click(function() {
-    $('.player-T1ow86>.is-overlay').css('opacity', '0');
-    $('.player-playlist').css('opacity', '0');
-    $('.player-playlist').css('transform', 'scale(0.9, 0.9)');
+    $('.player-playlist').css('width', '0px');
     $('.player-playlist').css('z-index', '-1');
 
     setTimeout(() => {
@@ -145,16 +148,18 @@ $('#close-o69J50').click(function() {
 
 function eventNextItem() {
     if (playlist[itematual + 1] != undefined) {
+        nextVideo = true;
         itematual++;
-        console.log('Item anterior da lista.');
+        console.log('Proximo item da lista.');
         updatePlay(itematual);
     }
 }
 
 function eventPreviousItem() {
     if (playlist[itematual - 1] != undefined) {
+        previousVideo = true;
         itematual--;
-        console.log('Proximo item da lista.');
+        console.log('Item anterior da lista.');
         updatePlay(itematual);
     }
 }
@@ -178,9 +183,11 @@ inputNode.addEventListener('change', playSelectedFile, false);
 function play_video() {
     if (videoNode.played.length != 0) {
         if (videoNode.played.start(0) == 0 && !videoNode.paused) {
+            // isPlay = false;
             videoNode.pause();
             BPlay.attr('d', 'M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z');
         } else {
+            // isPlay = true;
             videoNode.play();
             BPlay.attr('d', 'M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z');
         }
@@ -262,4 +269,7 @@ $('.player-video')
 $('.player-controls-botton')
     .mouseover(function(event) {
         $('.player-controls-botton').css('opacity', '1');
+    })
+    .mouseout(function(event) {
+        $('.player-controls-botton').css('opacity', '0');
     });

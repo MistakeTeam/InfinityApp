@@ -17,7 +17,7 @@ function checkTheme() {
     File.ReadFile('options.json', db => {
         var data = db;
 
-        if (data.themeCookie.length <= 0) {
+        if (data.themeCookie.length > themes.datathemes.length) {
             console.log('Adicionando temas');
             data.themeCookie = themes.datathemes;
         }
@@ -28,18 +28,26 @@ function checkTheme() {
                 var name = theme.name;
 
                 if (themedata[name] == true) {
-                    $("head").append(`<link rel="stylesheet" id="${name}" href="${theme.css}">`);
+                    console.log(`Ativando tema: ${name}`);
+                    if ($(`#${name}`).length <= 0) {
+                        $("head").append(`<link rel="stylesheet" id="${name}" href="${theme.css}">`);
+                    }
                     $(`#${theme.author}-${theme.name}`).attr('data-check', 'true');
                     $(`#${theme.author}-${theme.name}`).attr('checked', '');
                     $(`#${theme.author}-${theme.name}`).attr('active', '');
                 } else if (themedata[name] == false) {
+                    console.log(`Desativando tema: ${name}`);
                     $(`#${name}`).remove();
                     $(`#${theme.author}-${theme.name}`).attr('data-check', 'false');
-                    $(`#${theme.author}-${theme.name}`).removeAttr('checked', '');
-                    $(`#${theme.author}-${theme.name}`).removeAttr('active', '');
+                    $(`#${theme.author}-${theme.name}`).removeAttr('checked');
+                    $(`#${theme.author}-${theme.name}`).removeAttr('active');
                 }
             });
         });
+
+        if (data.options.wallpaper != undefined || data.options.wallpaper != "") {
+            $('.blur').css('background', `url(${data.options.wallpaper}) round`);
+        }
 
         File.SaveFile('options.json', JSON.stringify(data));
         data = null;
@@ -47,9 +55,11 @@ function checkTheme() {
 }
 
 function refreshtheme() {
-    $('#theme-box').children().remove();
+    $('#theme-list').children().remove();
+    $('#wallpaper-list').children().remove();
+
     themes.themes.forEach((theme) => {
-        $('#theme-box').append(`
+        $('#theme-list').append(`
         <div class="contain-theme">
             <div class="lost-tab-top">
                 <div class="contain-tab">
@@ -73,7 +83,23 @@ function refreshtheme() {
         `);
     });
 
-    eventEmitter.emit('switchclick');
+    themes.datawallpaper.forEach(wallpaper => {
+        $('#wallpaper-list').append(`
+        <div class="contain-wallpaper">
+            <img src="base/wallpaper/${wallpaper}"></img>
+        </div>
+        `);
+    });
+
+    $('.contain-wallpaper').click(wallpaperclick);
+}
+
+function wallpaperclick(event) {
+    $('.blur').css('background', `url(${$(this).children().attr('src')}) round`);
+    File.ReadFile('options.json', db => {
+        db.options.wallpaper = $(this).children().attr('src');
+        File.SaveFile('options.json', JSON.stringify(db));
+    });
 }
 
 setTimeout(() => {
