@@ -18,7 +18,7 @@
     "author": "xDeltaFox",
     "license": "GPL-3.0",
     "devDependencies": {
-        "electron": "^1.8.2",
+        "electron": "^1.8.4",
         "electron-builder": "^20.6.2",
         "electron-builder-squirrel-windows": "^20.7.0",
         "electron-winstaller": "^2.6.3"
