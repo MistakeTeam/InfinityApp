@@ -50,8 +50,5 @@ Divirta-se com suas modificações, e espero ter lhe ajudado com o que procurava
 
 ## **Layout do InfinityApp**
 *"As Imagens a seguir são do desenvolvimento beta do conceito do InfinityApp..."*
-![Infinity](https://i.imgur.com/0ee47BE.png)
-![Infinity](https://i.imgur.com/GKQ6wx2.jpg)
-
-Esta é uma funcionalidade não implementada, isso é, uma ilustração de como seria.
-![Infinity](https://i.imgur.com/vawrCDd.jpg)
+![Infinity](https://i.imgur.com/vCrWN9T.png)
+![Infinity](https://i.imgur.com/8b9Mphc.jpg)
