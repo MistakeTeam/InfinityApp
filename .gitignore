@@ -41,6 +41,7 @@ lib/notify
 lib/TwitchAPI
 to
 ddd.js
+env.js
 
 # =========================
 # Operating System Files

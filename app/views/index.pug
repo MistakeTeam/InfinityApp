@@ -1,31 +1,32 @@
 extends layout
 
 block head
-    link(rel="stylesheet/less" type="text/css" href='/css/style.less')
+    //- link(rel="stylesheet/less" type="text/css" href='/css/style.less')
     link(rel="stylesheet/less" type="text/css" href='/css/app.less')
-    link(rel="stylesheet/less" type="text/css" href='/css/games.less')
-    link(rel="stylesheet/less" type="text/css" href='/css/player.less')
-    link(rel="stylesheet/less" type="text/css" href='/css/browser.less')
-    link(rel="stylesheet/less" type="text/css" href='/css/options.less')
-    link(rel="stylesheet/less" type="text/css" href='/css/TextEditor.less')
-    link(rel="stylesheet/less" type="text/css" href='/css/titlebar.less')
+    //- link(rel="stylesheet/less" type="text/css" href='/css/games.less')
+    //- link(rel="stylesheet/less" type="text/css" href='/css/player.less')
+    //- link(rel="stylesheet/less" type="text/css" href='/css/browser.less')
+    //- link(rel="stylesheet/less" type="text/css" href='/css/options.less')
+    //- link(rel="stylesheet/less" type="text/css" href='/css/TextEditor.less')
+    //- link(rel="stylesheet/less" type="text/css" href='/css/titlebar.less')
+    //- link(rel="stylesheet/less" type="text/css" href='/css/twitch.less')
 
 block titlebar
     div(style="opacity: 0; pointer-events: none; display: block;").back-o4f98s.animation-default
-        span Voltar
+        span.fa.fa-arrow-left
     div.win-buttons.win-buttons-light
-        button(onclick="javascript:minimize()").win-minimize.animation-default
+        button.win-minimize.animation-default
             svg(name="TitleBarMinimize" width="12" height="12" viewBox="0 0 12 12")
                 rect(fill="#ffffff" width="10" height="1" x="1" y="6")
-        button(onclick="javascript:maximize()").win-maximize.animation-default
+        button.win-maximize.animation-default
             svg(name="TitleBarMaximize" width="12" height="12" viewBox="0 0 12 12")
                 rect(width="9" height="9" x="1.5" y="1.5" fill="none" stroke="#ffffff")
-        button(onclick="javascript:close()").win-close.animation-default
+        button.win-close.animation-default
             svg(name="TitleBarClose" width="12" height="12" viewBox="0 0 12 12")
                 polygon(fill="#ffffff" fill-rule="evenodd" points="11 1.576 6.583 6 11 10.424 10.424 11 6 6.583 1.576 11 1 10.424 5.417 6 1 1.576 1.576 1 6 5.417 10.424 1")
 
 block app
-    .flex-vertical
+    div
         .inicio
             .invoq-menu
                 if profile_data
@@ -38,11 +39,11 @@ block app
                 .menu-itens.animation-default(style="transform: scale(1, 1); opacity: 1; z-index: 100;")
                     .menu-contens
                         .contain-itens
-                            div(data-internal-name='util-game' play_easy).itens-button.animation-default
+                            div(data-internal-name='util-game' play_easy).itens-button
+                                //- status-indicator(pulse negative isLive style="right: -15px; top: -15px;").animation-default
                                 .have-ot
-                                    span.itens-span-name Games
-                                    .itens-icon.animation-default(style="width: 40%; bottom: 0px; left: 0px;")
-                                        svg(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 56.837 56.837" style="enable-background:new 0 0 56.837 56.837; filter: grayscale(100%);" xml:space="preserve").animation-default
+                                    .itens-icon.animation-default(style="width: 48px;")
+                                        svg(xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 56.837 56.837" style="enable-background:new 0 0 56.837 56.837;" xml:space="preserve").animation-default
                                             path(style="fill:#AFB6BB;" d="M43.598,15.837h-6.271H36.35c-1.826,2.707-4.921,4.488-8.432,4.488s-6.606-1.781-8.432-4.488h-0.976  H13.24c-2.939,0-5.321,2.382-5.321,5.321v30.358c0,2.939,2.382,5.321,5.321,5.321h30.358c2.939,0,5.321-2.382,5.321-5.321V21.158  C48.919,18.219,46.536,15.837,43.598,15.837z")
                                             path(style="fill:#E7ECED;" d="M27.919,20.326c-1.044,0-2.052-0.159-3-0.451V35c0,1.657,1.343,3,3,3s3-1.343,3-3V19.874  C29.97,20.167,28.963,20.326,27.919,20.326z")
                                             circle(style="fill:#DD352E;" cx="15.151" cy="49.07" r="2.767")
@@ -51,55 +52,60 @@ block app
                                             path(style="fill:#38454F;" d="M30.919,25.496V35c0,1.657-1.343,3-3,3s-3-1.343-3-3v-9.504C21.19,26.75,18.5,30.267,18.5,34.419  c0,5.202,4.217,9.419,9.419,9.419c5.202,0,9.419-4.217,9.419-9.419C37.337,30.267,34.648,26.75,30.919,25.496z")
                                             circle(style="fill:#DD352E;" cx="27.919" cy="10.163" r="10.163")
                                             path(style="fill:#ED7161;" d="M21.919,10.837c-0.552,0-1-0.447-1-1c0-3.309,2.691-6,6-6c0.552,0,1,0.447,1,1s-0.448,1-1,1  c-2.206,0-4,1.794-4,4C22.919,10.39,22.471,10.837,21.919,10.837z")
-                                div(style="opacity: 0; display: none;").play_easy.animation-default
-                            div(data-internal-name='util-player').itens-button.animation-default
+                                    span.itens-span-name#item_menu_games_name
+                                div(style="display: none;").drag-event
+                                    .uploadbox
+                            div(data-internal-name='util-player').itens-button
                                 .have-ot
-                                    span.itens-span-name Player
-                                    .itens-icon.animation-default(style="width: 40%; bottom: 0px; left: 0px;")
-                                        svg(style="filter: grayscale(100%); fill: #3092d2;" height="100%" version="1.1" viewBox="8 8 20 20" width="100%").animation-default
+                                    .itens-icon.animation-default(style="width: 48px;")
+                                        svg(height="100%" version="1.1" viewBox="8 8 20 20" width="100%").animation-default
                                             use(xlink:href="#ply-id-28")
                                             path(d="M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z" id="ply-id-28")
-                            div(data-internal-name='util-twitch').itens-button.animation-default
+                                    span.itens-span-name#item_menu_player_name
+                            div(data-internal-name='util-twitch').itens-button
                                 .have-ot
-                                    span.itens-span-name Twitch
-                                    .itens-icon.animation-default(style="width: 40%; bottom: 0px; left: 0px;")
-                                        img(style="width: 100%; filter: grayscale(100%);" src="img/icons/5fd1b5df1b3fd51bd35f1b3df1b.png").animation-default
-                            div(data-internal-name='util-twitch').itens-button.animation-default
+                                    .itens-icon.animation-default(style="width: 48px;")
+                                        img(style="width: 100%;" src="img/icons/5fd1b5df1b3fd51bd35f1b3df1b.png").animation-default
+                                    span.itens-span-name#item_menu_twitch_name
+                            //- div(data-internal-name='util-mixer').itens-button.animation-default
+                            //-     .have-ot
+                            //-         .itens-icon.animation-default(style="width: 48px")
+                            //-             svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160.58 142.09" style="filter: grayscale(100%);").animation-default
+                            //-                 g
+                            //-                     path(style="fill:#fff;" d="M513.51,291.5a16.4,16.4,0,0,0-24.19-2.32c-6.33,5.75-6.76,15.61-1.66,22.47l32.86,44.14-33.1,44.46c-5.11,6.86-4.67,16.72,1.66,22.47a16.4,16.4,0,0,0,24.19-2.32l46.2-62.06a4.29,4.29,0,0,0,0-5.12Z" transform="translate(-483.92 -284.91)")
+                            //-                     path(style="fill:#1fbaed;" d="M614.91,291.5a16.4,16.4,0,0,1,24.19-2.32c6.33,5.75,6.76,15.61,1.66,22.47L607.9,355.79,641,400.25c5.11,6.86,4.67,16.72-1.66,22.47a16.4,16.4,0,0,1-24.19-2.32L569,358.35a4.29,4.29,0,0,1,0-5.12Z" transform="translate(-483.92 -284.91)")
+                            //-         span.itens-span-name Mixer
+                            //- div(data-internal-name='util-torrent').itens-button.animation-default
+                            //-     .have-ot
+                            //-         .itens-icon.animation-default(style="width: 48px")
+                            //-         span.itens-span-name Torrent
+                            div(data-internal-name='util-TextEditor').itens-button
                                 .have-ot
-                                    span.itens-span-name Mixer
-                                    .itens-icon.animation-default(style="width: 40%; bottom: 0px; left: 0px;")
-                                        svg(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160.58 142.09" style="filter: grayscale(100%);").animation-default
-                                            g
-                                                path(style="fill:#fff;" d="M513.51,291.5a16.4,16.4,0,0,0-24.19-2.32c-6.33,5.75-6.76,15.61-1.66,22.47l32.86,44.14-33.1,44.46c-5.11,6.86-4.67,16.72,1.66,22.47a16.4,16.4,0,0,0,24.19-2.32l46.2-62.06a4.29,4.29,0,0,0,0-5.12Z" transform="translate(-483.92 -284.91)")
-                                                path(style="fill:#1fbaed;" d="M614.91,291.5a16.4,16.4,0,0,1,24.19-2.32c6.33,5.75,6.76,15.61,1.66,22.47L607.9,355.79,641,400.25c5.11,6.86,4.67,16.72-1.66,22.47a16.4,16.4,0,0,1-24.19-2.32L569,358.35a4.29,4.29,0,0,1,0-5.12Z" transform="translate(-483.92 -284.91)")
-                            div(data-internal-name='util-torrent').itens-button.animation-default
+                                    .itens-icon.animation-default(style="width: 48px")
+                                    span.itens-span-name#item_menu_Text_Editor
+                            //- div(data-internal-name='util-currency').itens-button.animation-default
+                            //-     .have-ot
+                            //-         .itens-icon.animation-default(style="width: 48px")
+                            //-         span.itens-span-name Moeda
+                            //- div(data-internal-name='util-browser').itens-button.animation-default
+                            //-     .have-ot
+                            //-         .itens-icon.animation-default(style="width: 48px")
+                            //-         span.itens-span-name Navegador
+                            div(data-internal-name='util-options').itens-button
                                 .have-ot
-                                    span.itens-span-name Torrent
-                                    .itens-icon.animation-default(style="width: 40%; bottom: 0px; left: 0px;")
-                            div(data-internal-name='util-TextEditor').itens-button.animation-default
-                                .have-ot
-                                    span.itens-span-name Editor de Texto
-                                    .itens-icon.animation-default(style="width: 40%; bottom: 0px; left: 0px;")
-                            div(data-internal-name='util-currency').itens-button.animation-default
-                                .have-ot
-                                    span.itens-span-name Moeda
-                                    .itens-icon.animation-default(style="width: 40%; bottom: 0px; left: 0px;")
-                            div(data-internal-name='util-browser').itens-button.animation-default
-                                .have-ot
-                                    span.itens-span-name Navegador
-                                    .itens-icon.animation-default(style="width: 40%; bottom: 0px; left: 0px;")
-                            div(data-internal-name='util-options').itens-button.animation-default
-                                .have-ot
-                                    span.itens-span-name Opções
-                                    .itens-icon.animation-default(style="width: 40%; bottom: 0px; left: 0px;")
-                                        svg(xmlns="http://www.w3.org/2000/svg" viewBox="1 1 16 16" style="filter: grayscale(100%); fill: #3092d2;").colorSelectedText-3YhFC6.icon-3tVJnl.animation-default
+                                    .itens-icon.animation-default(style="width: 48px")
+                                        svg(xmlns="http://www.w3.org/2000/svg" viewBox="1 1 16 16").colorSelectedText-3YhFC6.icon-3tVJnl.animation-default
                                             path(d="M7.15546853,6.47630098e-17 L5.84453147,6.47630098e-17 C5.36185778,-6.47630098e-17 4.97057344,0.391750844 4.97057344,0.875 L4.97057344,1.9775 C4.20662236,2.21136254 3.50613953,2.61688993 2.92259845,3.163125 L1.96707099,2.61041667 C1.76621819,2.49425295 1.52747992,2.46279536 1.30344655,2.52297353 C1.07941319,2.58315171 0.88846383,2.73002878 0.77266168,2.93125 L0.117193154,4.06875 C0.00116776262,4.26984227 -0.0302523619,4.50886517 0.0298541504,4.73316564 C0.0899606628,4.9574661 0.236662834,5.14864312 0.437644433,5.26458333 L1.39171529,5.81583333 C1.21064614,6.59536289 1.21064614,7.40609544 1.39171529,8.185625 L0.437644433,8.736875 C0.236662834,8.85281521 0.0899606628,9.04399223 0.0298541504,9.2682927 C-0.0302523619,9.49259316 0.00116776262,9.73161606 0.117193154,9.93270833 L0.77266168,11.06875 C0.88846383,11.2699712 1.07941319,11.4168483 1.30344655,11.4770265 C1.52747992,11.5372046 1.76621819,11.5057471 1.96707099,11.3895833 L2.92259845,10.836875 C3.50613953,11.3831101 4.20662236,11.7886375 4.97057344,12.0225 L4.97057344,13.125 C4.97057344,13.6082492 5.36185778,14 5.84453147,14 L7.15546853,14 C7.63814222,14 8.02942656,13.6082492 8.02942656,13.125 L8.02942656,12.0225 C8.79337764,11.7886375 9.49386047,11.3831101 10.0774016,10.836875 L11.032929,11.3895833 C11.2337818,11.5057471 11.4725201,11.5372046 11.6965534,11.4770265 C11.9205868,11.4168483 12.1115362,11.2699712 12.2273383,11.06875 L12.8828068,9.93270833 C12.9988322,9.73161606 13.0302524,9.49259316 12.9701458,9.2682927 C12.9100393,9.04399223 12.7633372,8.85281521 12.5623556,8.736875 L11.6082847,8.185625 C11.7893539,7.40609544 11.7893539,6.59536289 11.6082847,5.81583333 L12.5623556,5.26458333 C12.7633372,5.14864312 12.9100393,4.9574661 12.9701458,4.73316564 C13.0302524,4.50886517 12.9988322,4.26984227 12.8828068,4.06875 L12.2273383,2.93270833 C12.1115362,2.73148712 11.9205868,2.58461004 11.6965534,2.52443187 C11.4725201,2.46425369 11.2337818,2.49571128 11.032929,2.611875 L10.0774016,3.16458333 C9.49400565,2.61782234 8.79351153,2.2117896 8.02942656,1.9775 L8.02942656,0.875 C8.02942656,0.391750844 7.63814222,6.47630098e-17 7.15546853,6.47630098e-17 Z M8.5,7 C8.5,8.1045695 7.6045695,9 6.5,9 C5.3954305,9 4.5,8.1045695 4.5,7 C4.5,5.8954305 5.3954305,5 6.5,5 C7.03043298,5 7.53914081,5.21071368 7.91421356,5.58578644 C8.28928632,5.96085919 8.5,6.46956702 8.5,7 Z" transform="translate(2.5 2)")
+                                    span.itens-span-name#item_menu_options_name
+                .statusbar
                 .util-app.animation-default(style="transform: scale(1.1, 1.1); opacity: 0; z-index: -1;")
 
 block scripts
     script(src='/js/main.js')
-    script(src='/js/events.js')
-    script(src='/js/games.js')
     script(src='/js/theme.js')
+    script(src='/js/lang.js')
+    script(src='/js/games.js')
     script(src='/js/options.js')
     script(src='/js/extra.js')
+    script(src='/js/TextEditor.js')
+    script(src='/js/events.js')

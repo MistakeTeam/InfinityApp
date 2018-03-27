@@ -1,0 +1,30 @@
+#twitch-embed {
+    height: 100%;
+}
+
+.twitch-options {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    top: 0;
+    pointer-events: none;
+
+    div.twitch-button-low {
+        margin: auto;
+        left: -50%;
+        position: relative;
+        pointer-events: all;
+
+        img {
+            width: 100px;
+        }
+    }
+}
+
+#twitch-button-init {
+    div.twitch-button-low {
+        &:hover {
+            left: 0;
+        }
+    }
+}

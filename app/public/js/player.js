@@ -2,35 +2,43 @@
 
 var URL = window.URL || window.webkitURL,
     videoNode = document.getElementById('pb-video'),
-    BPlay = $('.ply-play-button .ply-svg-fill'),
+    BPlay = $('.ply-play-button'),
     playlist = [],
-    indexlivre = 0,
+    itemlivre = 0,
     itematual = 0,
     hasItem = false,
     isPlay = false,
     nextVideo = false,
     previousVideo = false,
-    drag = false,
+    selectVideo = false,
+    ply_volume_panel_drag = false,
+    player_progress_bar_click = false,
     barProgress = document.getElementsByClassName('player-progress-bar')[0],
     videoLoader = document.getElementById('progress-loader'),
     progress = document.getElementsByClassName('progress-bar')[0],
     slider = document.getElementsByClassName('ply-mute-button')[0],
-    sliderVol = document.getElementsByClassName('ply-volume-slider-handle')[0],
-    path = require('path'),
-    fs = require('fs'),
-    eventEmitter,
-    File;
+    sliderVol = document.getElementsByClassName('ply-volume-slider-handle')[0];
 
-try {
-    eventEmitter = require(path.resolve('./lib/events.js')).eventEmitter;
-    File = require(path.resolve(process.cwd(), './lib/File.js'));
-} catch (err) {
-    eventEmitter = require(path.resolve(process.cwd(), './resources/app.asar/lib/events.js')).eventEmitter;
-    File = require(path.resolve(process.cwd(), './resources/app.asar/lib/File.js'));
-}
+var playSelectedFile = async function(event) {
+    var fristitem = {};
 
-var playSelectedFile = function(event) {
+    $('.list-itens-playlist').children().remove();
+    $('.list-itens-playlist').append(`
+    <div class="loading-init">
+        <div class="typing-3eiiL_">
+            <span class="ellipsis--nKTEd">
+                <span class="spinner-inner spinner-pulsing-ellipsis">
+                    <span class="spinner-item"></span>
+                    <span class="spinner-item"></span>
+                    <span class="spinner-item"></span>
+                </span>
+            </span>
+        </div>
+    </div>
+    `);
+
     for (var i = 0; i < this.files.length; i++) {
+        // if (i < 5) {
         hasItem = false;
         var file = this.files[i];
         var type = file.type;
@@ -42,16 +50,12 @@ var playSelectedFile = function(event) {
 
         playlist.forEach(play => {
             if (play.name == file.name) {
-                return hasItem = true;
+                hasItem = true;
             }
         });
 
         if (!hasItem) {
-            $('.player-video').append('<video id="getduration" src="" autoplay style="display:none;"></video>');
-            var tstehdj = document.getElementById('getduration');
-            tstehdj.muted = true;
-            tstehdj.src = URL.createObjectURL(file);
-            console.log($('#getduration'));
+            var dur = await getDuraction(file);
             var videoadd = {
                 lastModified: file.lastModified,
                 lastModifiedDate: file.lastModifiedDate,
@@ -59,80 +63,202 @@ var playSelectedFile = function(event) {
                 path: file.path,
                 size: file.size,
                 type: file.type,
-                duration: $('#getduration')[0].duration,
+                duration: dur,
                 buffer: file
             };
             playlist.push(videoadd);
-            indexlivre = playlist.indexOf(videoadd);
+            if (i == 0) {
+                fristitem = videoadd;
+            }
+            itemlivre = playlist.indexOf(videoadd);
             videoadd = null;
-            tstehdj = null;
-            $('#getduration').remove();
         }
+        // }
     }
-    updatePlaylist();
-    if (!isPlay) {
-        updatePlay(indexlivre);
-    }
+    setTimeout(() => {
+        updatePlaylist();
+        if (!isPlay) {
+            if (this.files.length > 1) {
+                itemlivre = playlist.indexOf(fristitem);
+            }
+            updatePlay(itemlivre);
+        }
+    }, 300);
+}
+
+function getDuraction(file) {
+    return new Promise(async resolve => {
+        if ($('#getduration').length == 0) {
+            $('.player-video').append('<video id="getduration" src="" autoplay style="display:none;"></video>');
+        }
+        var videoPreload = document.getElementById('getduration');
+        videoPreload.muted = true;
+        videoPreload.preload = 'metadata';
+        videoPreload.src = URL.createObjectURL(file);
+        videoPreload.onloadedmetadata = await
+
+        function(event) {
+            URL.revokeObjectURL(videoPreload.src);
+            resolve(videoPreload.duration);
+            $('#getduration').remove();
+            videoPreload = null;
+            return;
+        }
+    });
 }
 
 function updatePlay(index) {
     var fileURL = URL.createObjectURL(playlist[index].buffer);
-    itematual = indexlivre;
-    if (nextVideo || previousVideo) {
-        itematual = index;
+    itematual = new Number(itemlivre);
+
+    if (nextVideo || previousVideo || selectVideo) {
+        itematual = new Number(index);
     }
-    console.log(`Tocando ${playlist[index].name}`);
-    BPlay.attr('d', 'M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z');
-    $('.list-itens-playlist').children().removeClass('now-playing');
-    $('.list-itens-playlist').children()[itematual].classList.add('now-playing');
+
+    IAPI.init({
+        state: 'Player',
+        details: playlist[index].name,
+        active: true
+    });
+
+    remote.getCurrentWindow().setTitle(`Player - ${playlist[index].name}`);
+    console.log(`[player] Tocando ${playlist[index].name}`);
+
+    BPlay.children().remove();
+    BPlay.html(`<span><span class="fa fa-pause"></span></span>`);
+    if ($('.list-itens-playlist').children('.cordilheia-item-playlist').length != 0) {
+        $('.list-itens-playlist').children().removeClass('now-playing');
+        $('.list-itens-playlist').children()[itematual].classList.add('now-playing');
+    }
+
+    // Close playlist
+    // $('.player-T1ow86>.is-overlay').css('opacity', '0');
+    // $('.player-playlist').css('width', '0px');
+    // $('.player-playlist').css('z-index', '-1');
+
+    // setTimeout(() => {
+    //     $('.player-T1ow86>.is-overlay').css('display', 'none');
+    //     $('.player-playlist').css('display', 'none');
+    // }, 600);
+
     videoNode.src = fileURL;
     isPlay = true;
     nextVideo = false;
     previousVideo = false;
+    selectVideo = false;
     fileURL = null;
 }
 
 function updatePlaylist() {
     $('.list-itens-playlist').children().remove();
 
+    let totalDuration = 0;
     playlist.forEach((play, index) => {
         $('.list-itens-playlist').append(`
         <div class="cordilheia-item-playlist" index-play="${index}">
-            <span>${index + 1}. </span>
-            <div style="display: inline-flex;">
-                <span style="width: 300px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${play.name}">${play.name}</span>
-            </div>
-            <span>${play.duration}</span>
+            <span style="text-overflow: ellipsis;white-space: nowrap;overflow: auto;" title="${play.name}">${play.name}</span>
+            <span>${format(play.duration)}</span>
         </div>
         `);
+        totalDuration += play.duration;
     });
 
-    $('.list-itens-playlist').children().removeClass('now-playing');
-    $('.list-itens-playlist').children()[itematual].classList.add('now-playing');
+    $('.cordilheia-item-playlist').mouseup(function(event) {
+        switch (event.which) {
+            case 1:
+                console.log('Left Mouse button pressed.');
+                selectVideo = true;
+                updatePlay($(this).attr('index-play'));
+                setTimeout(() => {
+                    updatePlaylist();
+                }, 20);
+                break;
+            case 3:
+                console.log('Right Mouse button pressed.');
+                if ($('#right-mouse-options').length == 0) {
+                    $('.downmost').append(`<div id="right-mouse-options" style="left: auto; right: auto; bottom: auto; top: auto;"></div>`);
+                } else if ($('#right-mouse-options').length > 0) {
+                    if ($('#right-mouse-options').children().length > 0) {
+                        $('#right-mouse-options').children().remove();
+                    }
+                }
 
-    $('.player-T1ow86>.is-overlay').css('opacity', '0');
-    $('.player-playlist').css('width', '0px');
-    $('.player-playlist').css('z-index', '-1');
+                let item_playlist = $(this);
+                let lite = [{
+                    id: "remove-item-playlist",
+                    text: "Remover",
+                    generator: function() {
+                        console.log(`Removendo ${playlist[item_playlist.attr('index-play')].name}`);
+                        if (itematual == item_playlist.attr('index-play')) {
+                            if (playlist[itematual + 1] != undefined) {
+                                // nextVideo = true;
+                                // itematual++;
+                                console.log('[player] Proximo item da lista.');
+                                updatePlay(itematual + 1);
+                            } else {
+                                videoNode.src = undefined;
+                                isPlay = false;
+                            }
+                        } else if (itematual > item_playlist.attr('index-play')) {
+                            itematual--;
+                        }
 
-    setTimeout(() => {
-        $('.player-T1ow86>.is-overlay').css('display', 'none');
-        $('.player-playlist').css('display', 'none');
-    }, 600);
+                        playlist.splice(item_playlist.attr('index-play'), 1);
+                        setTimeout(() => {
+                            updatePlaylist();
+                        }, 20);
+                        $('#right-mouse-options').remove();
+                        $('#touchCloseMenus').remove();
+                    }
+                }];
+                touchCloseMenus();
+                lite.forEach((value, index, array) => {
+                    $('#right-mouse-options').append(`<div class="options-item" id="${value.id}"><span>${value.text}</span></div>`);
+                    $(`#${value.id}`).click(value.generator);
+                });
+
+                if ($('#right-mouse-options').children().length > 0) {
+                    if ((event.clientX + $('#right-mouse-options').outerWidth(true)) > ($('#document-body').width() - 35)) {
+                        let result = 35;
+                        $('#right-mouse-options').css('left', `auto`);
+                        $('#right-mouse-options').css('right', `${result}px`);
+                    } else {
+                        $('#right-mouse-options').css('left', `${event.clientX}px`);
+                        $('#right-mouse-options').css('right', `auto`);
+                    }
+                    if ((event.clientY + $('#right-mouse-options').outerHeight(true)) > $('#document-body').height()) {
+                        let result = 0;
+                        $('#right-mouse-options').css('bottom', `${result}px`);
+                        $('#right-mouse-options').css('top', `auto`);
+                    } else {
+                        $('#right-mouse-options').css('bottom', `auto`);
+                        $('#right-mouse-options').css('top', `${event.clientY}px`);
+                    }
+                } else if ($('#right-mouse-options').children().length <= 0) {
+                    $('#right-mouse-options').remove();
+                }
+                break;
+            default:
+                console.log('You have a strange Mouse!');
+                break;
+        }
+    })
+
+    $('#hora-total').text(format(totalDuration));
+    if ($('.list-itens-playlist').children('.cordilheia-item-playlist').length != 0) {
+        $('.list-itens-playlist').children().removeClass('now-playing');
+        $('.list-itens-playlist').children()[itematual].classList.add('now-playing');
+    }
 }
-
-$('.cordilheia-item-playlist').click(function() {
-    updatePlay($(this).attr('index-play'));
-})
 
 $('#playlist-open-y40so9').click(function() {
     $('.player-T1ow86>.is-overlay').css('display', 'block');
-    $('.player-playlist').css('display', 'block');
 
     setTimeout(() => {
         $('.player-T1ow86>.is-overlay').css('opacity', '0.85');
-        $('.player-playlist').css('width', '400px');
+        $('.player-playlist').css('width', '450px');
         $('.player-playlist').css('z-index', '10');
-    }, 1);
+    }, 10);
 });
 
 $('#over-Rtj493').click(function() {
@@ -142,15 +268,14 @@ $('#over-Rtj493').click(function() {
 
     setTimeout(() => {
         $('.player-T1ow86>.is-overlay').css('display', 'none');
-        $('.player-playlist').css('display', 'none');
-    }, 600);
+    }, 410);
 });
 
 function eventNextItem() {
     if (playlist[itematual + 1] != undefined) {
         nextVideo = true;
         itematual++;
-        console.log('Proximo item da lista.');
+        console.log('[player] Proximo item da lista.');
         updatePlay(itematual);
     }
 }
@@ -159,12 +284,11 @@ function eventPreviousItem() {
     if (playlist[itematual - 1] != undefined) {
         previousVideo = true;
         itematual--;
-        console.log('Item anterior da lista.');
+        console.log('[player] Item anterior da lista.');
         updatePlay(itematual);
     }
 }
 
-eventEmitter.on('nextitem', eventNextItem);
 $('.ply-next-button').click(eventNextItem);
 $('.ply-previous-button').click(function() {
     if (videoNode.currentTime <= 1) {
@@ -172,9 +296,6 @@ $('.ply-previous-button').click(function() {
     } else {
         videoNode.currentTime = 0;
     }
-});
-$('.cordilheia-item-playlist').click(function() {
-    updatePlay($(this).attr('index-play'));
 });
 
 var inputNode = document.getElementById('pb-input');
@@ -185,11 +306,13 @@ function play_video() {
         if (videoNode.played.start(0) == 0 && !videoNode.paused) {
             // isPlay = false;
             videoNode.pause();
-            BPlay.attr('d', 'M 12,26 18.5,22 18.5,14 12,10 z M 18.5,22 25,18 25,18 18.5,14 z');
+            BPlay.children().remove();
+            BPlay.html(`<span><span class="fa fa-play"></span></span>`);
         } else {
             // isPlay = true;
             videoNode.play();
-            BPlay.attr('d', 'M 12,26 16,26 16,10 12,10 z M 21,26 25,26 25,10 21,10 z');
+            BPlay.children().remove();
+            BPlay.html(`<span><span class="fa fa-pause"></span></span>`);
         }
     }
 }
@@ -206,7 +329,7 @@ function update() {
     }
 
     if (videoNode.currentTime == videoNode.duration) {
-        eventEmitter.emit('nextitem');
+        eventNextItem();
     }
 }
 
@@ -221,55 +344,67 @@ $('.ply-mute-button').click(function(event) {
     } else {
         videoNode.muted = false;
         // audioButton.querySelector('span').className = 'ion-volume-medium';
-        videoNode.volume = 0.9;
-        sliderVol.style.width = 90 + "%";
+        videoNode.volume = 1;
+        sliderVol.style.width = 100 + "%";
     }
 });
 
 $('.ply-volume-panel')
-    .on('mousedown mouseup', function(event) {
-        if (event.type == "mousedown") {
-            drag = true;
+    .mousedown(function(event) {
+        ply_volume_panel_drag = true;
+        $(this).css('width', '70px');
+        $(this).css('opacity', '1');
+    })
+    .on("mouseup mouseleave", function(event) {
+        ply_volume_panel_drag = false;
+        $(this).css('width', '0px');
+        $(this).css('opacity', '0');
+    })
+    .mousemove(function(event) {
+        if (ply_volume_panel_drag == false) return;
+        let position = event.pageX - $(this).offset().left;
+        let percentage = 100 * position / $(this).width();
+        if ((percentage / 100) >= 1) {
+            $('.ply-volume-slider').css('width', '100%');
+            videoNode.volume = 1;
+        } else if ((percentage / 100) <= 0) {
+            $('.ply-volume-slider').css('width', '0%');
+            videoNode.volume = 0;
         } else {
-            drag = false;
+            $('.ply-volume-slider').css('width', percentage + '%');
+            videoNode.volume = percentage / 100;
         }
-    })
-    .on('mousemove', function(event) {
-        if (drag) {
-            var w = slider.clientHeight - 2;
-            var x = event.clientY - slider.offsetLeft;
-            var pctVol = x / w;
-
-            if (pctVol > 1) {
-                sliderVol.style.width = 100 + "%";
-                videoNode.volume = 1;
-            } else if (pctVol < 0) {
-                sliderVol.style.width = 0 + "%";
-                videoNode.volume = 0;
-            } else {
-                sliderVol.style.width = (x / w) * 100 + "%";
-                videoNode.volume = pctVol;
-            }
-        } else {}
     });
 
-$('.player-progress-bar').mousedown(function(event) {
-    var pctBar = (event.clientX / barProgress.clientWidth) * 100;
-    videoNode.currentTime = (videoNode.duration * pctBar) / 100;
-});
-
-$('.player-video')
-    .mouseover(function(event) {
-        $('.player-controls-botton').css('opacity', '1');
+$('.player-progress-bar')
+    .mousedown(function(event) {
+        player_progress_bar_click = true;
+        var pctBar = (event.clientX / barProgress.clientWidth) * 100;
+        videoNode.currentTime = (videoNode.duration * pctBar) / 100;
     })
-    .mouseout(function(event) {
-        $('.player-controls-botton').css('opacity', '0');
+    .on("mouseup mouseleave", function(event) {
+        player_progress_bar_click = false;
+    })
+    .mousemove(function(event) {
+        if (player_progress_bar_click == false) return;
+        var pctBar = (event.clientX / barProgress.clientWidth) * 100;
+        videoNode.currentTime = (videoNode.duration * pctBar) / 100;
     });
 
-$('.player-controls-botton')
-    .mouseover(function(event) {
-        $('.player-controls-botton').css('opacity', '1');
+let resize_drag = false;
+$('.player-playlist > .infinity-dock-resize-handle')
+    .mousedown(function(event) {
+        resize_drag = true;
+        $('.player-playlist > .infinity-dock-cursor-overlay').addClass('infinity-dock-cursor-overlay-visible');
+    });
+
+$('.player-playlist > .infinity-dock-cursor-overlay')
+    .mouseup(function(event) {
+        resize_drag = false;
+        $(this).removeClass('infinity-dock-cursor-overlay-visible');
     })
-    .mouseout(function(event) {
-        $('.player-controls-botton').css('opacity', '0');
+    .mousemove(function(event) {
+        if (resize_drag == false) return;
+        let parent = $(this).parent();
+        parent.css('width', event.clientX);
     });

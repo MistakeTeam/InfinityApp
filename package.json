@@ -1,14 +1,15 @@
 {
-    "name": "infinityapp",
+    "name": "Infinityapp",
     "version": "0.0.29",
-    "descrection": "Um app universal",
+    "description": "Um app universal",
     "main": "Main.js",
     "scripts": {
         "start": "electron . InfinityApp",
-        "web": "node host.js",
-        "buildwin": "electron-packager . InfinityApp --version 1.7.10 --platform win32  --arch=ia32 --icon ./img/logo.ico --out ./dist --overwrite --asar=true",
-        "buildasar": "asar pack . app.asar",
-        "setup": "node build.js"
+        "buildwin": "electron-packager . InfinityApp --electron-version 1.8.2 --platform win32  --arch=ia32 --icon ./img/logo.ico --out ./dist --overwrite --asar=true",
+        "setup": "node build.js ELECTRON_BUILDER_ALLOW_UNRESOLVED_DEPENDENCIES=true"
+    },
+    "build": {
+        "appId": "com.mistake.infinityapp"
     },
     "keywords": [
         "electron",
@@ -18,6 +19,8 @@
     "license": "GPL-3.0",
     "devDependencies": {
         "electron": "^1.8.2",
+        "electron-builder": "^20.6.2",
+        "electron-builder-squirrel-windows": "^20.7.0",
         "electron-winstaller": "^2.6.3"
     },
     "dependencies": {
@@ -26,18 +29,25 @@
         "Squirrel": "0.0.1",
         "beam-client-node": "^1.0.2",
         "beam-interactive-node": "^0.3.2",
+        "body-parser": "^1.18.2",
+        "chalk": "^2.3.0",
+        "cookie-parser": "^1.4.3",
         "discord-rpc": "^3.0.0-beta.8",
         "electron-is": "^2.4.0",
         "electron-reload": "^1.2.2",
         "eventemitter3": "^2.0.3",
         "express": "^4.15.4",
+        "express-session": "^1.15.6",
         "igdb-api-node": "^3.1.1",
         "is-online": "^7.0.0",
         "jquery": "^3.2.1",
         "less-middleware": "^2.2.1",
         "markdown": "^0.5.0",
+        "mongoose": "^5.0.4",
         "node-process-windows": "0.0.2",
         "node-tweet-stream": "^2.0.1",
+        "passport": "^0.4.0",
+        "passport-oauth": "^1.0.0",
         "pug": "^2.0.0-rc.4",
         "rimraf": "^2.6.2",
         "systeminformation": "^3.33.13"

@@ -5,30 +5,27 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Main Process",
             "type": "node",
             "request": "launch",
-            "cwd": "${workspaceRoot}",
-            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
-            "windows": {
-                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
-            },
-            "program": "${workspaceRoot}/app.js",
-            "protocol": "legacy"
+            "name": "Launch via NPM",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run-script",
+                "start"
+            ]
         },
         {
-            "name": "Debug Renderer Process",
-            "type": "chrome",
+            "type": "node",
             "request": "launch",
-            "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron",
-            "windows": {
-                "runtimeExecutable": "${workspaceRoot}/node_modules/.bin/electron.cmd"
-            },
-            "runtimeArgs": [
-                "${workspaceRoot}/app.js",
-                "--remote-debugging-port=9222"
-            ],
-            "webRoot": "${workspaceRoot}"
+            "name": "Launch Program",
+            "program": "${workspaceFolder}/main.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Infinityapp Main Process",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "program": "${workspaceFolder}/main.js"
         }
     ]
 }

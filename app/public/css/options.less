@@ -6,30 +6,33 @@
     right: 0;
     display: flex;
     border-radius: 2px;
-    margin: 0 100px;
 }
 
 #option-left-sidebar {
     width: 17%;
     float: left;
-    padding: 20px 0 0 0;
-
-    .option-contents.selected-item {
-        background-color: #dada40;
-        color: #fff!important;
-        cursor: default;
-    }
+    padding: 20px 0 0 30px;
 }
 
 #option-right-sidebar {
     width: 100%;
     float: right;
     overflow: auto;
-    padding: 20px 0 0 0;
+    padding: 20px 30px 0 0;
+    position: relative;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        background: rgb(49, 49, 49);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: lighten(rgb(49, 49, 49), 15%);
+    }
 }
 
 .option-contents {
-    padding: 3px 5px;
+    padding: 4px 8px;
     margin: 4px;
     color: #fff!important;
     border-radius: 3px;
@@ -41,24 +44,47 @@
     &:hover {
         background: hsla(0, 0%, 86%, 0.099);
     }
+
+    >span {
+        display: flex;
+        white-space: nowrap;
+
+        >span:first-child {
+            margin-right: 5px;
+            line-height: 20px;
+        }
+    }
+
+    &.selected-item {
+        background-color: @main-color;
+        color: #fff!important;
+        cursor: default;
+    }
 }
 
 .contain-theme {
-    margin: 5px;
-    border-radius: 3px;
+    margin: 10px 0;
+    border-radius: 5px;
     background: #262727;
     color: #fff;
+    width: 100%;
+    box-shadow: 0px 0px 5px #fff;
+    overflow: hidden;
 }
 
 .contain-wallpaper {
     width: 200px;
     margin: 5px auto;
     cursor: pointer;
+    display: grid;
+
+    &:hover {
+        transform: scale(1.05, 1.05);
+    }
 }
 
-.button-default {
-    padding: 4px 10px;
-    background: #135ca0;
+.bg-active {
+    border: 2px dashed #fff;
 }
 
 .lost-tab-top {
@@ -91,4 +117,47 @@
 
 .more-info {
     padding: 0 2px 0 0;
+}
+
+#config-theme-box {
+    >div {
+        display: flex;
+        flex-direction: column;
+
+        >div:first-child {
+            display: flow-root;
+            padding: 5px;
+        }
+
+        >span {
+            font-weight: 700;
+            color: #fff;
+            margin: 5px;
+        }
+    }
+}
+.drag-drop-runs {
+    margin: 2px;
+    padding: 0 10px;
+    display: flex;
+    border: 2px dashed #fff;
+    border-radius: 50px;
+    overflow: hidden;
+    position: relative;
+
+    span {
+        color: #fff;
+        margin: auto;
+        pointer-events: none;
+        .text-ellipsis();
+    }
+
+    >.progress-bar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: #24273a;
+        z-index: -1;
+    }
 }
