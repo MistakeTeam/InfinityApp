@@ -42,6 +42,7 @@ lib/TwitchAPI
 to
 ddd.js
 env.js
+mini-code-editor
 
 # =========================
 # Operating System Files

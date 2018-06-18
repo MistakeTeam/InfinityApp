@@ -117,27 +117,31 @@
     }
 });
 
-.keyframes(gameItem, {
+.keyframes(text-exit, {
     0% {
-        box-shadow: 0px 0px 10px #af5d08;
+        transform: scaleX(1) scaleY(1) translateX(0px) translateY(30px);
+        opacity: 1;
     }
-    50% {
-        box-shadow: 0px 0px 25px #af5d08;
+    15% {
+        transform: scaleX(1.3) scaleY(1.3) translateX(0px) translateY(30px);
     }
     100% {
-        box-shadow: 0px 0px 10px #af5d08;
+        transform: scaleX(1) scaleY(1) translateX(0px) translateY(-15px);
+        opacity: 0;
     }
 });
 
-.gameItem-animation() {
-    animation-name: gameItem;
-    animation-duration: 3s;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: normal;
-    animation-delay: 0;
-    animation-fill-mode: none;
-}
+.keyframes(disconnect-fade-in-out, {
+    0%{
+        opacity:1
+    }
+    50%{
+        opacity:.2
+    }
+    100%{
+        opacity:1
+    }
+});
 
 .roling-animation {
     animation-name: roling;

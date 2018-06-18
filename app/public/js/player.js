@@ -13,6 +13,7 @@ var URL = window.URL || window.webkitURL,
     selectVideo = false,
     ply_volume_panel_drag = false,
     player_progress_bar_click = false,
+    resize_drag = false,
     barProgress = document.getElementsByClassName('player-progress-bar')[0],
     videoLoader = document.getElementById('progress-loader'),
     progress = document.getElementsByClassName('progress-bar')[0],
@@ -110,7 +111,7 @@ function getDuraction(file) {
 function updatePlay(index) {
     var fileURL = URL.createObjectURL(playlist[index].buffer);
     itematual = new Number(itemlivre);
-
+    console.log(fileURL);
     if (nextVideo || previousVideo || selectVideo) {
         itematual = new Number(index);
     }
@@ -128,18 +129,8 @@ function updatePlay(index) {
     BPlay.html(`<span><span class="fa fa-pause"></span></span>`);
     if ($('.list-itens-playlist').children('.cordilheia-item-playlist').length != 0) {
         $('.list-itens-playlist').children().removeClass('now-playing');
-        $('.list-itens-playlist').children()[itematual].classList.add('now-playing');
+        $($('.list-itens-playlist').children()[itematual]).addClass('now-playing');
     }
-
-    // Close playlist
-    // $('.player-T1ow86>.is-overlay').css('opacity', '0');
-    // $('.player-playlist').css('width', '0px');
-    // $('.player-playlist').css('z-index', '-1');
-
-    // setTimeout(() => {
-    //     $('.player-T1ow86>.is-overlay').css('display', 'none');
-    //     $('.player-playlist').css('display', 'none');
-    // }, 600);
 
     videoNode.src = fileURL;
     isPlay = true;
@@ -198,6 +189,11 @@ function updatePlaylist() {
                             } else {
                                 videoNode.src = undefined;
                                 isPlay = false;
+                                remote.getCurrentWindow().setTitle(`Player`);
+                                IAPI.init({
+                                    state: 'Player',
+                                    active: false
+                                });
                             }
                         } else if (itematual > item_playlist.attr('index-play')) {
                             itematual--;
@@ -208,10 +204,9 @@ function updatePlaylist() {
                             updatePlaylist();
                         }, 20);
                         $('#right-mouse-options').remove();
-                        $('#touchCloseMenus').remove();
                     }
                 }];
-                touchCloseMenus();
+                CLOSE_MENU = true;
                 lite.forEach((value, index, array) => {
                     $('#right-mouse-options').append(`<div class="options-item" id="${value.id}"><span>${value.text}</span></div>`);
                     $(`#${value.id}`).click(value.generator);
@@ -253,20 +248,26 @@ function updatePlaylist() {
 
 $('#playlist-open-y40so9').click(function() {
     $('.player-T1ow86>.is-overlay').css('display', 'block');
+    $('.player-playlist').css('z-index', '10');
 
     setTimeout(() => {
         $('.player-T1ow86>.is-overlay').css('opacity', '0.85');
         $('.player-playlist').css('width', '450px');
-        $('.player-playlist').css('z-index', '10');
+        $('.player-playlist').css('min-width', '240px');
+        setTimeout(() => {
+            $('.player-playlist').removeClass('animation-default');
+        }, 410);
     }, 10);
 });
 
 $('#over-Rtj493').click(function() {
     $('.player-T1ow86>.is-overlay').css('opacity', '0');
+    $('.player-playlist').addClass('animation-default');
+    $('.player-playlist').css('min-width', '0px');
     $('.player-playlist').css('width', '0px');
-    $('.player-playlist').css('z-index', '-1');
 
     setTimeout(() => {
+        $('.player-playlist').css('z-index', '-1');
         $('.player-T1ow86>.is-overlay').css('display', 'none');
     }, 410);
 });
@@ -391,7 +392,6 @@ $('.player-progress-bar')
         videoNode.currentTime = (videoNode.duration * pctBar) / 100;
     });
 
-let resize_drag = false;
 $('.player-playlist > .infinity-dock-resize-handle')
     .mousedown(function(event) {
         resize_drag = true;

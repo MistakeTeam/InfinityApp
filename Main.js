@@ -1,15 +1,24 @@
 'use static';
 process.title = 'InfinityApp';
 
+let { production, dev } = require('electron-is');
+const path = require("path");
+const fs = require('fs');
+
 //open mongod
 var mongod = require('child_process').execFile(`C:\\Program Files\\MongoDB\\Server\\3.6\\bin\\mongod.exe`);
+// fs.exists(`C:\\Program Files\\MongoDB\\Server\\3.6\\bin\\mongod.exe`, (e) => {
+//     if (e) {
+//         mongod = require('child_process').execFile(`C:\\Program Files\\MongoDB\\Server\\3.6\\bin\\mongod.exe`);
+//     } else {
+//         throw new Error(`Não foi possivel encontrar em sua maquina o MongoDB. Por favor instale-o antes de abrir o InfinityApp novamente.`);
+//     }
+// });
 
 const env = require('./env.js');
 const WebSite = require('./lib/host.js');
-const fs = require('fs');
-const { app, BrowserWindow, dialog, protocol } = require('electron');
+const { app, BrowserWindow, dialog, globalShortcut, protocol } = require('electron');
 require('electron-reload')(__dirname);
-const { production, dev } = require('electron-is');
 const File = require('./lib/File.js');
 const SystemTray = require('./lib/SystemTray.js');
 const IAPI = require('./lib/InfinityAPI/api.js');
@@ -21,6 +30,7 @@ const Promise = require("bluebird");
 let notifier = null;
 let mainWindow = null;
 let lastSessionInfoDB = null;
+let optionsDB = null;
 let argv = sliceArgv(process.argv);
 let shouldQuit = false;
 let protocol_default = 'infinityapp';
@@ -41,12 +51,11 @@ if (!shouldQuit) {
 
     if (shouldQuit) {
         app.quit();
-        mongod.kill();
     }
 }
 
 function sliceArgv(argv) {
-    return argv.slice(production ? 1 : dev ? 4 : 2)
+    return argv.slice(production() ? 1 : dev() ? 4 : 2)
 }
 
 function getData() {
@@ -60,6 +69,7 @@ function getData() {
 
 async function startDB() {
     lastSessionInfoDB = await require('./lib/Database/database_ops.js').lastSessionInfoDB;
+    optionsDB = await require('./lib/Database/database_ops.js').optionsDB;
 }
 
 async function startApp() {
@@ -70,11 +80,13 @@ async function startApp() {
     await startDB();
     let lastSessionInfoData = await getData();
 
+    WebSite.init(optionsDB);
+
     console.log("[ready] Criando janela...");
 
     let lastSessionInfo = lastSessionInfoData ? lastSessionInfoData : {
         size: {
-            width: 1080,
+            width: 1000,
             height: 600
         },
         position: {
@@ -91,43 +103,52 @@ async function startApp() {
         height: lastSessionInfo.size.height,
         x: lastSessionInfo.position.x,
         y: lastSessionInfo.position.y,
-        minWidth: 1080,
+        minWidth: 1000,
         minHeight: 600,
-        backgroundColor: '#DBC392',
+        backgroundColor: '#000000',
         transparent: false,
         frame: false,
         resizable: true,
-        show: true
+        show: true,
+        webPreferences: {
+            devTools: false
+        }
     };
 
-    if (!dev) {
-        mainWindowOptions.webPreferences.devTools = false;
+    if (dev()) {
+        mainWindowOptions.webPreferences.devTools = true;
     }
 
     mainWindow = new BrowserWindow(mainWindowOptions);
     mainWindowOptions = null;
 
+    globalShortcut.unregisterAll();
     app.setAsDefaultProtocolClient(protocol_default)
     app.setAppUserModelId(Package.name);
     app.setName(Package.name);
-    // app.setAboutPanelOptions({
-    //     applicationName: Package.name,
-    //     applicationVersion: Package.version,
-    //     copyright: `Copyright (C) 2018 - ${(new Date).getYear() + 1900} ${Package.author}`,
-    //     version: Package.version
-    // });
 
-    protocol.registerHttpProtocol(protocol_default, (req, cb) => {
-        dialog.showErrorBox('Welcome Back', `You arrived from: ${req.url}`)
+    var handler = (req, cb) => {
+        dialog.showErrorBox('Welcome Back', `You arrived from: ${req.url}`);
+        cb();
+    };
+
+    protocol.registerStringProtocol(protocol_default, handler, (err) => {
+        if (err) console.log(err);
     });
 
     // SI(function(list) {
     //     console.log(list);
     // });
 
+    mainWindow.webContents.on('devtools-opened', function() {
+        return;
+    });
+
     mainWindow.on('page-title-updated', function(e, title) {
         e.preventDefault();
-        title += " - InfinityApp";
+        if (title != "InfinityApp") {
+            title += " - InfinityApp";
+        }
         mainWindow.setTitle(title);
     });
 

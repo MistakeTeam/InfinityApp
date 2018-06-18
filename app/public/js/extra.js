@@ -12,7 +12,6 @@ async function extra_game() {
     if ($('.play_easy').children().length >= 0) {
         $('.play_easy').children().remove();
     }
-    touchCloseMenus();
     if (gamesData.games.length >= 12) {
         for (let i = 0; i <= 12;) {
             var indexgame = Math.floor(Math.random() * gamesData.games.length);
@@ -37,6 +36,7 @@ async function extra_game() {
         }
     }
 
+    CLOSE_MENU = true;
     $('.extra-game-N5Y65r')
         .on("click", playAny);
 }

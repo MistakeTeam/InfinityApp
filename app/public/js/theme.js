@@ -162,10 +162,8 @@ function refreshtheme() {
                 $(t).remove();
             }
         });
-        $('#wallpaper-list').children().each((i, t) => {
-            if (!$(t).hasClass('drag-drop-runs')) {
-                $(t).remove();
-            }
+        $('#wallpaper-list').children('#wallpaper-list-grid-fix').children().each((i, t) => {
+            $(t).remove();
         });
 
         themes.forEach((theme) => {
@@ -214,15 +212,15 @@ function refreshtheme() {
             if (optionData.options.wallpaper == `base/wallpaper/${wallpaper}`) {
                 classNames += " bg-active";
             }
-            $('#wallpaper-list').append(`
+            $('#wallpaper-list').children('#wallpaper-list-grid-fix').append(`
             <div class="${classNames}">
-                <img src="base/wallpaper/${wallpaper}"></img>
+                <img src="base/wallpaper/${wallpaper}" style="margin: auto; box-sizing: border-box; max-height: 100%; cursor: pointer;"></img>
             </div>
             `);
         });
 
         setTimeout(() => {
-            $('#wallpaper-list .drag-drop-runs #text-wallpaper').text(`${$('#wallpaper-list').children().length - 1} wallpaper disponivel(Arraste e solte wallpaper aqui, para serem adicionados)`);
+            $('#wallpaper-list .drag-drop-runs #text-wallpaper').text(`${$('#wallpaper-list').children('#wallpaper-list-grid-fix').children().length} wallpaper disponivel(Arraste e solte wallpaper aqui, para serem adicionados)`);
             $('#theme-list .drag-drop-runs #text-theme').text(`${$('#theme-list').children().length - 1} tema disponivel(Arraste e solte temas aqui, para serem adicionados)`);
             $('.contain-wallpaper').click(wallpaperclick);
         }, 150);

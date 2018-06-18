@@ -142,67 +142,67 @@ video {
 }
 
 .player-playlist {
-    height: 100%;
-    min-width: 240px;
-    z-index: 400;
-    background-color: @main-color-extra;
+    height: calc(~'100% + 25px');
+    background-color: #242525;
     border-right: 1px solid #151619;
     overflow: auto;
-    position: absolute;
+    position: fixed;
+    top: -25px;
     color: #ffffff;
-}
 
-.playlist-contains {
-    height: 100%;
-    .flex-vertical();
-}
-
-.list-itens-playlist {
-    height: 100%;
-    overflow: auto;
-    padding: 5px 0;
-}
-
-.buttons-actions-playlist {
-    display: flex;
-
-    .add-playlist {
-        font-size: 25px;
+    .playlist-contains {
+        height: 100%;
+        padding-top: 25px;
+        .flex-vertical();
     
-        label {
-            cursor: pointer;
-    
-            span {
-                margin: 3px;
+        .list-itens-playlist {
+            height: 100%;
+            overflow: auto;
+            padding: 5px 0;
+
+            .cordilheia-item-playlist {
+                padding: 2px 5px;
+                color: #fff;
+                cursor: pointer;
+                display: flex;
+            
+                >span:first-child {
+                    margin-right: 5px;
+                    width: 100%;
+                }
+            
+                >span:last-child {
+                    float: right;
+                    text-align: right;
+                }
+            
+                &.now-playing {
+                    background: #fff;
+                    color: #000;
+                    cursor: default;
+                }
             }
         }
-    }
-
-    #hora-total {
-        white-space: nowrap;
-        margin-right: 2px;
-    }
-}
-
-.cordilheia-item-playlist {
-    padding: 2px 5px;
-    color: #fff;
-    cursor: pointer;
-    display: flex;
-
-    >span:first-child {
-        margin-right: 5px;
-        width: 100%;
-    }
-
-    >span:last-child {
-        float: right;
-        text-align: right;
-    }
-
-    &.now-playing {
-        background: #fff;
-        color: #000;
-        cursor: default;
+        
+        .buttons-actions-playlist {
+            display: flex;
+        
+            .add-playlist {
+                font-size: 25px;
+            
+                label {
+                    cursor: pointer;
+            
+                    span {
+                        margin: 3px;
+                    }
+                }
+            }
+        
+            #hora-total {
+                white-space: nowrap;
+                margin-right: 2px;
+            }
+        }
     }
 }

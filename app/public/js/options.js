@@ -64,22 +64,23 @@ function OptionContentsClick() {
             </div>
             <div id="config-theme-box" style="display: none;">
                 <div>
-                    <div style="display: flow-root; padding: 5px;">
+                    <div>
                         <div id="theme-reload-button" class="button-default" style="cursor: pointer; float: right;">Reload</div>
                     </div>
-                    <span><span class="fa fa-paint-brush"></span> Themes</span>
+                    <span><span class="fa fa-paint-brush"></span> ${lang.theme}</span>
                     <div id="theme-list" class="flexboxi">
                         <div class="drag-drop-runs" type="theme" style="height: 30px; width: 100%;">
                             <div class="progress-bar animation-default" style="width: 0%;"></div>
-                            <span id="text-theme" style="display: block;">#theme-count# tema disponivel(Arraste e solte temas aqui, para serem adicionados)</span>
+                            <span id="text-theme" style="display: block;">${lang.drag_text_theme.replace('#count#', $('#theme-list').children().length - 1)}</span>
                         </div>
                     </div>
-                    <span><span class="fa fa-images"></span> Wallpaper</span>
+                    <span><span class="fa fa-images"></span> ${lang.wallpaper}</span>
                     <div id="wallpaper-list" class="flexboxi">
                         <div class="drag-drop-runs" type="wallpaper" style="height: 30px; width: 100%;">
                             <div class="progress-bar animation-default" style="width: 0%;"></div>
-                            <span id="text-wallpaper" style="display: block;">#wallpaper-count# wallpaper disponivel(Arraste e solte wallpaper aqui, para serem adicionados)</span>
+                            <span id="text-wallpaper" style="display: block;">${lang.drag_text_wallpaper.replace('#count#', $('#wallpaper-list').children('#wallpaper-list-grid-fix').children().length)}</span>
                         </div>
+                        <div id="wallpaper-list-grid-fix" style="display: grid; grid-template-columns: repeat(4, 1fr);"></div>
                     </div>
                 </div>
             </div>
@@ -105,13 +106,15 @@ function OptionContentsClick() {
                 dragleave: function(e) {
                     e.preventDefault();
                     e.stopPropagation();
-                    $(this).children('#text-wallpaper').text(`${$('#wallpaper-list').children().length - 1} wallpaper disponivel(Arraste e solte wallpaper aqui, para serem adicionados)`);
-                    $(this).children('#text-theme').text(`${$('#theme-list').children().length - 1} tema disponivel(Arraste e solte temas aqui, para serem adicionados)`);
+                    $(this).children('#text-wallpaper').text(lang.drag_text_wallpaper.replace('#count#', $('#wallpaper-list').children('#wallpaper-list-grid-fix').children().length));
+                    $(this).children('#text-theme').text(lang.drag_text_theme.replace('#count#', $('#theme-list').children().length - 1));
                 },
                 drop: function(e) {
                     e.preventDefault();
                     e.stopPropagation();
                     let files = e.originalEvent.dataTransfer.files;
+                    let y = $(this);
+                    console.log(files);
                     if (files.length > 0) {
                         switch ($(this).attr('type')) {
                             case 'wallpaper':
@@ -119,10 +122,9 @@ function OptionContentsClick() {
                                 $(this).children('#text-wallpaper').text(`Preparando-se para copiar o wallpaper...`);
                                 for (let i = 0; i < files.length; i++) {
                                     if (i < 5) {
-                                        if (["image/png", "image/jpeg"].includes(files[i].type)) {
+                                        if (["image/png", "image/jpeg", "image/gif"].includes(files[i].type)) {
                                             fs.exists(`${process.env.APPDATA}/InfinityApp/wallpaper/${files[i].name}`, (exists) => {
                                                 if (!exists) {
-                                                    let y = $(this);
                                                     var stat = fs.statSync(files[i].path),
                                                         str = progress_stream({
                                                             length: stat.size,
@@ -142,9 +144,13 @@ function OptionContentsClick() {
                                                         })
                                                         .once('end', () => {
                                                             setTimeout(() => {
-                                                                y.children('#text-wallpaper').text(`Wallpaper adicionado: ${files[i].name}`);
+                                                                if (files.length == 1) {
+                                                                    y.children('#text-wallpaper').text(`Wallpaper adicionado: ${files[i].name}`);
+                                                                } else {
+                                                                    y.children('#text-wallpaper').text(`${files.length} wallpaper adicionados`);
+                                                                }
                                                                 setTimeout(() => {
-                                                                    y.children('#text-wallpaper').text(`${$('#wallpaper-list').children().length - 1} wallpaper disponivel(Arraste e solte wallpaper aqui, para serem adicionados)`);
+                                                                    y.children('#text-wallpaper').text(lang.drag_text_wallpaper.replace('#count#', $('#wallpaper-list').children('#wallpaper-list-grid-fix').children().length));
                                                                     y.children('.progress-bar').css('width', '0%');
                                                                     refreshtheme();
                                                                 }, 6000);
@@ -153,11 +159,17 @@ function OptionContentsClick() {
                                                         .pipe(str)
                                                         .pipe(wr)
                                                 } else {
-                                                    $(this).children('#text-wallpaper').text(`Wallpaper já existe.`);
+                                                    y.children('#text-wallpaper').text(`Wallpaper já existe.`);
+                                                    setTimeout(() => {
+                                                        y.children('#text-wallpaper').text(lang.drag_text_wallpaper.replace('#count#', $('#wallpaper-list').children('#wallpaper-list-grid-fix').children().length));
+                                                    }, 6000);
                                                 }
                                             });
                                         } else {
-                                            $(this).children('#text-wallpaper').text(`Não é um wallpaper valido.`);
+                                            y.children('#text-wallpaper').text(`Não é um wallpaper valido.`);
+                                            setTimeout(() => {
+                                                y.children('#text-wallpaper').text(lang.drag_text_wallpaper.replace('#count#', $('#wallpaper-list').children('#wallpaper-list-grid-fix').children().length));
+                                            }, 6000);
                                         }
                                     }
                                 }
@@ -170,7 +182,6 @@ function OptionContentsClick() {
                                         if (["text/css"].includes(files[i].type)) {
                                             fs.exists(`${process.env.APPDATA}/InfinityApp/themes/${files[i].name}`, (exists) => {
                                                 if (!exists) {
-                                                    let y = $(this);
                                                     var stat = fs.statSync(files[i].path),
                                                         str = progress_stream({
                                                             length: stat.size,
@@ -190,9 +201,13 @@ function OptionContentsClick() {
                                                         })
                                                         .once('end', () => {
                                                             setTimeout(() => {
-                                                                y.children('#text-theme').text(`Tema adicionado: ${files[i].name}`);
+                                                                if (files.length == 1) {
+                                                                    y.children('#text-theme').text(`Tema adicionado: ${files[i].name}`);
+                                                                } else {
+                                                                    y.children('#text-theme').text(`${files.length} temas adicionados`);
+                                                                }
                                                                 setTimeout(() => {
-                                                                    y.children('#text-theme').text(`${$('#theme-list').children().length - 1} tema disponivel(Arraste e solte temas aqui, para serem adicionados)`);
+                                                                    y.children('#text-theme').text(lang.drag_text_theme.replace('#count#', $('#theme-list').children().length - 1));
                                                                     y.children('.progress-bar').css('width', '0%');
                                                                     refreshtheme();
                                                                 }, 6000);
@@ -201,11 +216,17 @@ function OptionContentsClick() {
                                                         .pipe(str)
                                                         .pipe(wr)
                                                 } else {
-                                                    $(this).children('#text-theme').text(`Tema já existe.`);
+                                                    y.children('#text-theme').text(`Tema já existe.`);
+                                                    setTimeout(() => {
+                                                        y.children('#text-theme').text(lang.drag_text_theme.replace('#count#', $('#theme-list').children().length - 1));
+                                                    }, 6000);
                                                 }
                                             });
                                         } else {
-                                            $(this).children('#text-theme').text(`Não é um tema valido.`);
+                                            y.children('#text-theme').text(`Não é um tema valido.`);
+                                            setTimeout(() => {
+                                                y.children('#text-theme').text(lang.drag_text_theme.replace('#count#', $('#theme-list').children().length - 1));
+                                            }, 6000);
                                         }
                                     }
                                 }
@@ -214,8 +235,8 @@ function OptionContentsClick() {
                                 break;
                         }
                     } else {
-                        $(this).children('#text-wallpaper').text(`${$('#wallpaper-list').children().length - 1} wallpaper disponivel(Arraste e solte wallpaper aqui, para serem adicionados)`);
-                        $(this).children('#text-theme').text(`${$('#theme-list').children().length - 1} tema disponivel(Arraste e solte temas aqui, para serem adicionados)`);
+                        $(this).children('#text-wallpaper').text(lang.drag_text_wallpaper.replace('#count#', $('#wallpaper-list').children('#wallpaper-list-grid-fix').children().length));
+                        $(this).children('#text-theme').text(lang.drag_text_theme.replace('#count#', $('#theme-list').children().length - 1));
                     }
                 }
             });
@@ -286,7 +307,7 @@ function OptionContentsClick() {
             </div>
             <div id="soon-container-box" style="display: none;">
                 <div class="soon-2tfY60">
-                    <span>${$(this).text()} não está disponivel ainda</span>
+                    <span>${lang.resource_name_not_available.replace('#resource#', $(this).text())}</span>
                 </div>
             </div>
             `);

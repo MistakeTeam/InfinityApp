@@ -1,72 +1,239 @@
-let TextBuffer = `let index, ter, value, felm, lol;
-function Hello() {
-    index = 0;
-}`;
+var editor,
+    fileEntry,
+    hasWriteAccess,
+    tabsOpen = [],
+    langSupports = JSON.parse(fs.readFileSync('./app/public/js/lib/langSupports-lib.json', 'utf8')).langs;
 
-function startTextEditor() {
-    TextBuffer.split('\n').forEach((TextBuffer_value, TextBuffer_index, TextBuffer_array) => {
-        let variable = [],
-            word = TextBuffer_value.split(' '),
-            is
-
-        $('.TextEditor-line-view').append(`
-        <div class="line" data-screen-row="${TextBuffer_index}">
-            <span class="line-words"></span>
-        </div>`);
-        $('.TextEditor-line-count').append(`<div class="line-numbers" style="padding: 0 10px 0 0; background: #212020;">${TextBuffer_index + 1}</div>`);
-        // word.forEach((word_value, word_index, word_array) => {
-        //     console.log(word_value);
-        //     if (word_value.includes('function')) {
-        //         let wordSelect = 'function';
-        //         let otherL = word.splice(word_index);
-        //         let at = word_value.replace(wordSelect, '')
-        //         word.push(wordSelect);
-        //         word.push(at);
-        //         word.push(otherL);
-        //     }
-        // });
-        word.forEach((word_value, word_index, word_array) => {
-            let syntax_class = '';
-            if (word_value == ('let' || 'var' || 'const' || 'function')) {
-                syntax_class = 'mtk4';
-            } else if ((word_value.startsWith("'") || word_value.startsWith('"')) && (word_value.endsWith("'") || word_value.endsWith('"'))) {
-                syntax_class = 'mtk7';
-            } else if (word_value.startsWith("//")) {
-                syntax_class = 'mtk3';
-                $('.line').each((line_index, line_element) => {
-                    if ($(line_element).attr('data-screen-row') == TextBuffer_index) {
-                        $(line_element).children('.line-words').append(`<span class="${syntax_class}">${word_value}</span>`);
-                        $(line_element).children('.line-words').append(`<span class="mtk1">&nbsp;</span>`);
-                    }
-                });
-            } else if (typeof word_value === Number) {
-                syntax_class = 'mtk5';
-            } else if ((word_value == '=') || (word_value.includes('='))) {
-                syntax_class = 'mtk17';
-            } else {
-                syntax_class = 'mtk9';
+function handleDocumentChange(title) {
+    var mode = "undefined";
+    var modeName = "Text";
+    if (title) {
+        title = title.match(/[^\\]+$/)[0];
+        langSupports.forEach((v, i, a) => {
+            if (title.match(v.regex)) {
+                mode = v.mode;
+                modeName = v.name;
             }
-
-            $('.line').each((line_index, line_element) => {
-                if ($(line_element).attr('data-screen-row') == TextBuffer_index) {
-                    $(line_element).children('.line-words').append(`<span class="${syntax_class}">${word_value}</span>`);
-                    $(line_element).children('.line-words').append(`<span class="mtk1">&nbsp;</span>`);
-                }
-            });
         });
-    });
-    $('.line').click(lineClick);
-    $('#overflow-TextEditor').click((event) => {
-        $('.line').removeClass('cursor-line');
-        $($('.line')[$('.line').length - 1]).addClass('cursor-line');
+    } else {
+        //document.getElementById("title").innerHTML = "Untitled";
+    }
+    editor.setOption("mode", mode);
+    return { mode: mode };
+}
+
+function newFile() {
+    fileEntry = null;
+    hasWriteAccess = false;
+    handleDocumentChange(null);
+}
+
+function setFile(theFileEntry, isWritable) {
+    fileEntry = theFileEntry;
+    hasWriteAccess = isWritable;
+}
+
+function readFileIntoEditor(theFileEntry) {
+    fs.readFile(theFileEntry.toString(), function(err, data) {
+        if (err) {
+            console.log("Read failed: " + err);
+        }
+
+        let v = handleDocumentChange(theFileEntry);
+        editor.setValue(String(data));
+        tabsOpen.forEach((tab, id, ary) => {
+            tab.active = false;
+        });
+        tabsOpen.push({
+            textBuffer: String(data),
+            name: theFileEntry.match(/[^\\]+$/)[0],
+            type: v.mode,
+            path: theFileEntry,
+            active: true
+        });
+        tabsUpdate();
     });
 }
 
-function lineClick(event) {
-    $('.line').each((index, element) => {
-        if ($(element).hasClass('cursor-line')) {
-            $(element).removeClass('cursor-line');
+function writeEditorToFile(theFileEntry) {
+    var str = editor.getValue();
+    fs.writeFile(theFileEntry, editor.getValue(), function(err) {
+        if (err) {
+            console.log("Write failed: " + err);
+            return;
+        }
+
+        handleDocumentChange(theFileEntry);
+        console.log("Write completed.");
+    });
+}
+
+var onChosenFileToOpen = function(theFileEntry) {
+    console.log(theFileEntry);
+    setFile(theFileEntry, false);
+    readFileIntoEditor(theFileEntry);
+};
+
+var onChosenFileToSave = function(theFileEntry) {
+    setFile(theFileEntry, true);
+    writeEditorToFile(theFileEntry);
+};
+
+function handleOpenButton() {
+    dialog.showOpenDialog({ properties: ['openFile'] }, function(filename) {
+        if (filename == undefined) {
+            return;
+        }
+        onChosenFileToOpen(filename.toString());
+    });
+}
+
+function handleSaveButton() {
+    if (fileEntry && hasWriteAccess) {
+        writeEditorToFile(fileEntry);
+    } else {
+        dialog.showSaveDialog(function(filename) {
+            onChosenFileToSave(filename.toString(), true);
+        });
+    }
+}
+
+function handleCloseWindow(index) {
+    if (typeof index != Number) {
+        index = $(index.target).parent().attr('index')
+    }
+    if (tabsOpen[index - 1] != undefined) {
+        tabsOpen[index - 1].active = true;
+    }
+    tabsOpen.splice(index, 1);
+    tabsUpdate();
+}
+
+function handleKeyCloseWindow() {
+    tabsOpen.forEach((tab, id, ary) => {
+        if (tab.active) {
+            handleCloseWindow(id);
         }
     });
-    $(this).addClass('cursor-line');
+}
+
+function handleSwitchWindow(index) {
+    if (typeof index != Number) {
+        index = $(index.target).attr('index')
+    }
+    tabsOpen.forEach((tab, id, ary) => {
+        tab.active = false;
+    });
+    if (tabsOpen[index] != undefined) {
+        tabsOpen[index].active = true;
+        editor.setValue(tabsOpen[index].textBuffer);
+        editor.setOption("mode", tabsOpen[index].type);
+    }
+    tabsUpdate();
+}
+
+function tabsUpdate() {
+    if ($('#TextEditor-editor-tabs').children().length != 0) {
+        $('#TextEditor-editor-tabs').children().remove();
+    }
+
+    if (tabsOpen.length <= 0) {
+        $('#TextEditor-editor > .CodeMirror').css('display', 'none');
+        if ($('#TextEditor-editor > .shadow').hasClass('top') && $('#TextEditor-editor > .CodeMirror').css('display') == 'none') {
+            $('#TextEditor-editor > .shadow').removeClass('top');
+        }
+        if ($('#Text-Random-container').length == 0) {
+            $('#TextEditor-editor').append(`
+                <div id="Text-Random-container">
+                    <span id="Text-Random-in-project-undefined">${lang.list_text_Editor_standby[Math.floor(Math.random() * lang.list_text_Editor_standby.length)]}</span>
+                </div>
+            `);
+        }
+    } else {
+        $('#TextEditor-editor > .CodeMirror').css('display', 'block');
+        $('#TextEditor-editor > #Text-Random-container').remove();
+        $('#TextEditor-editor > .shadow').addClass('top');
+    }
+
+    tabsOpen.forEach((tab, id, ary) => {
+        var s = "";
+        if (tab.active) {
+            s = "background: #2b2b2b;";
+            editor.setValue(tab.textBuffer);
+            editor.setOption("mode", tab.type);
+        }
+        $('#TextEditor-editor-tabs').append(`
+            <div title="${tab.path == null ? "Untitled" : tab.path}" index="${id}" style="${s}">
+                <span>${tab.name}</span>
+                <a style="background: url(&quot;data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='3 3 16 16'%3E%3Cpath fill='%23e8e8e8' d='M12.597 11.042l2.803 2.803-1.556 1.555-2.802-2.802L8.239 15.4l-1.556-1.555 2.802-2.803-2.802-2.803 1.555-1.556 2.804 2.803 2.803-2.803L15.4 8.239z'/%3E%3C/svg%3E&quot;) 50% no-repeat; width: 20px; height: 20px; margin: auto 0 auto auto; z-index: 15;"></a>
+            </div>
+        `);
+    });
+    $('#TextEditor-editor-tabs').click(handleSwitchWindow);
+    $('#TextEditor-editor-tabs div a').click(handleCloseWindow);
+}
+
+function setupMenuBarInEditor() {
+    $('.titlebar-buttons').append(`
+        <div class="app-button-style" id="Editor-button-file"><span class="fa fa-ellipsis-h"></span></div>
+    `);
+
+    $('#Editor-button-file').click(
+        (event) => {
+            setTimeout(() => {
+                if ($('#right-mouse-options').length == 0) {
+                    $('.downmost').append(`<div id="right-mouse-options" style="left: 28px; right: auto; bottom: auto;"><div id="container-options"></div></div>`);
+                    CLOSE_MENU = true;
+
+                    let lite = [{
+                        id: "module-rmouse-new-file",
+                        text: "Novo arquivo",
+                        keystroke: "Ctrl+N",
+                        generator: function() {
+                            setTimeout(() => {
+                                $('#right-mouse-options').remove();
+                                handleOpenButton();
+                            }, 40);
+                        }
+                    }];
+                    lite.forEach((value, index, array) => {
+                        $('#right-mouse-options>#container-options').append(`<div class="options-item" id="${value.id}"><span>${value.text}</span><span>${value.keystroke}</span></div>`);
+                        $(`#${value.id}`).click(value.generator);
+                    });
+                } else if ($('#right-mouse-options').length > 0) {
+                    $('#right-mouse-options').remove();
+                }
+            }, 100);
+        }
+    );
+}
+
+async function startTextEditor() {
+    tabsOpen = [];
+    if (editor == undefined) {
+        editor = CodeMirror(document.getElementById("TextEditor-editor"), {
+            mode: "undefined",
+            lineNumbers: true,
+            theme: "lesser-dark",
+            extraKeys: {
+                "Cmd-S": function(instance) { handleSaveButton() },
+                "Ctrl-S": function(instance) { handleSaveButton() },
+                "Cmd-O": function(instance) { handleOpenButton() },
+                "Ctrl-O": function(instance) { handleOpenButton() },
+                "Cmd-W": function(instance) { handleKeyCloseWindow() },
+                "Ctrl-W": function(instance) { handleKeyCloseWindow() }
+            }
+        });
+
+        tabsOpen.push({
+            textBuffer: editor.getValue(),
+            name: "Untitled",
+            type: "undefined",
+            path: null,
+            active: true
+        });
+    }
+
+    await tabsUpdate();
+    await setupMenuBarInEditor();
 }

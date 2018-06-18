@@ -11,7 +11,7 @@
 #option-left-sidebar {
     width: 17%;
     float: left;
-    padding: 20px 0 0 30px;
+    padding: 20px 5px 0 25px;
 }
 
 #option-right-sidebar {
@@ -73,17 +73,12 @@
 }
 
 .contain-wallpaper {
-    width: 200px;
-    margin: 5px auto;
-    cursor: pointer;
+    margin: 5px;
+    min-height: 142px;
     display: grid;
-
-    &:hover {
-        transform: scale(1.05, 1.05);
-    }
 }
 
-.bg-active {
+.bg-active img {
     border: 2px dashed #fff;
 }
 
@@ -123,11 +118,6 @@
     >div {
         display: flex;
         flex-direction: column;
-
-        >div:first-child {
-            display: flow-root;
-            padding: 5px;
-        }
 
         >span {
             font-weight: 700;

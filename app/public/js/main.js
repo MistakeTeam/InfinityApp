@@ -1,17 +1,26 @@
 'use strict';
 
+// check Bowser
+var userAgent = navigator.userAgent.toLowerCase();
+console.log(userAgent);
+if (!userAgent.includes('electron')) {
+    document.getElementsByClassName('app-mount')[0].style.display = 'none';
+}
+
 global.$ = $;
 global.bluebird = require("bluebird");
 
 const path = require('path'),
     child = require('child_process'),
     { app, autoUpdater, remote, shell } = require('electron'),
+    { dialog } = remote,
     markdown = require("markdown").markdown,
     isOnline = require('is-online'),
     fs = require('fs'),
     { dev } = require('electron-is'),
     chalk = require('chalk'),
-    progress_stream = require('progress-stream');
+    progress_stream = require('progress-stream'),
+    moment = require('moment');
 
 let iconExtractor,
     File,
@@ -23,47 +32,24 @@ let iconExtractor,
     connection,
     CurrentWindow = remote.getCurrentWindow(),
     optionData,
-    gamesData;
+    gamesData,
+    CLOSE_MENU = false,
+    path_asar = '';
 
-try {
-    DB = require(path.resolve(process.cwd(), './lib/Database/database_ops.js'));
-} catch (err) {
-    DB = require(path.resolve(process.cwd(), './resources/app.asar/lib/Database/database_ops.js'));
+if (!dev()) {
+    path_asar = `/resources/app.asar`;
 }
 
-try {
-    File = require(path.resolve(process.cwd(), './lib/File.js'));
-} catch (err) {
-    File = require(path.resolve(process.cwd(), './resources/app.asar/lib/File.js'));
-}
+DB = require(path.resolve(process.cwd(), `.${path_asar}/lib/Database/database_ops.js`));
+File = require(path.resolve(process.cwd(), `.${path_asar}/lib/File.js`));
+eventEmitter = require(path.resolve(process.cwd(), `.${path_asar}/lib/events.js`)).eventEmitter;
+IAPI = require(path.resolve(process.cwd(), `.${path_asar}/lib/InfinityAPI/api.js`));
+notifier = require(path.resolve(process.cwd(), `.${path_asar}/lib/notifier.js`));
+Rich = require(path.resolve(process.cwd(), `.${path_asar}/lib/discord-rich-presence/rich.js`));
 
-try {
-    eventEmitter = require(path.resolve(process.cwd(), './lib/events.js')).eventEmitter;
-} catch (err) {
-    eventEmitter = require(path.resolve(process.cwd(), './resources/app.asar/lib/events.js')).eventEmitter;
-}
-
-try {
-    IAPI = require(path.resolve(process.cwd(), './lib/InfinityAPI/api.js'));
-} catch (err) {
-    IAPI = require(path.resolve(process.cwd(), './resources/app.asar/lib/InfinityAPI/api.js'));
-}
-
-try {
-    notifier = require(path.resolve(process.cwd(), './lib/notifier.js'));
-} catch (err) {
-    notifier = require(path.resolve(process.cwd(), './resources/app.asar/lib/notifier.js'));
-}
-
-try {
-    Rich = require(path.resolve(process.cwd(), './lib/discord-rich-presence/rich.js'));
-} catch (err) {
-    Rich = require(path.resolve(process.cwd(), './resources/app.asar/lib/discord-rich-presence/rich.js'));
-}
-
-try {
+if (dev()) {
     iconExtractor = require(path.resolve(process.cwd(), './lib/Icon-Extractor/win-iconExtractor.js'));
-} catch (err) {
+} else {
     iconExtractor = require(path.resolve(process.cwd(), './resources/lib/Icon-Extractor/win-iconExtractor.js'));
 }
 
@@ -145,40 +131,53 @@ function validFileType(file, types) {
     return false;
 }
 
-function touchCloseMenus() {
-    if ($('#touchCloseMenus').length == 0) {
-        $('.downmost').append(`<div id="touchCloseMenus" style="z-index: 15"></div>`);
+function isMultiplicador(a, b) {
+    for (let i = 1; i < 10; i++) {
+        let r = a / i;
+        if (r == b) {
+            return true;
+        }
     }
-    $('#touchCloseMenus').click((events) => {
-        if ($('.play_easy').length > 0) {
-            $('.play_easy').remove();
-        }
-
-        if ($('#right-mouse-options').length > 0) {
-            $('#right-mouse-options').remove();
-        }
-
-        if ($('.central-notifications').length > 0) {
-            $('.central-notifications').remove();
-        }
-
-        $('#touchCloseMenus').remove();
-    })
+    return false;
 }
 
-//===================Process handler===================//
-process.on('unhandledRejection', function(err, p) {
-    console.log(chalk.green("//===================Error===================//"));
-    console.log(chalk.red('Unhandled Rejection at: Promise \n', JSON.stringify(p), "\n\nReason:", err.stack));
-    console.log(chalk.green("//===================Error===================//"));
+/*
+var FeedParser = require('feedparser');
+var request = require('request'); // for fetching the feed
+
+var req = request('http://somefeedurl.xml')
+var feedparser = new FeedParser([options]);
+
+req.on('error', function (error) {
+  // handle any request errors
 });
 
-process.on('uncaughtException', function(err) {
-    console.log(chalk.green("//===================Error===================//"));
-    console.log(chalk.red(err.stack));
-    console.log(chalk.green("//===================Error===================//"));
+req.on('response', function (res) {
+  var stream = this; // `this` is `req`, which is a stream
+
+  if (res.statusCode !== 200) {
+    this.emit('error', new Error('Bad status code'));
+  }
+  else {
+    stream.pipe(feedparser);
+  }
 });
-//===================Process handler===================//
+
+feedparser.on('error', function (error) {
+  // always handle errors
+});
+
+feedparser.on('readable', function () {
+  // This is where the action is!
+  var stream = this; // `this` is `feedparser`, which is a stream
+  var meta = this.meta; // **NOTE** the "meta" is always available in the context of the feedparser instance
+  var item;
+
+  while (item = stream.read()) {
+    console.log(item);
+  }
+});
+*/
 
 async function scheduleUpdates() {
     autoUpdater.setFeedURL(`https://github.com/MistakeTeam/InfinityApp/releases`);
@@ -290,6 +289,8 @@ async function mainApp() {
 
     console.log(optionData, gamesData);
 
+    moment.locale(optionData.options.lang);
+
     if (optionData.fristOpenApp == true) {
         console.log(`[fristOpenApp] Iniciando pela primeira vez.`);
         let folder_path = `${process.env.APPDATA}/InfinityApp`;
@@ -323,47 +324,49 @@ async function mainApp() {
     checkTheme();
     reloadLang();
     eventEmitter.emit('onStartupApp');
-    // SystemTray(CurrentWindow, checkForUpdates, optionData);
 
-    setTimeout(async() => {
-        if (dev) {
-            console.log("[update] Modo Developer foi ativado. Nada de Updates...");
-        } else {
-            console.log("[update] Iniando o autoUpdate.");
-            scheduleUpdates();
-        }
+    if (dev()) {
+        console.log("[update] Modo Developer foi ativado. Nada de Updates...");
+        scheduleUpdates();
+    } else {
+        console.log("[update] Iniando o autoUpdate.");
+        scheduleUpdates();
+    }
 
-        if (notifier && optionData.fristNotifier) {
-            notifier('Bem-vindo', {
-                message: 'Olá esse é um muilt-tarefas, ainda sem utilidades.'
+    if (notifier && optionData.fristNotifier) {
+        notifier('Bem-vindo', {
+            message: 'Olá esse é um muilt-tarefas, ainda sem utilidades.'
+        });
+        await optionData.update({ 'fristNotifier': false });
+    }
+
+    IAPI.init({
+        state: 'Menu',
+        active: false
+    });
+
+    isOnline().then(online => {
+        connection = online;
+        if (online) {
+            startRich();
+
+            notifier('Conectado', {
+                message: 'Todas as APIs estão conectadas.'
             });
-            await optionData.update({ 'fristNotifier': false });
+        } else {
+            notifier('Voçê está offline', {
+                message: 'Recursos online estão indisponiveis.'
+            });
         }
+    });
 
-        IAPI.init({
-            state: 'Menu',
-            active: false
-        });
+    // setInterval(async () => {
 
-        isOnline().then(online => {
-            connection = online;
-            if (online) {
-                startRich();
+    // }, 500);
 
-                notifier('Conectado', {
-                    message: 'Todas as APIs estão conectadas.'
-                });
-            } else {
-                notifier('Voçê está offline', {
-                    message: 'Recursos online estão indisponiveis.'
-                });
-            }
-        });
-
-        //Load finish
-        $('.blur').css('z-index', '0');
-        $('.loading-init').remove();
-    }, 2500);
+    //Load finish
+    $('.blur').css('z-index', '-1');
+    $('.loading-init').remove();
 }
 
 mainApp();
