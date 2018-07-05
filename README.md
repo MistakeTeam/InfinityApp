@@ -5,14 +5,17 @@
   </p>
   <br/>
   <p>
-    <a href="https://github.com/MistakeTeam/InfinityApp/releases">
-      <img src="https://img.shields.io/github/downloads/MistakeTeam/InfinityApp/total.svg" alt="Github"/>
+    <a>
+      <img src="https://img.shields.io/github/downloads/MistakeTeam/InfinityApp/total.svg?style=flat-square" alt="Github"/>
+    </a>
+    <a>
+      <img src="https://img.shields.io/github/release/MistakeTeam/InfinityApp.svg?style=flat-square" alt="Github Releases"/>
     </a>
     <a href="https://discord.gg/pZ5DedP">
       <img src="https://discordapp.com/api/guilds/394317031090028556/embed.png" alt="Discord Server"/>
     </a>
     <a href="https://trello.com/b/B0W0MBlK/infinityapp">
-      <img src="https://img.shields.io/badge/Trello-InfinityApp-blue.svg" alt="Trello"/>
+      <img src="https://img.shields.io/badge/Trello-InfinityApp-blue.svg?style=flat-square" alt="Trello"/>
     </a>
   </p>
 </div>
