@@ -6,7 +6,7 @@
   <br/>
   <p>
     <a href="https://github.com/MistakeTeam/InfinityApp/releases">
-      <img src="https://img.shields.io/github/downloads/xDeltaFox/InfinityApp/total.svg" alt="Github"/>
+      <img src="https://img.shields.io/github/downloads/MistakeTeam/InfinityApp/total.svg" alt="Github"/>
     </a>
     <a href="https://discord.gg/pZ5DedP">
       <img src="https://discordapp.com/api/guilds/394317031090028556/embed.png" alt="Discord Server"/>
