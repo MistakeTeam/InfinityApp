@@ -1,124 +1,25 @@
 {
-    "name": "infinityapp",
-    "productName": "InfinityApp",
-    "version": "0.0.29",
-    "description": "A universal collection of resource",
+    "name": "infinityapp-rework",
+    "version": "0.0.1",
+    "description": "A rework of InfinityApp",
     "main": "Main.js",
     "scripts": {
-        "start": "electron . InfinityApp",
-        "editor": "electron ./mini-code-editor/main.js code-editor",
-        "setup": "node build.js"
+        "start": "electron . InfinityApp"
     },
-    "build": {
-        "appId": "com.mistake.infinityapp",
-        "productName": "InfinityApp",
-        "asar": true,
-        "asarUnpack": [
-            "mongoose",
-            "moment",
-            "moment-timezone",
-            "feedparser",
-            "beam-client-node",
-            "beam-interactive-node"
-        ],
-        "copyright": "Copyright © 2018 Mistake Team",
-        "protocols": {
-            "name": "infinityapp",
-            "schemes": [
-                "infinityapp"
-            ]
-        },
-        "directories": {
-            "output": "dist\\built-installers"
-        },
-        "files": [
-            "app/",
-            "img/",
-            "lang/",
-            "lib/",
-            "node_modules/",
-            "env.js",
-            "Main.js",
-            "package.json",
-            "!lib/ffmpeg/",
-            "!lib/Icon-Extractor/",
-            "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme,test,__tests__,tests,powered-test,example,examples,*.d.ts}",
-            "!**/node_modules/.bin",
-            "!**/*.{o,hprof,orig,pyc,pyo,rbc}",
-            "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,__pycache__,thumbs.db,.gitignore,.gitattributes,.editorconfig,.flowconfig,.yarn-metadata.json,.idea,appveyor.yml,.travis.yml,circle.yml,npm-debug.log,.nyc_output,yarn.lock,.yarn-integrity}"
-        ],
-        "win": {
-            "target": [{
-                "target": "nsis",
-                "arch": [
-                    "x64"
-                ]
-            }],
-            "icon": "img/logo.ico"
-        },
-        "nsis": {
-            "include": "build/installer.nsh",
-            "perMachine": true,
-            "oneClick": false
-        },
-        "publish": {
-            "provider": "github",
-            "vPrefixedTagName": false
-        },
-        "includePdb": false
-    },
-    "keywords": [
-        "electron",
-        "InfinityApp",
-        "Mistake Team"
-    ],
     "bin": {
         "electron": "./node_modules/.bin/electron"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/MistakeTeam/InfinityApp.git"
     },
     "author": "Mistake Team",
     "license": "GPL-3.0",
     "devDependencies": {
-        "electron": "^1.8.4",
-        "electron-builder": "^20.6.2",
-        "electron-builder-squirrel-windows": "^20.7.0"
+        "electron-is": "^2.4.1",
+        "electron-reload": "^1.2.5"
     },
     "dependencies": {
-        "@types/eventemitter3": "^2.0.2",
-        "@types/jquery": "^3.2.16",
-        "Squirrel": "0.0.1",
-        "beam-client-node": "^1.0.2",
-        "beam-interactive-node": "^0.3.2",
-        "bluebird": "^3.5.1",
-        "body-parser": "^1.18.2",
-        "chalk": "^2.3.0",
-        "cookie-parser": "^1.4.3",
-        "discord-rpc": "^3.0.0-beta.8",
-        "electron-is": "^2.4.0",
-        "electron-reload": "^1.2.2",
-        "eventemitter3": "^2.0.3",
-        "express": "^4.15.4",
-        "express-session": "^1.15.6",
-        "feedparser": "^2.2.9",
-        "igdb-api-node": "^3.1.1",
-        "is-online": "^7.0.0",
-        "jquery": "^3.2.1",
-        "less-middleware": "^2.2.1",
-        "markdown": "^0.5.0",
-        "moment": "^2.20.1",
-        "moment-timezone": "^0.5.14",
-        "mongoose": "^5.0.4",
-        "node-process-windows": "0.0.2",
-        "node-tweet-stream": "^2.0.1",
-        "passport": "^0.4.0",
-        "passport-oauth": "^1.0.0",
-        "progress-stream": "^1.2.0",
-        "pug": "^2.0.0-rc.4",
-        "rimraf": "^2.6.2",
-        "systeminformation": "^3.33.13"
+        "electron": "^2.0.4",
+        "eventemitter3": "^3.1.0",
+        "express": "^4.16.3",
+        "pug": "^2.0.3"
     },
     "devEngines": {
         "node": ">=8.x"

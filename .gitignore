@@ -34,15 +34,7 @@ jspm_packages
 .node_repl_history
 
 # Others
-app.js
-dist
-lib/Games
-lib/notify
-lib/TwitchAPI
-to
-ddd.js
-env.js
-mini-code-editor
+
 
 # =========================
 # Operating System Files

@@ -1,1 +1,0 @@
-Futuras solicitações de envio.
