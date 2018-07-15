@@ -7,8 +7,8 @@ const express = require('express'),
     path = require('path');
 
 app.set("view engine", "pug");
-app.set('views', path.join(__dirname, '../src/views'));
-app.use(express.static(path.join(__dirname, '../src')));
+app.set('views', path.join(__dirname, '../app/views'));
+app.use(express.static(path.join(__dirname, '../app/public')));
 
 app.get('/', async function(req, res) {
     res.render('index');
