@@ -8,7 +8,7 @@
     display: flex;
 
     &.titlebar-windows-focus {
-        background: linear-gradient(-180deg, #690aae -50%, rgba(255, 255, 255, 0) 80%)
+        background: linear-gradient(-180deg, #690aae 0%, rgba(255, 255, 255, 0) 95%)
     }
 
     >.titlebar-buttons {
@@ -50,16 +50,18 @@
 
     .win-buttons {
         pointer-events: auto;
-        display: -webkit-box;
+        display: flex;
         height: 100%;
         margin-left: auto;
+        align-items: center;
 
-        button {
+        div {
             opacity: .6;
             -webkit-app-region: no-drag;
             width: 35px;
-            height: 100%;
-            background-color: hsla(0, 0%, 0%, 0);
+            height: fit-content;
+            background-color: rgba(0, 0, 0, 0);
+            text-align: center;
 
             &:hover {
                 opacity: 1;
