@@ -1,7 +1,16 @@
 const { ipcRenderer, remote } = require('electron'), path = require('path'), { dev } = require('electron-is');
 
-//Default path
-let path_default = dev() ? path.resolve('./src/main') : path.resolve('./src/main')
+require(path.resolve(`./src/main/gearbox.js`)); // Start 'Geass' (gearbox)
 
-//Start events from ipcRenderer
-require(path.resolve(`${path_default}/Renderer/icp.js`))(ipcRenderer);
+(async() => {
+    await gearbox.GetFromMain('Renderer/icp.js')(ipcRenderer); // Start events from ipcRenderer
+    await gearbox.Component('Renderer/Titlebar')(require('electron')); // Start component "Titlebar"
+    await gearbox.Component('Database'); // Start component "Database"
+    await gearbox.Component('Menu'); // Start component "Menu"
+
+    $('.blur').css('z-index', '-1');
+    $('.loading-init').css('opacity', '0');
+    setTimeout(() => {
+        $('.loading-init').remove();
+    }, 450);
+})();

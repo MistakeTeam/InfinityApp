@@ -9,6 +9,7 @@ const express = require('express'),
 app.set("view engine", "pug");
 app.set('views', path.join(__dirname, '../app/views'));
 app.use(express.static(path.join(__dirname, '../app/public')));
+app.use("/base", express.static(path.resolve(process.env.APPDATA + "/InfinityApp/")));
 
 app.get('/', async function(req, res) {
     res.render('index');

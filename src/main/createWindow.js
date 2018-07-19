@@ -2,6 +2,11 @@
 
 const { BrowserWindow } = require('electron');
 
+/**
+ * 
+ * @param {String} src 
+ * @param {Boolean} isDev 
+ */
 module.exports = async(src, isDev) => {
     let lastSessionInfo = {
             size: {
