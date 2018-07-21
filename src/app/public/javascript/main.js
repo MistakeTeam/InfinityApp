@@ -2,6 +2,16 @@ const { ipcRenderer, remote } = require('electron'), path = require('path'), { d
 
 require(path.resolve(`./src/main/gearbox.js`)); // Start 'Geass' (gearbox)
 
+function isMultiplicador(a, b) {
+    for (let i = 1; i < 10; i++) {
+        let r = a / i;
+        if (r == b) {
+            return true;
+        }
+    }
+    return false;
+}
+
 (async() => {
     await gearbox.GetFromMain('Renderer/icp.js')(ipcRenderer); // Start events from ipcRenderer
     await gearbox.Component('Renderer/Titlebar')(require('electron')); // Start component "Titlebar"

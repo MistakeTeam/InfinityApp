@@ -1,6 +1,7 @@
 @import '_animation.less';
 @import 'style.less';
 @import 'titlebar.less';
+@import 'calendar.less';
 
 .app {
     position: absolute;
@@ -73,7 +74,12 @@
                 .widget-container {
                     margin: 2px;
                     border-radius: 4px;
-                    overflow: hidden;
+                    overflow: auto;
+                    height: fit-content;
+
+                    .widget-topbar {
+                        height: 19px;
+                    }
                 }
             }
         }

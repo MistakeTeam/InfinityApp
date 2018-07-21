@@ -1,4 +1,5 @@
 const data = gearbox.Component('data');
+const widget = gearbox.Component('widget');
 
 (async() => {
     await data.MenuTopbar.forEach((v, i, a) => {
@@ -15,15 +16,19 @@ const data = gearbox.Component('data');
     });
 
     await data.ModuleApps.forEach((v, i, a) => {
-        if (i >= 2) return;
-        let className = "animation-default";
-        if (i == 1) {
-            className += " right";
-        }
+        if (v.module != 'home') return;
+
         $('.util-app').append(`
-            <div id="${v.id}" class="${className}" id-app="${i}"></div>
+            <div id="${v.id}" class="animation-default right" id-app="${i}" style="display: none;"></div>
         `);
 
         $(`#${v.id}`).append((require(`${__dirname}/${v.module}`)));
+
+        widget.Calendar();
+
+        $(`#${v.id}`).css('display', 'block');
+        setTimeout(() => {
+            $(`#${v.id}`).removeClass('right');
+        }, 10);
     });
 })();
