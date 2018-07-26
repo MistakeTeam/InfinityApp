@@ -4,6 +4,7 @@
     "description": "A rework of InfinityApp",
     "main": "Main.js",
     "scripts": {
+        "start": "electron . InfinityApp", // from travis CI
         "start": "electron . InfinityApp"
     },
     "bin": {
