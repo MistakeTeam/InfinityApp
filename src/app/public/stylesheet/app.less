@@ -2,6 +2,7 @@
 @import 'style.less';
 @import 'titlebar.less';
 @import 'calendar.less';
+@import 'games.less';
 
 .app {
     position: absolute;
@@ -26,6 +27,10 @@
                 padding: 7px 10px;
                 position: relative;
                 cursor: pointer;
+
+                * {
+                    pointer-events: none;
+                }
     
                 &::after {
                     content: '';
@@ -37,7 +42,7 @@
                     position: absolute;
                     left: 0;
                     right: 0;
-                    bottom: 2px;
+                    bottom: 0;
                     margin: auto;
                 }
     
@@ -69,16 +74,23 @@
             }
 
             .home-over {
-                display: flex;
+                position: relative;
 
-                .widget-container {
-                    margin: 2px;
-                    border-radius: 4px;
-                    overflow: auto;
-                    height: fit-content;
-
-                    .widget-topbar {
-                        height: 19px;
+                .widget-collections {
+                    display: grid;
+                    grid-template-columns: repeat(9, 1fr);
+                    grid-template-rows: repeat(9, 1fr);
+                    grid-gap: 5px 5px;
+    
+                    .widget-container {
+                        display: flex;
+                        flex-direction: column;
+                        border-radius: 4px;
+                        overflow: auto;
+    
+                        .widget-topbar {
+                            height: 19px;
+                        }
                     }
                 }
             }
@@ -92,4 +104,8 @@
     left: 0;
     height: 100%;
     width: 100%;
+}
+
+.disable {
+    cursor: not-allowed !important;
 }

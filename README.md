@@ -54,7 +54,7 @@ Encontrou bugs? Relate um [problema](https://github.com/MistakeTeam/InfinityApp/
 Quer novos recursos? Faça um [pedido](https://github.com/MistakeTeam/InfinityApp/pulls)  
 ou entre no [bate-papo](https://discord.gg/NccJTzZ).
 
-Você é um desenvolvedor ou designer? "Garfei-o" (hehehe)  
+Você é um desenvolvedor ou designer? "Garfei-o" (fork)  
 Ou me mostre um pouco de amor no [twitter](https://twitter.com/xDeltaFox1) ;)
 
 ## Contato

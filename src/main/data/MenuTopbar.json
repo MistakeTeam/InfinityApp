@@ -1,7 +1,9 @@
 {
     "itens": [{
-        "name": "Home"
+        "name": "Home",
+        "id": 0
     }, {
-        "name": "Games"
+        "name": "Games",
+        "id": 1
     }]
 }

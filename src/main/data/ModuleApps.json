@@ -1,9 +1,11 @@
 {
     "itens": [{
-        "id": "app-home",
-        "module": "home"
+        "id_app": "app-home",
+        "module": "home",
+        "id": 0
     }, {
-        "id": "app-games",
-        "module": "games"
+        "id_app": "app-games",
+        "module": "games",
+        "id": 1
     }]
 }

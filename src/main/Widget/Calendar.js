@@ -27,6 +27,108 @@ let Date_now = moment(),
         weekdaysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"]
     };
 
+async function reloadCalendar(a) {
+    let Date_temp = a;
+    console.log(`[calendar] Reajustando calendario.`);
+    $('#calendar-init').children().remove();
+    $('#calendar-name-item').text(`${Date_temp.format("MMMM")}/${Date_temp.get('year')}`);
+    monthindex = Date_temp.get('month');
+    yearindex = Date_temp.get('year');
+    Date_temp.subtract((Date_temp.date() - 1), "days");
+    Date_temp.subtract(Date_temp.day(), "days");
+    for (let i = 1; i < 43; i++) {
+        let CName = `calendar-day`;
+        let Styletext = ``;
+        if (!isMultiplicador(i, 7)) {
+            Styletext += `border-right: 1px dashed #403e3e;`;
+        }
+        if (i < 36) {
+            Styletext += ` border-bottom: 1px dashed #403e3e;`;
+        }
+        if (Date_temp.get('date') == today.date && Date_temp.get('month') == today.month && Date_temp.get('year') == today.year) {
+            CName += ` today`;
+        }
+
+        // await reloadLembretes();
+        $('#calendar-init').append(`
+            <div class="${CName}" style="${Styletext}" day="${moment.weekdays(Date_temp.get('day'))}" date="${Date_temp.get('date')}" month="${Date_temp.get('month')}" year="${Date_temp.get('year')}">
+                <span>${Date_temp.get('Date')}</span>
+                <div class="calendar-list-events">${LembretesCode}</div>
+            </div>
+            `);
+        Date_temp.add(1, "day");
+    }
+    Date_temp.subtract(43 - (Date_temp.date() - 1) - Date_temp.day(), "days");
+}
+
+async function reloadLembretes(list) {
+    LembretesCode = ``;
+    /*
+    {
+        title: "Test work",
+        color: "#fff",
+        repeat: {
+            enabled: false,
+            type: "week"
+        },
+        date: {
+            date: 01,
+            month: 01,
+            year: 2018
+        }
+    }
+    */
+    list.forEach((v, i, a) => {
+        function addLembrete() {
+            if (i <= 3) {
+                LembretesCode += `
+                    <div>
+                        <div class="calendar-lembretes" style="background-color: ${v.color ? v.color : color[Math.floor(Math.random() * color.length)]};">
+                            <span>${v.title}</span>
+                        </div>
+                    </div>
+                    `;
+            } else {
+                if (!LembretesCode.includes('calendar-more-lembretes')) {
+                    LembretesCode += `
+                        <div>
+                            <div class="calendar-more-lembretes">
+                                <span>+${list.length - 4}</span>
+                            </div>
+                        </div>
+                        `;
+                }
+            }
+        }
+
+        if (v.repeat.enabled == false) {
+            if (Date_now.get('date') == v.date.date && Date_now.get('month') == v.date.month && Date_now.get('year') == v.date.year) {
+                addLembrete();
+            }
+        } else {
+            switch (v.repeat.type) {
+                case 'week':
+                    if (Date_now.get('day') == v.date.day) {
+                        addLembrete();
+                    }
+                    break;
+                case 'month':
+                    if (Date_now.get('date') == v.date.date) {
+                        addLembrete();
+                    }
+                    break;
+                case 'year':
+                    if (Date_now.get('date') == v.date.date && Date_now.get('month') == v.date.month) {
+                        addLembrete();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    });
+}
+
 module.exports = {
     initCalendar: async() => {
         let wg;
@@ -87,35 +189,6 @@ module.exports = {
             });
         }
 
-        console.log(`[calendar] Reajustando calendario.`);
-        $('#calendar-init').children().remove();
-        $('#calendar-name-item').text(`${Date_now.format("MMMM")}/${Date_now.get('year')}`);
-        monthindex = Date_now.get('month');
-        yearindex = Date_now.get('year');
-        Date_now.subtract((Date_now.date() - 1), "days");
-        Date_now.subtract(Date_now.day(), "days");
-        for (let i = 1; i < 43; i++) {
-            let CName = `calendar-day`;
-            let Styletext = ``;
-            if (!isMultiplicador(i, 7)) {
-                Styletext += `border-right: 1px dashed #403e3e;`;
-            }
-            if (i < 36) {
-                Styletext += ` border-bottom: 1px dashed #403e3e;`;
-            }
-            if (Date_now.get('date') == today.date && Date_now.get('month') == today.month && Date_now.get('year') == today.year) {
-                CName += ` today`;
-            }
-
-            // await reloadLembretes(optionData.calendar);
-            $('#calendar-init').append(`
-            <div class="${CName}" style="${Styletext}" day="${moment.weekdays(Date_now.get('day'))}" date="${Date_now.get('date')}" month="${Date_now.get('month')}" year="${Date_now.get('year')}">
-                <span>${Date_now.get('Date')}</span>
-                <div class="calendar-list-events">${LembretesCode}</div>
-            </div>
-            `);
-            Date_now.add(1, "day");
-        }
-        Date_now.subtract(43 - (Date_now.date() - 1) - Date_now.day(), "days");
+        await reloadCalendar(Date_now);
     }
 }
