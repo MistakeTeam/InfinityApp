@@ -4,8 +4,9 @@
     "description": "A rework of InfinityApp",
     "main": "Main.js",
     "scripts": {
-        "test": "electron . InfinityApp",
-        "start": "electron . InfinityApp"
+        "start": "electron . InfinityApp",
+        "test": "standard",
+        "fix": "standard --fix"
     },
     "bin": {
         "electron": "./node_modules/.bin/electron"
