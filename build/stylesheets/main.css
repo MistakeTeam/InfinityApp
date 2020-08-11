@@ -1,0 +1,34 @@
+
+html,
+body {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
+  display: flex;
+}
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+.app {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  position: relative;
+  width: 100%;
+  margin: 1px;
+  box-sizing: border-box;
+}
+
