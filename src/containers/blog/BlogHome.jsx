@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-("");
 
 import * as BlogActions from "../../store/actions/blogActions";
 
-class BlogIndex extends Component {
+class BlogHome extends Component {
 	constructor(props, context) {
 		super(props, context);
+	}
 
+	componentDidMount() {
 		this.props.actions.getAllPost();
 	}
 
@@ -17,7 +18,6 @@ class BlogIndex extends Component {
 			blogReducer: { postList },
 		} = this.props;
 		console.log(this.props);
-		console.log(postList);
 
 		return (
 			<div>

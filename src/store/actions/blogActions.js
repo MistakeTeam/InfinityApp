@@ -10,12 +10,14 @@ export function getPost(id) {
 }
 
 export function getAllPost() {
-	return {
-		type: "GET_ALL_POST",
-		payload: {
-			request: {
-				url: `/blog/all`,
+	return async (dispacth) => {
+		await dispacth({
+			type: "GET_ALL_POST",
+			payload: {
+				request: {
+					url: `/blog/all`,
+				},
 			},
-		},
+		});
 	};
 }
