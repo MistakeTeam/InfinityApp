@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
-import { BrowserRouter, Route, Switch, withRouter } from "react-router-dom";
-import { createBrowserHistory } from "history";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import store from "./store";
 
 import App from "./components/app";
 import Home from "./components/home";
-import Blog from "./containers/blog/BlogHome";
+import BlogHome from "./containers/blog/BlogHome";
+import PostView from "./containers/blog/PostView";
 
 const Rota = ({ component: Component, ...rest }) => {
 	return (
@@ -22,11 +22,12 @@ const Rota = ({ component: Component, ...rest }) => {
 
 render(
 	<Provider store={store()}>
-		<BrowserRouter history={createBrowserHistory()}>
+		<BrowserRouter>
 			<App>
 				<Switch>
 					<Route exact path="/" component={Home} />
-					<Route path="/blog" component={Blog} />
+					<Route exact path="/blog" component={BlogHome} />
+					<Route path="/blog/post/:id" component={PostView} />
 					<Route
 						render={() => {
 							<div>Página não existe! :(</div>;

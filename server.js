@@ -10,16 +10,15 @@ const apiRouter = express.Router();
 
 const port = 3000;
 
+let Blog_Path_Folder = path.join(__dirname, "build", "blog");
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "build")));
 
 app.use((err, req, res, next) => {
 	res.header("Access-Control-Allow-Origin", "*");
-	res.header(
-		"Access-Control-Allow-Methods",
-		"GET, POST, OPTIONS, PUT, PATCH, DELETE",
-	);
+	res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
 	res.header(
 		"Access-Control-Allow-Headers",
 		"x-access-token,Origin, X-Requested-With, Content-Type, Accept",
@@ -30,48 +29,36 @@ app.use((err, req, res, next) => {
 app.use("/api", apiRouter);
 
 /* APP Routers */
-app.get("*", (req, res) =>
-	res.status(200).sendFile(path.join(__dirname, "build", "index.html")),
-);
+app.get("*", (req, res) => res.status(200).sendFile(path.join(__dirname, "build", "index.html")));
 
 /* API Routers */
-apiRouter.get("/blog/all", (req, res) => {
-	let pathFolder = path.join(__dirname, "build", "blog");
-	let files = fs.readdirSync(pathFolder);
+apiRouter.get("/blog/post/all", (req, res) => {
+	let files = fs.readdirSync(Blog_Path_Folder);
 	let fa = [];
 
 	for (let i = 0; i < files.length; i++) {
-		const file = JSON.parse(
-			fs.readFileSync(path.join(pathFolder, files[i]), {
-				encoding: "utf8",
-			}),
-		);
+		const file = JSONfromFile(path.join(Blog_Path_Folder, files[i]));
 
 		fa.push({
+			autor: file.autor,
+			id: files[i],
 			titulo: file.titulo,
 			subTitulo: file.subTitulo,
-			autor: file.autor,
 		});
 	}
 
 	res.status(200).json(fa);
 });
 
-apiRouter.get("/blog/:id", (req, res) => {
-	let pathFolder = path.join(__dirname, "build", "blog");
-	let file = JSON.parse(
-		fs.readFileSync(
-			path.join(
-				pathFolder,
-				fs.readdirSync(pathFolder).find((m) => m.match(req.params.id)),
-			),
-			{
-				encoding: "utf8",
-			},
+apiRouter.get("/blog/post/:id", (req, res) => {
+	let file = JSONfromFile(
+		path.join(
+			Blog_Path_Folder,
+			fs.readdirSync(Blog_Path_Folder).find((m) => m.match(req.params.id)),
 		),
 	);
 
-	res.status(200).json(file);
+	res.status(200).json({ ...file, id: req.params.id });
 });
 
 app.use((err, req, res, next) => {
@@ -84,3 +71,17 @@ app.use((err, req, res, next) => {
 http.createServer(app).listen(port, () =>
 	console.log(`App listening on http://localhost:${port}/`),
 );
+
+/* FUNCTIONS */
+
+/**
+ *
+ * @param {string} path
+ */
+function JSONfromFile(path) {
+	return JSON.parse(
+		fs.readFileSync(path, {
+			encoding: "utf8",
+		}),
+	);
+}

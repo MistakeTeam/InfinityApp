@@ -1,6 +1,6 @@
 {
 	"name": "electron-infinity",
-	"version": "00.00.005",
+	"version": "00.00.009",
 	"author": "xDeltaFox",
 	"license": "MIT",
 	"private": false,
@@ -56,7 +56,8 @@
 	"scripts": {
 		"electron": "electron ./electron/index.js",
 		"build": "webpack --config ./webpack.config.js",
-		"server:Express": "node server.js"
+		"server:Express": "node server.js",
+		"fast-start": "yarn run build & yarn run server:Express"
 	},
 	"dependencies": {
 		"is-electron": "^2.2.0"

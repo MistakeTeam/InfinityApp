@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 
-import * as BlogActions from "../../store/actions/blogActions";
+import { getAllPost } from "../../store/actions/blogActions";
 
 class BlogHome extends Component {
 	constructor(props, context) {
@@ -17,16 +18,21 @@ class BlogHome extends Component {
 		const {
 			blogReducer: { postList },
 		} = this.props;
-		console.log(this.props);
 
 		return (
-			<div>
-				{typeof postList === Array.isArray ? (
+			<div className="blog-home">
+				{postList.length > 0 ? (
 					postList.map((post) => {
+						let postID = String(post.id).replace(/\.json/, "");
+
 						return (
-							<div>
-								<h2>{post.titulo}</h2>
-							</div>
+							<Link to={"/blog/post/" + postID} key={postID}>
+								<div className="post-resume" id={postID}>
+									<span className="post-resume-titulo">{post.titulo}</span>
+									<span className="post-resume-subtitulo">{post.subTitulo}</span>
+									<span className="post-resume-autor">{post.autor}</span>
+								</div>
+							</Link>
 						);
 					})
 				) : (
@@ -38,7 +44,7 @@ class BlogHome extends Component {
 }
 
 const mapDispatchToProps = (dispacth) => {
-	return { ...bindActionCreators(BlogActions, dispacth) };
+	return { ...bindActionCreators({ getAllPost }, dispacth) };
 };
 
 const mapStateToProps = (state) => {
@@ -57,4 +63,4 @@ export default connect(
 			actions: dispacthProps,
 		};
 	},
-)(BlogIndex);
+)(BlogHome);

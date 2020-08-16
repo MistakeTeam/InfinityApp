@@ -15,12 +15,16 @@ export default class App extends Component {
 	}
 
 	render() {
-		console.log(this.props);
-
 		return (
 			<div className="app-57fd5k">
 				<div className="infinity-titlebar">
-					<Link to="/blog">Blog</Link>
+					<nav className="menu-navigator">
+						<ul>
+							<li>
+								<Link to="/blog">Blog</Link>
+							</li>
+						</ul>
+					</nav>
 					{isElectron() ? <WinButtons /> : null}
 				</div>
 				<div className="infinity-main">{this.props.children}</div>

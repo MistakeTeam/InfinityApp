@@ -3,21 +3,19 @@ export function getPost(id) {
 		type: "GET_POST",
 		payload: {
 			request: {
-				url: `/blog/${id}`,
+				url: `/blog/post/${id}`,
 			},
 		},
 	};
 }
 
 export function getAllPost() {
-	return async (dispacth) => {
-		await dispacth({
-			type: "GET_ALL_POST",
-			payload: {
-				request: {
-					url: `/blog/all`,
-				},
+	return {
+		type: "GET_ALL_POST",
+		payload: {
+			request: {
+				url: `/blog/post/all`,
 			},
-		});
+		},
 	};
 }
