@@ -1,0 +1,1531 @@
+.d-root--theme-dark .d-background-base {
+  background: #1d212d;
+}
+.d-root--theme-dark span,
+.d-root--theme-dark a {
+  color: #eff2f5;
+}
+.d-root--theme-white .d-background-base {
+  background: #f3f4f9;
+}
+.d-root--theme-white span,
+.d-root--theme-white a {
+  color: #242424;
+}
+html,
+body {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  text-decoration: none;
+  font-weight: inherit;
+  font-style: inherit;
+  font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+img {
+  max-width: 100%;
+}
+#app-mount {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  position: relative;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.animation-default {
+  transition: 0.4s cubic-bezier(0.49, 0.24, 0.49, 0.81);
+  -moz-transition: 0.4s cubic-bezier(0.49, 0.24, 0.49, 0.81);
+  -webkit-transition: 0.4s cubic-bezier(0.49, 0.24, 0.49, 0.81);
+}
+.app {
+  height: -webkit-fill-available;
+  background: #170323;
+}
+.app.in-electron .base {
+  padding: 91px 0 0 0;
+}
+.app.in-electron .nav-topbar .container > div > d-profile d-profile-menu .menu-sections {
+  padding: 91px 0 0 0;
+}
+.app:not(.in-electron) .base {
+  padding: 64px 0 0 0;
+}
+.app:not(.in-electron) .nav-topbar .container > div > d-profile d-profile-menu .menu-sections {
+  padding: 64px 0 0 0;
+}
+.app .nav-topbar {
+  pointer-events: none;
+  position: relative;
+  z-index: 100;
+}
+.app .nav-topbar .electron-container > .titlebar {
+  -webkit-app-region: drag;
+  pointer-events: none;
+  height: 26px;
+  width: 100%;
+  position: relative;
+  z-index: 5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .nav-topbar .electron-container > .titlebar > .titlebar-edge {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  cursor: ns-resize;
+  height: 3px;
+  -webkit-app-region: no-drag;
+}
+.app .nav-topbar .electron-container > .titlebar .titlebar-container {
+  margin-left: auto;
+}
+.app .nav-topbar .electron-container > .titlebar .titlebar-container .win-buttons {
+  pointer-events: auto;
+  display: -webkit-box;
+  height: 100%;
+  margin-left: auto;
+}
+.app .nav-topbar .electron-container > .titlebar .titlebar-container .win-buttons button {
+  opacity: 0.6;
+  -webkit-app-region: no-drag;
+  width: 35px;
+  height: 100%;
+  background: transparent;
+}
+.app .nav-topbar .electron-container > .titlebar .titlebar-container .win-buttons button:hover {
+  opacity: 1;
+}
+.app .nav-topbar .electron-container > .titlebar .titlebar-container .win-buttons .win-minimize:hover {
+  background-color: rgba(39, 39, 39, 0.7);
+}
+.app .nav-topbar .electron-container > .titlebar .titlebar-container .win-buttons .win-maximize:hover {
+  background-color: rgba(39, 39, 39, 0.7);
+}
+.app .nav-topbar .electron-container > .titlebar .titlebar-container .win-buttons .win-close:hover {
+  background-color: rgba(232, 17, 35, 0.72);
+}
+.app .nav-topbar .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 7px 31px 7px 16px;
+}
+.app .nav-topbar .container > d-background {
+  background: -webkit-gradient(linear, left bottom, left top, from(transparent), color-stop(200%, #000));
+  background: linear-gradient(0deg, transparent 0%, #000 200%);
+}
+.app .nav-topbar .container > div.left {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  z-index: 1;
+}
+.app .nav-topbar .container > div.left > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  padding: 0 0 0 15px;
+}
+.app .nav-topbar .container > div.left > div > a {
+  margin: 0 0 0 -15px;
+  padding: 4px 15px 4px 25px;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+  background-color: #1c75c3;
+  border-radius: 0 25px 25px 0;
+  pointer-events: all;
+  border: 1px solid #ffc430;
+  color: white;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.app .nav-topbar .container > div.left > div > a:hover[color-index="0"],
+.app .nav-topbar .container > div.left > div > a.active[color-index="0"] {
+  background-color: #64067f;
+}
+.app .nav-topbar .container > div.left > div > a:hover[color-index="1"],
+.app .nav-topbar .container > div.left > div > a.active[color-index="1"] {
+  background-color: #33ccff;
+}
+.app .nav-topbar .container > div.left > div > a:hover[color-index="2"],
+.app .nav-topbar .container > div.left > div > a.active[color-index="2"] {
+  background-color: #66cc66;
+}
+.app .nav-topbar .container > div.left > div > a:hover[color-index="3"],
+.app .nav-topbar .container > div.left > div > a.active[color-index="3"] {
+  background-color: #e8bb2f;
+}
+.app .nav-topbar .container > div.left > div > a:nth-child(1) {
+  z-index: 4;
+}
+.app .nav-topbar .container > div.left > div > a:nth-child(2) {
+  z-index: 3;
+}
+.app .nav-topbar .container > div.left > div > a:nth-child(3) {
+  z-index: 2;
+}
+.app .nav-topbar .container > div.left > div > a:nth-child(4) {
+  z-index: 1;
+}
+.app .nav-topbar .container > div.left > div > a:first-child {
+  padding: 4px 15px;
+  border-radius: 25px;
+}
+.app .nav-topbar .container > div.right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+  -ms-flex-direction: row-reverse;
+  flex-direction: row-reverse;
+  z-index: 1;
+}
+.app .nav-topbar .container > div > d-profile d-login {
+  background: #ecc70d;
+  padding: 4px 7px;
+  border-radius: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+  pointer-events: all;
+}
+.app .nav-topbar .container > div > d-profile d-login > span {
+  text-transform: uppercase;
+  font-size: 16px;
+}
+.app .nav-topbar .container > div > d-profile d-windows {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: rgba(0, 0, 0, 0.4);
+  pointer-events: all;
+}
+.app .nav-topbar .container > div > d-profile d-windows > d-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+  padding: 30px 14px 14px;
+  border-radius: 8px;
+  background: #ecc70d;
+}
+.app .nav-topbar .container > div > d-profile d-windows > d-container > * .container > input {
+  background: transparent;
+  color: white;
+  padding: 6px 16px 6px 8px;
+  border: 1px solid #1587d2;
+  border-radius: 30px;
+  margin: 6px 0;
+}
+.app .nav-topbar .container > div > d-profile d-windows > d-container > * .next {
+  text-align: center;
+  padding: 5px 0;
+  background: #159615;
+  color: white;
+  border-radius: 30px;
+  margin: 6px 0;
+  width: -webkit-fill-available;
+}
+.app .nav-topbar .container > div > d-profile d-profile-hud {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .nav-topbar .container > div > d-profile d-profile-hud > .profile-user {
+  text-align: -webkit-right;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+}
+.app .nav-topbar .container > div > d-profile d-profile-hud > .profile-user > .profile-username > .profile-exp,
+.app .nav-topbar .container > div > d-profile d-profile-hud > .profile-user > .profile-info > .profile-exp,
+.app .nav-topbar .container > div > d-profile d-profile-hud > .profile-user > .profile-username > .profile-level,
+.app .nav-topbar .container > div > d-profile d-profile-hud > .profile-user > .profile-info > .profile-level {
+  margin: 0 0 0 5px;
+  display: -webkit-inline-box;
+}
+.app .nav-topbar .container > div > d-profile d-profile-hud > .profile-avatar {
+  margin: 0 0 0 10px;
+  border-radius: 50px;
+  overflow: auto;
+  background: #ecc70d;
+  pointer-events: all;
+}
+.app .nav-topbar .container > div > d-profile d-profile-hud > .profile-avatar > #user-avatar {
+  width: 50px;
+  height: 50px;
+}
+.app .nav-topbar .container > div > d-profile d-profile-hud > .profile-avatar > #user-avatar:hover {
+  cursor: pointer;
+}
+.app .nav-topbar .container > div > d-profile d-profile-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: -webkit-fill-available;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  z-index: -1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  pointer-events: all;
+}
+.app .nav-topbar .container > div > d-profile d-profile-menu .menu-sections {
+  height: -webkit-fill-available;
+}
+.app .nav-topbar .container > div > d-profile d-profile-menu .menu-sections .menu-item {
+  padding: 13px 10px;
+  font-size: 20px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.app .nav-topbar .container > div > d-profile d-profile-menu .menu-sections .menu-item:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+.app .base {
+  position: absolute;
+  top: 0;
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  overflow: auto;
+}
+.app .base::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+.app .base::-webkit-scrollbar-thumb {
+  background: #424242;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: 20px;
+}
+.app .base > .container {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.app .base > .container > .manga-home > span {
+  position: absolute;
+  padding: 0 0 0 60px;
+}
+.app .base > .container > .manga-home .mangalist {
+  overflow: hidden;
+  -webkit-mask: -webkit-gradient(linear, left top, right top, color-stop(0.5%, transparent), color-stop(4%, white), color-stop(96%, white), color-stop(99.5%, transparent));
+  -webkit-mask: linear-gradient(90deg, transparent 0.5%, white 4%, white 96%, transparent 99.5%);
+  position: relative;
+}
+.app .base > .container > .manga-home .mangalist::-webkit-scrollbar {
+  height: 10px;
+  width: 10px;
+}
+.app .base > .container > .manga-home .mangalist::-webkit-scrollbar-thumb {
+  background: #424242;
+  border: 2px solid transparent;
+  background-clip: content-box;
+  border-radius: 20px;
+}
+.app .base > .container > .manga-home .mangalist::-webkit-scrollbar-thumb {
+  border-left: 54.48px solid transparent;
+  border-right: 54.48px solid transparent;
+}
+.app .base > .container > .manga-home .mangalist.touchscroll * {
+  pointer-events: none;
+}
+.app .base > .container > .manga-home .mangalist .container {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 20px 0 0 0;
+}
+.app .base > .container > .manga-home .mangalist .container > ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  padding: 0 40px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.app .base > .container > .manga-home .mangalist .container > ul li {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .manga-home .mangalist .container > ul li .mangalist-item {
+  background: #32064e;
+  padding: 10px 15px;
+  margin: 3px 6px;
+  border-radius: 5px 15px;
+  white-space: nowrap;
+}
+.app .base > .container > .manga-home > d-playerwrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background: #000000;
+}
+.app .base > .container > .manga-home > d-playerwrapper > d-playerinner {
+  margin: 0 auto;
+}
+.app .base > .container > .manga-page .container {
+  margin: 5px auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  text-align: center;
+  background: #505050;
+  border-radius: 10px;
+  overflow: auto;
+}
+.app .base > .container > .manga-page .container span {
+  color: white;
+  padding: 5px 300px;
+  background: #2b2b2b;
+}
+.app .base > .container > .manga-page .container .manga-cap-list {
+  overflow: auto;
+}
+.app .base > .container > .manga-page .container .manga-cap-list li:last-child .manga-cap-item {
+  border-bottom: none;
+}
+.app .base > .container > .manga-page .container .manga-cap-list .manga-cap-item {
+  text-align: -webkit-left;
+  border-bottom: 1px solid #3e3e3e;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .manga-page .container .manga-cap-list .manga-cap-item > a {
+  padding: 7px 14px;
+  width: -webkit-fill-available;
+  color: white;
+}
+.app .base > .container > .manga-viewer {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.app .base > .container > .manga-viewer > div:first-child,
+.app .base > .container > .manga-viewer > div:last-child {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 5px 0;
+}
+.app .base > .container > .manga-viewer > div:first-child > .container,
+.app .base > .container > .manga-viewer > div:last-child > .container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+}
+.app .base > .container > .manga-viewer > div:first-child > .container > div,
+.app .base > .container > .manga-viewer > div:last-child > .container > div {
+  padding: 7px 14px;
+  margin: 0 5px;
+  text-transform: capitalize;
+  background: #32064e;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+}
+.app .base > .container > .manga-viewer > .page-viewer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .manga-viewer > .page-viewer > .container {
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .board-over {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.app .base > .container > .board-over #quadros-module-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: -webkit-fill-available;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list {
+  position: relative;
+  border-right: 1px solid #ffc430;
+  min-width: 15%;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(130, 130, 130, 0.6);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list.hide {
+  min-width: 0;
+  width: 0.5% !important;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list.hide #quadros-warpper-container {
+  opacity: 0;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-list-container {
+  background-color: #fff;
+  border-bottom: 1px solid #525252;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 20px;
+  position: relative;
+  text-decoration: none;
+  z-index: 0;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-list-container > a {
+  width: -webkit-fill-available;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-list-container > a > .quadro-name {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-list-container > a.active {
+  background: -webkit-gradient(linear, left top, right top, color-stop(70%, #fff), to(#525252));
+  background: linear-gradient(90deg, #fff 70%, #525252 100%);
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-list-container > textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 0 2px;
+  line-height: 25px;
+  white-space: nowrap;
+  margin: 4px;
+  color: black;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-list-container > textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-list-container.is-idle > textarea {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-list-container.is-idle > a > .quadro-name {
+  padding: 6px 8px 2px;
+  margin: 0 0 4px;
+  position: relative;
+  z-index: 10;
+  display: block;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add {
+  background-color: #1b1a1a;
+  position: relative;
+  padding: 2px 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add > span {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add:hover > span {
+  text-decoration: underline;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add .quadros-input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 2px 3px;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add .quadros-input-container > *:first-child {
+  margin: 0 0 2px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add .quadros-input-container > *:last-child {
+  margin: 2px 0 0 0;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add .quadros-input-container > textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 0 2px;
+  line-height: 25px;
+  white-space: nowrap;
+  color: white;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add .quadros-input-container > textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+  color: black;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add .quadros-input-container > div {
+  background: #098a1c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add .quadros-input-container > div > span {
+  padding: 4px 6px;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add.is-idle {
+  cursor: pointer;
+  color: white;
+  display: block;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add.is-idle > span {
+  padding: 3px 5px;
+  display: -webkit-inline-box;
+  width: -webkit-fill-available;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list #quadros-warpper-container .quadros-add.is-idle .quadros-input-container {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list .infinity-dock-resize-handle {
+  position: absolute;
+  height: 100%;
+  width: 10px;
+  top: 0;
+  right: -5px;
+  cursor: col-resize;
+  z-index: 6;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list .infinity-dock-resize-handle.visible {
+  background: rgba(37, 101, 181, 0.65);
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list .infinity-dock-resize-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+.app .base > .container > .board-over #quadros-module-container #quadros-warpper-list .infinity-dock-resize-overlay:not(.visible) {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving {
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 4px;
+  min-width: 272px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  white-space: nowrap;
+  position: relative;
+  margin-right: 1px;
+  max-width: 272px;
+  width: 272px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container {
+  background: #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  height: 100%;
+  max-width: 272px;
+  width: 272px;
+  position: relative;
+  white-space: normal;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-header {
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  padding: 4px 6px 2px;
+  position: relative;
+  margin-bottom: 2px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-header .list-header-target {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-header > span {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-header textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 0 4px;
+  line-height: 25px;
+  border-radius: 3px;
+  margin-right: 6px;
+  color: black;
+  white-space: nowrap;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-header textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-header.is-idle > textarea {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-header.is-idle > span {
+  display: block;
+  font-weight: 700;
+  height: 20px;
+  min-height: 20px;
+  padding: 4px 7px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-header.is-idle .list-header-target {
+  display: block;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content {
+  -webkit-box-flex: 1;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 0;
+  z-index: 1;
+  min-height: 0;
+  border-top: 1px solid #ffc430;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+  background: #ffffff;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(130, 130, 130, 0.6);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card {
+  background-color: #fff;
+  border-top: 1px solid #ffc430;
+  display: block;
+  min-height: 20px;
+  position: relative;
+  text-decoration: none;
+  z-index: 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card.active .card-header-options {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card.active .card-content {
+  height: 210px;
+  padding: 4px 8px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card:first-child {
+  border-top: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card:last-child {
+  border-bottom: 1px solid #ffc430;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .list-header-target {
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .list-card-details {
+  overflow: hidden;
+  padding: 6px 8px 2px;
+  width: -webkit-fill-available;
+  position: relative;
+  cursor: pointer;
+  z-index: 10;
+  pointer-events: auto;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .list-card-details .list-card-tag {
+  overflow: auto;
+  position: relative;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .list-card-details .list-card-title {
+  clear: both;
+  display: block;
+  margin: 0 0 4px;
+  overflow: hidden;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-header-options {
+  min-width: 23px;
+  margin: auto 8px auto auto;
+  padding: 6px 4px;
+  display: none;
+  cursor: pointer;
+  z-index: 5;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-header-options:hover {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-header-options .spinner-ellipsis {
+  margin: auto;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-header-options .spinner-ellipsis .spinner-item {
+  height: 5px;
+  margin: auto 1px;
+  width: 5px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content {
+  background-color: #ffffff;
+  padding: 0 8px;
+  overflow: auto;
+  height: 0px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+  background: #ffffff;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: rgba(130, 130, 130, 0.6);
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-descripition {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-descripition > span {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-descripition > span.no-descripition {
+  font-style: italic;
+  color: #3e3e3e;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-descripition textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 4px;
+  line-height: 16px;
+  border-radius: 3px;
+  color: black;
+  white-space: nowrap;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-descripition textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-descripition.is-idle > textarea {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-descripition.is-idle > span {
+  display: block;
+  width: -webkit-fill-available;
+  border: 1px solid transparent;
+  padding: 4px;
+  font-size: 14px;
+  cursor: text;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .spinner-item {
+  background-color: #000000 !important;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card {
+  background: #eaeaea;
+  border-radius: 3px;
+  -webkit-box-shadow: 0px 0px 4px black;
+  box-shadow: 0px 0px 4px black;
+  margin: 5px 0 10px;
+  position: relative;
+  overflow: auto;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 6px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-top > .checklist-name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fill-available;
+  padding: 3px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-top > .checklist-name > span {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-top > .checklist-name textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 0 0 0 2px;
+  line-height: 18px;
+  border-radius: 3px;
+  margin: 0 3px 0 0;
+  color: black;
+  white-space: nowrap;
+  font-weight: 100;
+  font-style: normal;
+  font-size: 14px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-top > .checklist-name textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-top > .checklist-name.is-idle > textarea {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-top > .checklist-name.is-idle > span {
+  margin: 0 3px 0 0;
+  padding: 0 0 0 2px;
+  border: 1px solid transparent;
+  cursor: text;
+  display: block;
+  height: 18px;
+  width: -webkit-fill-available;
+  font-size: 14px;
+  line-height: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-top > div:not(.checklist-name) {
+  margin-left: auto;
+  font-size: 10px;
+  cursor: pointer;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-top > div:not(.checklist-name):hover {
+  text-decoration: underline;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-progressbar {
+  min-height: 5px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-progressbar .checklist-progress {
+  background: #11e20e;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 6px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div:first-child {
+  border-top: 1px solid #313131;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item {
+  font-weight: 700;
+  padding: 4px 2px;
+  width: -webkit-fill-available;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item:hover + .check-item-close {
+  opacity: 1;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item.checked {
+  font-weight: 100;
+  font-style: italic;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item.checked > .check-name > span {
+  text-decoration: line-through;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item > .check-name {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: -webkit-fill-available;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item > .check-name > span {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item > .check-name textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 0 0 0 2px;
+  line-height: 18px;
+  border-radius: 3px;
+  margin: 0 0 0 3px;
+  color: black;
+  white-space: nowrap;
+  font-weight: 100;
+  font-style: normal;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item > .check-name textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item > .check-name.is-idle > textarea {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item > .check-name.is-idle > span {
+  margin: 0 0 0 3px;
+  padding: 0 0 0 2px;
+  border: 1px solid transparent;
+  cursor: text;
+  display: block;
+  width: -webkit-fill-available;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item .check-item-toggle .tci {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item .check-item-toggle .tci + .tci-btn {
+  outline: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 15px;
+  position: relative;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-size: 14px;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  text-align: center;
+  font-family: 'Font Awesome 5 Free';
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item .check-item-toggle .tci-check + .tci-btn {
+  overflow: hidden;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  background: #888;
+  border-radius: 3px;
+  padding: 2px 4px 2px 1px;
+  transition: 0.4s cubic-bezier(0.49, 0.24, 0.49, 0.81);
+  -moz-transition: 0.4s cubic-bezier(0.49, 0.24, 0.49, 0.81);
+  -webkit-transition: 0.4s cubic-bezier(0.49, 0.24, 0.49, 0.81);
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item .check-item-toggle .tci-check + .tci-btn:before {
+  content: '';
+  width: 15px;
+  color: #fff;
+  transition: 0.4s cubic-bezier(0.49, 0.24, 0.49, 0.81);
+  -moz-transition: 0.4s cubic-bezier(0.49, 0.24, 0.49, 0.81);
+  -webkit-transition: 0.4s cubic-bezier(0.49, 0.24, 0.49, 0.81);
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item .check-item-toggle .tci-check:checked + .tci-btn {
+  background: #ffc430;
+  font-weight: 900;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item .check-item-toggle .tci-check:checked + .tci-btn:before {
+  content: "\f00c";
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item-close {
+  margin-left: auto;
+  padding: 4px 2px;
+  cursor: pointer;
+  opacity: 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-itens-container > div .check-item-close:hover {
+  opacity: 1;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check {
+  text-align: center;
+  padding: 3px 4px;
+  font-size: 12px;
+  color: #3e3e3e;
+  border-top: 1px solid #313131;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check:hover {
+  background: #d6d6d6;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check > span {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check.is-idle {
+  cursor: pointer;
+  display: block;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check.is-idle > span {
+  display: -webkit-inline-box;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check.is-idle .checklist-add-check-input-container {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check.is-idle:hover {
+  background-color: #cdd2d4;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check.is-idle:hover > span {
+  text-decoration: underline;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check .checklist-add-check-input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check .checklist-add-check-input-container > *:first-child {
+  margin: 2px 0 1px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check .checklist-add-check-input-container > *:last-child {
+  margin: 1px 0 2px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check .checklist-add-check-input-container > textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 0 4px;
+  line-height: 25px;
+  border-radius: 3px;
+  white-space: nowrap;
+  color: white;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check .checklist-add-check-input-container > textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+  color: black;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check .checklist-add-check-input-container > div {
+  background: #098a1c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-content .list-card .card-content .list-card-checklist .checklist-card .checklist-add-check .checklist-add-check-input-container > div > span {
+  padding: 4px 6px;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options {
+  position: fixed;
+  pointer-events: none;
+  margin: 2px;
+  z-index: 10;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div {
+  background: rgba(183, 183, 183, 0.4);
+  padding: 4px 7px;
+  margin-bottom: 3px;
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: white;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div > span {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div.is-idle {
+  cursor: pointer;
+  display: block;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div.is-idle > span {
+  display: -webkit-inline-box;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div.is-idle .card-options-checklist-input-container {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div.is-idle:hover {
+  background-color: #cdd2d4;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div.is-idle:hover > span {
+  text-decoration: underline;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div .card-options-checklist-input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div .card-options-checklist-input-container > *:first-child {
+  margin: 2px 0 1px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div .card-options-checklist-input-container > *:last-child {
+  margin: 1px 0 2px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div .card-options-checklist-input-container > textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 0 4px;
+  line-height: 25px;
+  border-radius: 3px;
+  white-space: nowrap;
+  color: white;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div .card-options-checklist-input-container > textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+  color: black;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div .card-options-checklist-input-container > div {
+  background: #098a1c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .card-options > div .card-options-checklist-input-container > div > span {
+  padding: 4px 6px;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card {
+  position: relative;
+  text-decoration: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card > span {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card.is-idle {
+  cursor: pointer;
+  color: #444;
+  display: block;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card.is-idle > span {
+  padding: 7px;
+  display: -webkit-inline-box;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card.is-idle .list-add-card-input-container {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card.is-idle:hover {
+  background-color: #cdd2d4;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card.is-idle:hover > span {
+  text-decoration: underline;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card .list-add-card-input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 4px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card .list-add-card-input-container > *:first-child {
+  margin: 2px 0 1px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card .list-add-card-input-container > *:last-child {
+  margin: 1px 0 2px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card .list-add-card-input-container > textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 0 4px;
+  line-height: 25px;
+  border-radius: 3px;
+  white-space: nowrap;
+  color: white;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card .list-add-card-input-container > textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+  color: black;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card .list-add-card-input-container > div {
+  background: #098a1c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-container .list-add-card .list-add-card-input-container > div > span {
+  padding: 4px 6px;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add {
+  padding: 2px 3px;
+  background: rgba(49, 49, 49, 0.55);
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add > span {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add:hover > span {
+  text-decoration: underline;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add .list-add-input-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 2px 3px;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add .list-add-input-container > *:first-child {
+  margin: 0 0 2px 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add .list-add-input-container > *:last-child {
+  margin: 2px 0 0 0;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add .list-add-input-container > textarea {
+  background: transparent;
+  border: 1px solid transparent;
+  width: -webkit-fill-available;
+  resize: none;
+  padding: 0 2px;
+  line-height: 25px;
+  white-space: nowrap;
+  color: white;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add .list-add-input-container > textarea:focus {
+  background: #f0e9e9;
+  border: 1px solid #488ecb;
+  color: black;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add .list-add-input-container > div {
+  background: #098a1c;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: pointer;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add .list-add-input-container > div > span {
+  padding: 4px 6px;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add.is-idle {
+  cursor: pointer;
+  color: #fff;
+  display: block;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add.is-idle > span {
+  padding: 3px 5px;
+  display: -webkit-inline-box;
+}
+.app .base > .container > .board-over #quadros-module-container #scrollbar-ui-moving > div .warpper-list .list-add.is-idle .list-add-input-container {
+  display: none;
+}
+.app .base > .container > .board-over #quadros-module-container .infinity-dock-resize-base {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  cursor: col-resize;
+  z-index: 7;
+}
+.app .base > .container > .board-over #quadros-module-container .infinity-dock-resize-base:not(.visible) {
+  display: none;
+}
+.app #statusbar-presence {
+  position: absolute;
+  bottom: 7px;
+  left: 7px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: 20px;
+  padding: 0 40px 0 5px;
+  border-radius: 5px;
+  z-index: 10;
+}
+.app #statusbar-presence #asset-large-image {
+  width: 120px;
+  position: absolute;
+  bottom: 25px;
+  left: 0px;
+  border: 2px solid #c7c2c2;
+  border-radius: 5px;
+  overflow: hidden;
+  border-color: #1db954;
+}
+.app #statusbar-presence #asset-large-image #asset-image-title {
+  display: none;
+}
+.app #statusbar-presence #asset-large-image #presence-player {
+  display: none;
+  pointer-events: none;
+}
+.app #statusbar-presence #asset-large-image:hover {
+  border-color: #1db954;
+  overflow: visible;
+  padding-top: 18px;
+  border-radius: 5px 0 0 5px;
+}
+.app #statusbar-presence #asset-large-image:hover #asset-image-title {
+  display: block;
+  padding: 3px;
+  background: #1db954;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: auto;
+  min-width: 84px;
+  position: absolute;
+  top: -2px;
+  border-radius: 5px 5px 5px 0;
+}
+.app #statusbar-presence #asset-large-image:hover #asset-image-title > a {
+  color: white;
+  text-decoration: none;
+}
+.app #statusbar-presence #asset-large-image:hover #asset-image-title.link > a {
+  cursor: pointer;
+}
+.app #statusbar-presence #asset-large-image:hover #asset-image-title.link > a:hover {
+  text-decoration: underline;
+}
+.app #statusbar-presence #asset-large-image:hover #presence-player {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.app #statusbar-presence #asset-large-image:hover #presence-player #presence-timestamp {
+  position: absolute;
+  bottom: -2px;
+  left: 81px;
+  padding: 2px 3px;
+  background: #1db954;
+  border-radius: 0 5px 5px 0;
+}
+.app #statusbar-presence > div {
+  margin-right: 5px;
+  font-size: 12px;
+  color: white;
+  -ms-flex-item-align: center;
+  -ms-grid-row-align: center;
+  align-self: center;
+  cursor: default;
+}
+.app #statusbar-presence > div > a {
+  color: white;
+  text-decoration: none;
+}
+.app #statusbar-presence > div.link > a {
+  cursor: pointer;
+}
+.app #statusbar-presence > div.link > a:hover {
+  text-decoration: underline;
+}
+.app #statusbar-presence #more-presence {
+  cursor: pointer !important;
+}
+.app #statusbar-presence #presence-state {
+  font-weight: 600;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

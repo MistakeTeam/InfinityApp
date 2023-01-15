@@ -1,0 +1,27 @@
+{
+    "name": "spotify-api",
+    "version": "0.0.1",
+    "description": "Um embrulho em Node.js para Spotify Web Api",
+    "main": "index.js",
+    "author": "Mistake Team",
+    "license": "GPL-3.0",
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/MistakeTeam/spotify-api.git"
+    },
+    "dependencies": {
+        "eventemitter3": "^3.1.0",
+        "request": "^2.88.0"
+    },
+    "keywords": [
+        "spotify",
+        "music",
+        "api",
+        "client",
+        "web api",
+        "node.js"
+    ],
+    "devEngines": {
+        "node": "^8.11.3"
+    }
+}

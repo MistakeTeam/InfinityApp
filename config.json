@@ -1,0 +1,4 @@
+{
+    "jwt_secret": "534fv35df41b3df54b52dfbd4",
+    "dbUri": "mongodb://localhost/infinityappAccounts"
+}

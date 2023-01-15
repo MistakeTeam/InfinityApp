@@ -1,0 +1,1039 @@
+.board-over() {
+    .flex-vertical();
+
+    #quadros-module-container {
+        .flex();
+        width: 100%;
+        height: -webkit-fill-available;
+
+        #quadros-warpper-list {
+            position: relative;
+            border-right: 1px solid #ffc430;
+            min-width: 15%;
+
+            &::-webkit-scrollbar {
+                height: 6px;
+                width: 6px;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                border-radius: 5px;
+                background: rgba(130, 130, 130, 0.6);
+                border: 2px solid transparent;
+                background-clip: padding-box;
+            }
+
+            &::-webkit-scrollbar-corner {
+                background: transparent;
+            }
+
+            &.hide {
+                min-width: 0;
+                width: 0.5% !important;
+
+                #quadros-warpper-container {
+                    opacity: 0;
+                }
+            }
+
+            #quadros-warpper-container {
+                overflow-x: hidden;
+                overflow-y: auto;
+
+                .quadros-list-container {
+                    background-color: #fff;
+                    border-bottom: 1px solid #525252;
+                    cursor: pointer;
+                    display: -webkit-box;
+                    display: -ms-flexbox;
+                    display: flex;
+                    min-height: 20px;
+                    position: relative;
+                    text-decoration: none;
+                    z-index: 0;
+
+
+
+                    >a {
+                        width: -webkit-fill-available;
+
+                        >.quadro-name {
+                            display: none;
+                        }
+
+                        &.active {
+                            background: -webkit-gradient(linear, left top, right top, color-stop(70%, #fff), to(#525252));
+                            background: linear-gradient(90deg, #fff 70%, #525252 100%);
+                        }
+                    }
+
+                    >textarea {
+                        .textarea-board();
+                        margin: 4px;
+                        color: black;
+
+                        &:focus {
+                            background: #f0e9e9;
+                            border: 1px solid #488ecb;
+                        }
+                    }
+
+                    &.is-idle {
+                        >textarea {
+                            display: none;
+                        }
+
+                        >a>.quadro-name {
+                            padding: 6px 8px 2px;
+                            margin: 0 0 4px;
+                            position: relative;
+                            z-index: 10;
+                            display: block;
+                        }
+                    }
+                }
+
+                .quadros-add {
+                    background-color: rgb(27, 26, 26);
+                    position: relative;
+                    padding: 2px 3px;
+                    .text-ellipsis();
+
+                    >span {
+                        display: none;
+                    }
+
+                    &:hover {
+                        >span {
+                            text-decoration: underline;
+                        }
+                    }
+
+                    .quadros-input-container {
+                        .flex();
+                        .flex-vertical();
+                        padding: 2px 3px;
+
+                        >*:first-child {
+                            margin: 0 0 2px 0;
+                        }
+
+                        >*:last-child {
+                            margin: 2px 0 0 0;
+                        }
+
+                        >textarea {
+                            .textarea-board();
+                            color: white;
+
+                            &:focus {
+                                background: #f0e9e9;
+                                border: 1px solid #488ecb;
+                                color: black;
+                            }
+                        }
+
+                        >div {
+                            background: #098a1c;
+                            .flex();
+                            cursor: pointer;
+
+                            >span {
+                                padding: 4px 6px;
+                                color: #fff;
+                                width: 100%;
+                                text-align: center;
+                            }
+                        }
+                    }
+
+                    &.is-idle {
+                        cursor: pointer;
+                        color: white;
+                        display: block;
+
+                        >span {
+                            padding: 3px 5px;
+                            display: -webkit-inline-box;
+                            width: -webkit-fill-available;
+                        }
+
+                        .quadros-input-container {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            .infinity-dock-resize-handle {
+                position: absolute;
+                height: 100%;
+                width: 10px;
+                top: 0;
+                right: -5px;
+                cursor: col-resize;
+                z-index: 6;
+
+                &.visible {
+                    background: rgba(37, 101, 181, 0.65);
+                }
+            }
+
+            .infinity-dock-resize-overlay {
+                .isAbsolute();
+                // background: rgba(187, 7, 7, 0.4);
+                z-index: 5;
+                pointer-events: none;
+
+                &:not(.visible) {
+                    display: none;
+                }
+            }
+        }
+
+        #scrollbar-ui-moving {
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding-bottom: 4px;
+            min-width: 272px;
+            .flex();
+
+            >div {
+                .flex();
+
+                .warpper-list {
+                    -webkit-box-sizing: border-box;
+                    box-sizing: border-box;
+                    display: block;
+                    white-space: nowrap;
+                    position: relative;
+                    margin-right: 1px;
+                    max-width: 272px;
+                    width: 272px;
+
+                    .list-container {
+                        background: #fff;
+                        -webkit-box-sizing: border-box;
+                        box-sizing: border-box;
+                        .flex();
+                        .flex-vertical();
+                        height: 100%;
+                        max-width: 272px;
+                        width: 272px;
+                        position: relative;
+                        white-space: normal;
+
+                        .list-header {
+                            -webkit-box-flex: 0;
+                            -ms-flex: 0 0 auto;
+                            flex: 0 0 auto;
+                            padding: 4px 6px 2px;
+                            position: relative;
+                            margin-bottom: 2px;
+                            .flex();
+
+                            .list-header-target {
+                                display: none;
+                            }
+
+                            >span {
+                                display: none;
+                            }
+
+                            textarea {
+                                background: transparent;
+                                border: 1px solid transparent;
+                                width: -webkit-fill-available;
+                                resize: none;
+                                padding: 0 4px;
+                                line-height: 25px;
+                                border-radius: 3px;
+                                margin-right: 6px;
+                                color: black;
+                                white-space: nowrap;
+
+                                &:focus {
+                                    background: #f0e9e9;
+                                    border: 1px solid #488ecb;
+                                }
+                            }
+
+                            &.is-idle {
+                                >textarea {
+                                    display: none;
+                                }
+
+                                >span {
+                                    display: block;
+                                    font-weight: 700;
+                                    height: 20px;
+                                    min-height: 20px;
+                                    padding: 4px 7px;
+                                }
+
+                                .list-header-target {
+                                    display: block;
+                                    cursor: pointer;
+                                    .isAbsolute();
+                                }
+                            }
+                        }
+
+                        .list-content {
+                            -webkit-box-flex: 1;
+                            -ms-flex: 1 1 auto;
+                            flex: 1 1 auto;
+                            overflow-y: auto;
+                            overflow-x: hidden;
+                            margin-bottom: 0;
+                            z-index: 1;
+                            min-height: 0;
+                            border-top: 1px solid @color-style-1;
+
+                            &::-webkit-scrollbar {
+                                height: 6px;
+                                width: 6px;
+                                background: rgb(255, 255, 255);
+                            }
+
+                            &::-webkit-scrollbar-thumb {
+                                border-radius: 5px;
+                                background: rgba(130, 130, 130, 0.6);
+                                border: 2px solid transparent;
+                                background-clip: padding-box;
+                            }
+
+                            &::-webkit-scrollbar-corner {
+                                background: transparent;
+                            }
+
+                            .list-card {
+                                background-color: #fff;
+                                border-top: 1px solid @color-style-1;
+                                display: block;
+                                min-height: 20px;
+                                position: relative;
+                                text-decoration: none;
+                                z-index: 0;
+
+                                &.active {
+                                    .card-header-options {
+                                        display: -webkit-box;
+                                        display: -ms-flexbox;
+                                        display: flex;
+                                    }
+
+                                    .card-content {
+                                        height: 210px;
+                                        padding: 4px 8px 0;
+                                    }
+                                }
+
+                                &:first-child {
+                                    border-top: none;
+                                }
+
+                                &:last-child {
+                                    border-bottom: 1px solid @color-style-1;
+                                }
+
+                                .list-header-target {
+                                    background-position: 50%;
+                                    background-repeat: no-repeat;
+                                    background-size: cover;
+                                }
+
+                                .list-card-details {
+                                    overflow: hidden;
+                                    padding: 6px 8px 2px;
+                                    width: -webkit-fill-available;
+                                    position: relative;
+                                    cursor: pointer;
+                                    z-index: 10;
+                                    pointer-events: auto;
+
+                                    .list-card-tag {
+                                        overflow: auto;
+                                        position: relative;
+                                    }
+
+                                    .list-card-title {
+                                        clear: both;
+                                        display: block;
+                                        margin: 0 0 4px;
+                                        overflow: hidden;
+                                        text-decoration: none;
+                                        word-wrap: break-word;
+                                    }
+                                }
+
+                                .card-header-options {
+                                    min-width: 23px;
+                                    margin: auto 8px auto auto;
+                                    padding: 6px 4px;
+                                    display: none;
+                                    cursor: pointer;
+                                    z-index: 5;
+
+                                    &:hover {
+                                        background: rgba(0, 0, 0, 0.2);
+                                        border-radius: 3px;
+                                    }
+
+                                    .spinner-ellipsis {
+                                        margin: auto;
+
+                                        .spinner-item {
+                                            height: 5px;
+                                            margin: auto 1px;
+                                            width: 5px;
+                                        }
+                                    }
+                                }
+
+                                .card-content {
+                                    background-color: #ffffff;
+                                    padding: 0 8px;
+                                    overflow: auto;
+                                    height: 0px;
+
+                                    &::-webkit-scrollbar {
+                                        height: 6px;
+                                        width: 6px;
+                                        background: rgb(255, 255, 255);
+                                    }
+
+                                    &::-webkit-scrollbar-thumb {
+                                        border-radius: 5px;
+                                        background: rgba(130, 130, 130, 0.6);
+                                        border: 2px solid transparent;
+                                        background-clip: padding-box;
+                                    }
+
+                                    &::-webkit-scrollbar-corner {
+                                        background: transparent;
+                                    }
+
+                                    .list-card-descripition {
+                                        .flex();
+
+                                        >span {
+                                            display: none;
+
+                                            &.no-descripition {
+                                                font-style: italic;
+                                                color: #3e3e3e;
+                                            }
+                                        }
+
+                                        textarea {
+                                            background: transparent;
+                                            border: 1px solid transparent;
+                                            width: -webkit-fill-available;
+                                            resize: none;
+                                            padding: 4px;
+                                            line-height: 16px;
+                                            border-radius: 3px;
+                                            color: black;
+                                            white-space: nowrap;
+
+                                            &:focus {
+                                                background: #f0e9e9;
+                                                border: 1px solid #488ecb;
+                                            }
+                                        }
+
+                                        &.is-idle {
+                                            >textarea {
+                                                display: none;
+                                            }
+
+                                            >span {
+                                                display: block;
+                                                width: -webkit-fill-available;
+                                                border: 1px solid transparent;
+                                                padding: 4px;
+                                                font-size: 14px;
+                                                cursor: text;
+                                                .text-ellipsis();
+                                            }
+                                        }
+                                    }
+
+                                    .spinner-item {
+                                        background-color: #000000 !important;
+                                    }
+
+                                    .list-card-checklist {
+                                        .checklist-card {
+                                            background: #eaeaea;
+                                            border-radius: 3px;
+                                            -webkit-box-shadow: 0px 0px 4px black;
+                                            box-shadow: 0px 0px 4px black;
+                                            margin: 5px 0 10px;
+                                            position: relative;
+                                            overflow: auto;
+
+                                            .checklist-top {
+                                                .flex();
+                                                -webkit-box-align: center;
+                                                -ms-flex-align: center;
+                                                align-items: center;
+                                                padding: 0 6px;
+
+                                                >.checklist-name {
+                                                    .flex();
+                                                    width: -webkit-fill-available;
+                                                    padding: 3px 0;
+
+                                                    >span {
+                                                        display: none;
+                                                    }
+
+                                                    textarea {
+                                                        background: transparent;
+                                                        border: 1px solid transparent;
+                                                        width: -webkit-fill-available;
+                                                        resize: none;
+                                                        padding: 0 0 0 2px;
+                                                        line-height: 18px;
+                                                        border-radius: 3px;
+                                                        margin: 0 3px 0 0;
+                                                        color: black;
+                                                        white-space: nowrap;
+                                                        font-weight: 100;
+                                                        font-style: normal;
+                                                        font-size: 14px;
+
+                                                        &:focus {
+                                                            background: #f0e9e9;
+                                                            border: 1px solid #488ecb;
+                                                        }
+                                                    }
+
+                                                    &.is-idle {
+                                                        >textarea {
+                                                            display: none;
+                                                        }
+
+                                                        >span {
+                                                            margin: 0 3px 0 0;
+                                                            padding: 0 0 0 2px;
+                                                            border: 1px solid transparent;
+                                                            cursor: text;
+                                                            display: block;
+                                                            height: 18px;
+                                                            width: -webkit-fill-available;
+                                                            font-size: 14px;
+                                                            line-height: 18px;
+                                                            .text-ellipsis();
+                                                        }
+                                                    }
+                                                }
+
+                                                >div:not(.checklist-name) {
+                                                    margin-left: auto;
+                                                    font-size: 10px;
+                                                    cursor: pointer;
+
+                                                    &:hover {
+                                                        text-decoration: underline;
+                                                    }
+                                                }
+                                            }
+
+                                            .checklist-progressbar {
+                                                min-height: 5px;
+                                                width: 100%;
+                                                .flex();
+
+                                                .checklist-progress {
+                                                    background: #11e20e;
+                                                }
+                                            }
+
+                                            .checklist-itens-container {
+                                                >div {
+                                                    .flex();
+                                                    -webkit-box-align: center;
+                                                    -ms-flex-align: center;
+                                                    align-items: center;
+                                                    padding: 0 6px;
+
+                                                    &:first-child {
+                                                        border-top: 1px solid #313131;
+                                                    }
+
+                                                    .check-item {
+                                                        font-weight: 700;
+                                                        padding: 4px 2px;
+                                                        width: -webkit-fill-available;
+                                                        .flex();
+                                                        -webkit-box-align: center;
+                                                        -ms-flex-align: center;
+                                                        align-items: center;
+
+                                                        &:hover {
+                                                            +.check-item-close {
+                                                                opacity: 1;
+                                                            }
+                                                        }
+
+                                                        &.checked {
+                                                            font-weight: 100;
+                                                            font-style: italic;
+
+                                                            >.check-name>span {
+                                                                text-decoration: line-through;
+                                                            }
+                                                        }
+
+                                                        >.check-name {
+                                                            .flex();
+                                                            width: -webkit-fill-available;
+
+                                                            >span {
+                                                                display: none;
+                                                            }
+
+                                                            textarea {
+                                                                background: transparent;
+                                                                border: 1px solid transparent;
+                                                                width: -webkit-fill-available;
+                                                                resize: none;
+                                                                padding: 0 0 0 2px;
+                                                                line-height: 18px;
+                                                                border-radius: 3px;
+                                                                margin: 0 0 0 3px;
+                                                                color: black;
+                                                                white-space: nowrap;
+                                                                font-weight: 100;
+                                                                font-style: normal;
+
+                                                                &:focus {
+                                                                    background: #f0e9e9;
+                                                                    border: 1px solid #488ecb;
+                                                                }
+                                                            }
+
+                                                            &.is-idle {
+                                                                >textarea {
+                                                                    display: none;
+                                                                }
+
+                                                                >span {
+                                                                    margin: 0 0 0 3px;
+                                                                    padding: 0 0 0 2px;
+                                                                    border: 1px solid transparent;
+                                                                    cursor: text;
+                                                                    display: block;
+                                                                    width: -webkit-fill-available;
+                                                                }
+                                                            }
+                                                        }
+
+                                                        .check-item-toggle {
+                                                            .tci {
+                                                                display: none;
+
+                                                                +.tci-btn {
+                                                                    outline: 0;
+                                                                    .flex();
+                                                                    height: 15px;
+                                                                    position: relative;
+                                                                    cursor: pointer;
+                                                                    -webkit-user-select: none;
+                                                                    -moz-user-select: none;
+                                                                    -ms-user-select: none;
+                                                                    user-select: none;
+                                                                    font-size: 14px;
+                                                                    -webkit-box-align: center;
+                                                                    -ms-flex-align: center;
+                                                                    align-items: center;
+                                                                    text-align: center;
+                                                                    font-family: 'Font Awesome 5 Free';
+                                                                }
+                                                            }
+
+                                                            .tci-check {
+                                                                +.tci-btn {
+                                                                    overflow: hidden;
+                                                                    -webkit-backface-visibility: hidden;
+                                                                    backface-visibility: hidden;
+                                                                    background: #888;
+                                                                    border-radius: 3px;
+                                                                    padding: 2px 4px 2px 1px;
+                                                                    .animation-default();
+
+                                                                    &:before {
+                                                                        content: '';
+                                                                        width: 15px;
+                                                                        color: #fff;
+                                                                        .animation-default();
+                                                                    }
+                                                                }
+
+                                                                &:checked+.tci-btn {
+                                                                    background: @color-style-1;
+                                                                    font-weight: 900;
+
+                                                                    &:before {
+                                                                        content: "\f00c";
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    .check-item-close {
+                                                        margin-left: auto;
+                                                        padding: 4px 2px;
+                                                        cursor: pointer;
+                                                        opacity: 0;
+
+                                                        &:hover {
+                                                            opacity: 1;
+                                                        }
+                                                    }
+                                                }
+                                            }
+
+                                            .checklist-add-check {
+                                                text-align: center;
+                                                padding: 3px 4px;
+                                                font-size: 12px;
+                                                color: #3e3e3e;
+                                                border-top: 1px solid #313131;
+
+                                                &:hover {
+                                                    background: #d6d6d6;
+                                                }
+
+                                                >span {
+                                                    display: none;
+                                                }
+
+                                                &.is-idle {
+                                                    cursor: pointer;
+                                                    display: block;
+
+                                                    >span {
+                                                        display: -webkit-inline-box;
+                                                    }
+
+                                                    .checklist-add-check-input-container {
+                                                        display: none;
+                                                    }
+
+                                                    &:hover {
+                                                        background-color: #cdd2d4;
+
+                                                        >span {
+                                                            text-decoration: underline;
+                                                        }
+                                                    }
+                                                }
+
+                                                .checklist-add-check-input-container {
+                                                    .flex();
+                                                    .flex-vertical();
+
+                                                    >*:first-child {
+                                                        margin: 2px 0 1px 0;
+                                                    }
+
+                                                    >*:last-child {
+                                                        margin: 1px 0 2px 0;
+                                                    }
+
+                                                    >textarea {
+                                                        background: transparent;
+                                                        border: 1px solid transparent;
+                                                        width: -webkit-fill-available;
+                                                        resize: none;
+                                                        padding: 0 4px;
+                                                        line-height: 25px;
+                                                        border-radius: 3px;
+                                                        white-space: nowrap;
+                                                        color: white;
+
+                                                        &:focus {
+                                                            background: #f0e9e9;
+                                                            border: 1px solid #488ecb;
+                                                            color: black;
+                                                        }
+                                                    }
+
+                                                    >div {
+                                                        background: #098a1c;
+                                                        .flex();
+                                                        border-radius: 3px;
+                                                        cursor: pointer;
+
+                                                        >span {
+                                                            padding: 4px 6px;
+                                                            color: #fff;
+                                                            width: 100%;
+                                                            text-align: center;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .card-options {
+                            position: fixed;
+                            pointer-events: none;
+                            margin: 2px;
+                            z-index: 10;
+
+                            >div {
+                                background: rgba(183, 183, 183, 0.4);
+                                padding: 4px 7px;
+                                margin-bottom: 3px;
+                                pointer-events: auto;
+                                cursor: pointer;
+                                border-radius: 3px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                color: white;
+
+                                >span {
+                                    display: none;
+                                }
+
+                                &.is-idle {
+                                    cursor: pointer;
+                                    display: block;
+
+                                    >span {
+                                        display: -webkit-inline-box;
+                                    }
+
+                                    .card-options-checklist-input-container {
+                                        display: none;
+                                    }
+
+                                    &:hover {
+                                        background-color: #cdd2d4;
+
+                                        >span {
+                                            text-decoration: underline;
+                                        }
+                                    }
+                                }
+
+                                .card-options-checklist-input-container {
+                                    .flex();
+                                    .flex-vertical();
+
+                                    >*:first-child {
+                                        margin: 2px 0 1px 0;
+                                    }
+
+                                    >*:last-child {
+                                        margin: 1px 0 2px 0;
+                                    }
+
+                                    >textarea {
+                                        background: transparent;
+                                        border: 1px solid transparent;
+                                        width: -webkit-fill-available;
+                                        resize: none;
+                                        padding: 0 4px;
+                                        line-height: 25px;
+                                        border-radius: 3px;
+                                        white-space: nowrap;
+                                        color: white;
+
+                                        &:focus {
+                                            background: #f0e9e9;
+                                            border: 1px solid #488ecb;
+                                            color: black;
+                                        }
+                                    }
+
+                                    >div {
+                                        background: #098a1c;
+                                        .flex();
+                                        border-radius: 3px;
+                                        cursor: pointer;
+
+                                        >span {
+                                            padding: 4px 6px;
+                                            color: #fff;
+                                            width: 100%;
+                                            text-align: center;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        .list-add-card {
+                            position: relative;
+                            text-decoration: none;
+
+                            >span {
+                                display: none;
+                            }
+
+                            &.is-idle {
+                                cursor: pointer;
+                                color: #444;
+                                display: block;
+
+                                >span {
+                                    padding: 7px;
+                                    display: -webkit-inline-box;
+                                }
+
+                                .list-add-card-input-container {
+                                    display: none;
+                                }
+
+                                &:hover {
+                                    background-color: #cdd2d4;
+
+                                    >span {
+                                        text-decoration: underline;
+                                    }
+                                }
+                            }
+
+                            .list-add-card-input-container {
+                                .flex();
+                                .flex-vertical();
+                                padding: 4px;
+
+                                >*:first-child {
+                                    margin: 2px 0 1px 0;
+                                }
+
+                                >*:last-child {
+                                    margin: 1px 0 2px 0;
+                                }
+
+                                >textarea {
+                                    background: transparent;
+                                    border: 1px solid transparent;
+                                    width: -webkit-fill-available;
+                                    resize: none;
+                                    padding: 0 4px;
+                                    line-height: 25px;
+                                    border-radius: 3px;
+                                    white-space: nowrap;
+                                    color: white;
+
+                                    &:focus {
+                                        background: #f0e9e9;
+                                        border: 1px solid #488ecb;
+                                        color: black;
+                                    }
+                                }
+
+                                >div {
+                                    background: #098a1c;
+                                    .flex();
+                                    border-radius: 3px;
+                                    cursor: pointer;
+
+                                    >span {
+                                        padding: 4px 6px;
+                                        color: #fff;
+                                        width: 100%;
+                                        text-align: center;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .list-add {
+                        padding: 2px 3px;
+                        background: rgba(49, 49, 49, 0.55);
+
+                        >span {
+                            display: none;
+                        }
+
+                        &:hover {
+                            >span {
+                                text-decoration: underline;
+                            }
+                        }
+
+                        .list-add-input-container {
+                            .flex();
+                            .flex-vertical();
+                            padding: 2px 3px;
+
+                            >*:first-child {
+                                margin: 0 0 2px 0;
+                            }
+
+                            >*:last-child {
+                                margin: 2px 0 0 0;
+                            }
+
+                            >textarea {
+                                .textarea-board();
+                                color: white;
+
+                                &:focus {
+                                    background: #f0e9e9;
+                                    border: 1px solid #488ecb;
+                                    color: black;
+                                }
+                            }
+
+                            >div {
+                                background: #098a1c;
+                                .flex();
+                                cursor: pointer;
+
+                                >span {
+                                    padding: 4px 6px;
+                                    color: #fff;
+                                    width: 100%;
+                                    text-align: center;
+                                }
+                            }
+                        }
+
+                        &.is-idle {
+                            cursor: pointer;
+                            color: #fff;
+                            display: block;
+
+                            >span {
+                                padding: 3px 5px;
+                                display: -webkit-inline-box;
+                            }
+
+                            .list-add-input-container {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .infinity-dock-resize-base {
+            .isAbsolute();
+            cursor: col-resize;
+            z-index: 7;
+
+            &:not(.visible) {
+                display: none;
+            }
+        }
+    }
+}

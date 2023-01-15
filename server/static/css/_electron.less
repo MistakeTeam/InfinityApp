@@ -1,0 +1,29 @@
+.electron() {
+    &.in-electron {
+        .base {
+            padding: 91px 0 0 0;
+
+            // &::-webkit-scrollbar-thumb {
+            //     border-top: 91px solid transparent;
+            // }
+        }
+
+        .nav-topbar .container>div>d-profile d-profile-menu .menu-sections {
+            padding: 91px 0 0 0;
+        }
+    }
+
+    &:not(.in-electron) {
+        .base {
+            padding: 64px 0 0 0;
+
+            // &::-webkit-scrollbar-thumb {
+            //     border-top: 64px solid transparent;
+            // }
+        }
+
+        .nav-topbar .container>div>d-profile d-profile-menu .menu-sections {
+            padding: 64px 0 0 0;
+        }
+    }
+}
